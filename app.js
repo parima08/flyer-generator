@@ -4,15 +4,26 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.version', 
-  'ngLoadScript'
+  'ngLoadScript',
+  'ui.bootstrap'
 ]).config(config)
 .run(run); 
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider){
-	$locationProvider.hashPrefix('!');
+	$locationProvider.hashPrefix('');
 	$routeProvider
         .when('/', {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
+        .when("/#", {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
+        .when('/home', {
             controller: 'HomeController',
             templateUrl: 'home/home.view.html',
             controllerAs: 'vm'
@@ -22,20 +33,41 @@ function config($routeProvider, $locationProvider){
             templateUrl: 'login/login.view.html',
             controllerAs: 'vm'
         })
+        .when('/dharmayatra', {
+            controller: 'DharmayatraController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
         .otherwise({ redirectTo: '/home' });
+
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: true
+    });
 }
 
 run.$inject = ['$rootScope', '$location']; 
 function run($rootScope, $location){
+  //var postLogInRoute; 
+  console.log("In Run"); 
+  if($location.path()){
+    $rootScope.postLogInRoute =  $location.path();
+  }else{
+    $rootScope.postLogInRoute =  '/home';
+  }
+  console.log("postLogInRoute: " + $rootScope.postLogInRoute )
+  $rootScope.postLogInRoute =  $location.path() || "/home";
 	$rootScope.$on( "$routeChangeStart", function(event, next, current) {
-	  //console.log($rootScope.loggedInUser.name); 
+	   console.log("in routeChangeStart"); 
+     //console.log($rootScope.loggedInUser.name); 
       if ($rootScope.loggedInUser == null) {
         // no logged user, redirect to /login
         if ( next.templateUrl === "partials/login.html") {
         } else {
+          console.log("$location.path: " + $location.path()); 
           $location.path("/login");
         }
-      }
+      } 
     });
 }
 

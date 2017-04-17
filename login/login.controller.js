@@ -1,14 +1,17 @@
 'use strict';
 
 var app = angular.module('myApp'); 
-
+var auth2;
 
 app.controller('LoginController', LoginController);
 
-LoginController.$inject = ['$scope', '$window', '$rootScope'];
-function LoginController($scope, $window, $rootScope){
-    var auth2;
+LoginController.$inject = ['$scope', '$window', '$rootScope', '$location'];
+function LoginController($scope, $window, $rootScope, $location){
+    
     $scope.user = {};
+
+
+    var postLogInRoute; 
 
     $window.appStart = function() {
         console.log('appStart()');
@@ -34,14 +37,30 @@ function LoginController($scope, $window, $rootScope){
             var authResponse = googleUser.getAuthResponse();
             var profile = googleUser.getBasicProfile();
             $rootScope.loggedInUser = profile; 
-            $scope.user.id          = profile.getId();
-            $scope.user.fullName    = profile.getName();
-            $scope.user.firstName   = profile.getGivenName();
-            $scope.user.lastName    = profile.getFamilyName();
-            $scope.user.photo       = profile.getImageUrl();
-            $scope.user.email       = profile.getEmail();
-            $scope.user.domain      = googleUser.getHostedDomain();
-            $scope.$digest();
+            $rootScope.loggedInUser.fullName  = profile.getName(); 
+            $rootScope.loggedInUser.email  = profile.getEmail(); 
+            
+            console.log("Trying to redirect")
+            postLogInRoute = $rootScope.postLogInRoute
+            $location.path(postLogInRoute).replace();
+            postLogInRoute = null; 
+            $scope.$apply(); 
+
+
+            // $scope.user.id          = profile.getId();
+            // $scope.user.fullName    = profile.getName();
+            // $scope.user.firstName   = profile.getGivenName();
+            // $scope.user.lastName    = profile.getFamilyName();
+            // $scope.user.photo       = profile.getImageUrl();
+            // $scope.user.email       = profile.getEmail();
+            // $scope.user.domain      = googleUser.getHostedDomain();
+            // $scope.$digest();
+            // console.log($rootScope); 
+           
+            // console.log("postLogInRoot" + postLogInRoot); 
+            // 
+            // postLogInRoute = null;
+            
         } else {
             console.log('the user must not be signed in if this is printing');
             $scope.user = {};
@@ -60,6 +79,10 @@ function LoginController($scope, $window, $rootScope){
         });
         console.log(auth2);
     };
+
+    // $scope.on("signOut", function(){
+    //     $scope.signOut(); 
+    // })
     
     $scope.disconnect = function() {
         console.log('disconnect()');
