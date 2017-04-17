@@ -40,10 +40,10 @@ function config($routeProvider, $locationProvider){
         })
         .otherwise({ redirectTo: '/home' });
 
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: true
-    });
+    // $locationProvider.html5Mode({
+    //   enabled: true,
+    //   requireBase: true
+    // });
 }
 
 run.$inject = ['$rootScope', '$location']; 
@@ -71,6 +71,8 @@ function run($rootScope, $location){
     });
 }
 
+
+app.directive({})
 
  // run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
  //    function run($rootScope, $location, $cookieStore, $http) {
