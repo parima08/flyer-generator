@@ -1,11 +1,12 @@
 'use strict';
 
+
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
   'myApp.version', 
   'ngLoadScript',
-  'ui.bootstrap'
+  'ui.bootstrap', 
 ]).config(config)
 .run(run); 
 
@@ -34,7 +35,7 @@ function config($routeProvider, $locationProvider){
             controllerAs: 'vm'
         })
         .when('/dharmayatra', {
-            controller: 'DharmayatraController',
+            controller: 'HomeController',
             templateUrl: 'home/home.view.html',
             controllerAs: 'vm'
         })
@@ -48,6 +49,11 @@ function config($routeProvider, $locationProvider){
 
 run.$inject = ['$rootScope', '$location']; 
 function run($rootScope, $location){
+  // HOME_URL = "/home"; 
+  // DHARMAYATRA_URL = "/dharmayatra"; 
+  // LOGIN_URL + "/login"
+
+
   //var postLogInRoute; 
   console.log("In Run"); 
   if($location.path()){
@@ -60,7 +66,8 @@ function run($rootScope, $location){
 	$rootScope.$on( "$routeChangeStart", function(event, next, current) {
 	   console.log("in routeChangeStart"); 
      //console.log($rootScope.loggedInUser.name); 
-      if ($rootScope.loggedInUser == null) {
+    if ($rootScope.loggedInUser == null) {
+      console.log("no logged in user"); 
         // no logged user, redirect to /login
         if ( next.templateUrl === "partials/login.html") {
         } else {
@@ -71,8 +78,6 @@ function run($rootScope, $location){
     });
 }
 
-
-app.directive({})
 
  // run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
  //    function run($rootScope, $location, $cookieStore, $http) {

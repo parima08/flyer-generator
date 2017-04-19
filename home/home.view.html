@@ -1,4 +1,18 @@
 <div>
   <div ng-include src= "'/home/navigation.view.html'"></div>
-  <div ng-include src="'/home/material_library.view.html'"></div>
+  <div class = "container">
+    <h1>{{title}}</h1>
+    <div class = "material-container" ng-repeat="flyer in flyers">
+      <a class>
+        <div class = "col-md-4">
+          <div class = "image-container">
+            <img src = "{{flyer.link}}" />
+          </div>
+          <h4>{{flyer.name}}</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- <div ng-include src="'/home/material_library.view.html'" data-ng-init="fn_load()" ></div> -->
 </div>

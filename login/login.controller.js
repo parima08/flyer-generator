@@ -1,15 +1,14 @@
 'use strict';
 
 var app = angular.module('myApp'); 
-var auth2;
+
 
 app.controller('LoginController', LoginController);
 
 LoginController.$inject = ['$scope', '$window', '$rootScope', '$location'];
 function LoginController($scope, $window, $rootScope, $location){
-    
+    var auth2;
     $scope.user = {};
-
 
     var postLogInRoute; 
 
@@ -41,9 +40,8 @@ function LoginController($scope, $window, $rootScope, $location){
             $rootScope.loggedInUser.email  = profile.getEmail(); 
             
             console.log("Trying to redirect")
-            postLogInRoute = $rootScope.postLogInRoute
-            $location.path(postLogInRoute).replace();
-            postLogInRoute = null; 
+            $location.path($rootScope.postLogInRoute).replace();
+            $rootScope.postLogInRoute = null; 
             $scope.$apply(); 
 
 
@@ -79,10 +77,6 @@ function LoginController($scope, $window, $rootScope, $location){
         });
         console.log(auth2);
     };
-
-    // $scope.on("signOut", function(){
-    //     $scope.signOut(); 
-    // })
     
     $scope.disconnect = function() {
         console.log('disconnect()');

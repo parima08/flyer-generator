@@ -23,3 +23,11 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+.material-container{
+	text-align: center;
+}
+
+.image-container img{
+	width: 60%;
+}
