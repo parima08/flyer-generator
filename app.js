@@ -12,7 +12,7 @@ angular.module('myApp', [
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider){
-	$locationProvider.hashPrefix('');
+	$locationProvider.hashPrefix('!');
 	$routeProvider
         .when('/', {
             controller: 'HomeController',

@@ -36,8 +36,10 @@ function HomeController($scope, $rootScope, $location, $http, $sce){
 					var flyer = {}
 					flyer.name = data.feed.entry[i].gsx$name.$t; 
 					var linkId = data.feed.entry[i].gsx$linkid.$t; 
-					if(linkId != null){
+					if(linkId != ""){
 						flyer.link = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
+					}else{
+						flyer.link = "/img/placeholder.png"
 					}
 					flyers.push(flyer); 
 				}
