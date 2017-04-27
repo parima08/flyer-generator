@@ -1,15 +1,12 @@
 'use strict';
 
 var app = angular.module('myApp'); 
-
+var auth2;
 
 app.controller('LoginController', LoginController);
 
 LoginController.$inject = ['$scope', '$window', '$rootScope', '$location'];
 function LoginController($scope, $window, $rootScope, $location){
-    var auth2;
-    $scope.user = {};
-
     var postLogInRoute; 
 
     $window.appStart = function() {
@@ -39,25 +36,11 @@ function LoginController($scope, $window, $rootScope, $location){
             $rootScope.loggedInUser.fullName  = profile.getName(); 
             $rootScope.loggedInUser.email  = profile.getEmail(); 
             
-            console.log("Trying to redirect")
-            $location.path($rootScope.postLogInRoute).replace();
-            $rootScope.postLogInRoute = null; 
+            console.log("***** LoginController: Trying to redirect ******")
+            /console.log("postLogInRoute" + $rootScope.postLoginRoute); 
+            $location.path($rootScope.postLoginRoute).replace();
+            $rootScope.postLoginRoute = null; 
             $scope.$apply(); 
-
-
-            // $scope.user.id          = profile.getId();
-            // $scope.user.fullName    = profile.getName();
-            // $scope.user.firstName   = profile.getGivenName();
-            // $scope.user.lastName    = profile.getFamilyName();
-            // $scope.user.photo       = profile.getImageUrl();
-            // $scope.user.email       = profile.getEmail();
-            // $scope.user.domain      = googleUser.getHostedDomain();
-            // $scope.$digest();
-            // console.log($rootScope); 
-           
-            // console.log("postLogInRoot" + postLogInRoot); 
-            // 
-            // postLogInRoute = null;
             
         } else {
             console.log('the user must not be signed in if this is printing');

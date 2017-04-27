@@ -1,0 +1,33 @@
+<div>
+  <div ng-include src= "'/home/navigation.view.html'"></div>
+  <div class = "container">	
+	<h2>{{object.name}}</h2>
+	<canvas id ="canvas" width ="500" height="600"></canvas>
+    <div class = "form-container">
+      <form id="myForm">
+	      <div ng-repeat="field in formInfo">
+		        <h4>{{field.fieldName}}</h4>
+		       <input type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
+	       </div>
+
+
+       <!--  <h4>Date</h4>
+        <input type="text" name="date"  placeholder="Date (ex: 7 May)"/><br/>
+        
+        
+        <h4>Time</h4>
+        <input type="text" name="time" placeholder="Time (ex: 7:00pm to 8:00pm)"/><br/>
+        
+        <h4>Location Line 1</h4>
+        <input type="text" name="location1"  placeholder="Address Line 1"/<br/>
+
+        <h4>Location Line 2</h4>
+        <input type="text" name="location2"  placeholder="Address Line 2"/><br/>
+
+        <h4>Location Line 3</h4>
+        <input type="text" name="location3"  placeholder="Address Line 3"/><br/> -->
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
