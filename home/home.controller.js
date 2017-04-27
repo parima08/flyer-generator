@@ -4,76 +4,42 @@ var app = angular.module('myApp');
 app.controller('HomeController', HomeController);
 
 app.factory('spreadsheetIdListing', function(){
-	var spreadSheetIds = {}
-	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"
+	var spreadSheetIds = {}; 
+	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"; 
 	return spreadSheetIds; 
 });
 
-app.service('objectDetailService', function() {
-  var objects = [];
+// app.service('objectDetailService', function() {
+//   var objects = [];
 
-  var addObject = function(newObj) {
-      objects.push(newObj);
-  };
+//   var addObject = function(newObj) {
+//       objects.push(newObj);
+//   };
 
-  var getObject = function(name){
-  	  console.log(objects); 
-      for(var i = 0; i < objects.length; i++){
-      	console.log(objects[i]); 
-      	if(objects[i].name == name){
-      		return objects[i]
-      	}
-      }
-      return ""; 
-  };
+//   var getObject = function(name){
+//   	  console.log(objects); 
+//       for(var i = 0; i < objects.length; i++){
+//       	console.log(objects[i]); 
+//       	if(objects[i].name == name){
+//       		return objects[i]
+//       	}
+//       }
+//       return ""; 
+//   };
 
 
-  return {
-    addObject: addObject,
-    getObject: getObject
-  };
+//   return {
+//     addObject: addObject,
+//     getObject: getObject
+//   };
 
-});
+// });
 
 app.service("objectDetailsService", function($http, $q){
 	var jsonData = []; 
 	var objectDetailsService = {}; 
 	var lookUpObject = {}; 
 	var formInfo = []; 
-
-	// var getSpreadsheetValues = function(){
-
-	// }
-
-	// var getValues = function(){
-	// 	initGAPI().then(function () {
-	// 		console.log("******************************************");
-	// 		console.log("Getting spreadsheet"); 
-	// 		gapi.client.sheets.spreadsheets.values.get({
-	//           spreadsheetId: '1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg',
-	//           range: 'Class Data!A2:E',
-	//         }).then(function(response) {
-	//           var range = response.result;
-	//           console.log("Here's the range"); 
-	//           console.log(range); 
-	//       	}); 
-	//     }); 
-	// }
-
-	// var initGAPI = function(){
-	// 	var CLIENT_ID = '687165989292-7k8b2asag891bt36n2dosrf0ltech7qd.apps.googleusercontent.com';
-	// 	var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
-	// 	var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-	// 	var deffered = $q.defer();
-	// 	console.log("in getvalues"); 
-	// 	gapi.client.init({
-	// 	  clientId: CLIENT_ID,
- //          discoveryDocs: DISCOVERY_DOCS,
- //          scope: SCOPES
- //        }); 
- //        deffered.resolve(); 
- //        return deffered.promise;
-	// }
 
 	var loadDataAsync = function(spreadsheetID){
 		var deffered = $q.defer();
@@ -181,14 +147,13 @@ app.service("objectDetailsService", function($http, $q){
 
 HomeController.$inject = ['$scope', '$rootScope', '$location', '$http', 
 						'$sce', 'objectDetailsService', 
-						'spreadsheetIdListing', '$window']; 
+						'spreadsheetIdListing']; 
 function HomeController($scope, $rootScope, $location, 
-	$http, $sce, $window, objectDetailsService, 
+	$http, $sce, objectDetailsService, 
 	spreadsheetIdListing){
 	console.log("HomeController");
 	console.log($rootScope.loggedInUser.fullName);
-	console.log($location.path()); 
-	var spreadsheetID;   
+	console.log($location.path());  
 
 	$scope.saveMaterial = function(currObj){
 		console.log("Saving the object"); 
@@ -197,8 +162,9 @@ function HomeController($scope, $rootScope, $location,
 		var locationPath = $location.path().toString(); 
 		//$rootScope.postLogInRoute = locationPath ;
 		console.log("Save Material LocationPath: " + locationPath); 
-		var newPath = locationPath + "/" + currObj.name.replace(/ /g,"_"); 
-		$window.location.href = newPath; 
+		$location.path('/dharmayatra/' +  currObj.name.replace(/ /g,"_")).replace(); 
+		//var newPath = locationPath + "/" + currObj.name.replace(/ /g,"_"); 
+		//$window.location.href = newPath; 
 		//$location.path(newPath).replace(); 
 		//$scope.apply(); 
 	}
@@ -206,10 +172,11 @@ function HomeController($scope, $rootScope, $location,
 	switch($location.path()){
 		case '/dharmayatra':
 			$scope.title = "Dharmayatra Page";
-			spreadsheetID = spreadsheetIdListing.dharmayatra; 
-			spreadsheetID = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"
+			var spreadsheetId = spreadsheetIdListing.dharmayatra; 
 			console.log("Grabbing flyers again"); 
-			objectDetailsService.loadDataAsync(spreadsheetID).then(function(){
+			console.log(objectDetailsService); 
+			console.log(spreadsheetIdListing); 
+			objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
 				console.log("loaded"); 
 				console.log("inside get Data: "); 
 				console.log(objectDetailsService.getData()); 

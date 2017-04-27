@@ -1,14 +1,13 @@
 var app = angular.module('myApp'); 
 app.controller('DetailsController', DetailsController);
 
-DetailsController.$inject = ['$scope', '$routeParams', 'objectDetailsService', '$location',
+DetailsController.$inject = ['$scope', '$routeParams','$location', 'objectDetailsService', 
 'spreadsheetIdListing']
 function DetailsController($scope, $routeParams, $location, 
 	objectDetailsService, spreadsheetIdListing){
 	console.log("Details Controller"); 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name); 
-	console.log($location.path()); 
 	var section = $location.path()
 		.replace(/[^/]*$/, "")
 		.replace(/\//g, ''); 
