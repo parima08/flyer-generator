@@ -27,15 +27,11 @@ function DetailsController($scope, $routeParams, $location,
 		});
 	}); 
 
+	var values = {};
+
 	$scope.submitForm = function(){
 		console.log("submitForm"); 
-		var values = {};
-		$.each($('#myForm').serializeArray(), function(i, field) {
-		    values[field.name] = field.value;
-		});
-
-		drawImageScaled(values, img, context)
-		e.preventDefault(); 
+		canvasSetup(); 
 	}
 
    	var canvasSetup = function(){
@@ -43,8 +39,10 @@ function DetailsController($scope, $routeParams, $location,
 		console.log(canvas); 
 		//var context = canvas.getContext('2d');
 		//context.imageSmoothingEnabled = false;
+		$.each($('#myForm').serializeArray(), function(i, field) {
+		    values[field.name] = field.value;
+		});
 		var img = new Image();
-		values = {date: "hello", time: "yay", location1: "", location2: "", location3: ""}
 		resizeCanvas(canvas); ; 
 		img.onload = function(){
 	         drawImageScaled(values, img, canvas)
@@ -68,7 +66,7 @@ function DetailsController($scope, $routeParams, $location,
 
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
 			field = $scope.formInfo[i]; 
-			var fontSize = parseInt(field.fontSize) * 4; 
+			var fontSize = parseInt(field.fontSize) * 3.5; 
 			console.log(fontSize); 
 			ctx.font = fontSize.toString() + "pt " + field.font; 
 			ctx.fillStyle = field.fontColor; 
@@ -76,7 +74,14 @@ function DetailsController($scope, $routeParams, $location,
 			positionXY = field.position.split(','); 
 			positionX = positionXY[0] * 4; 
 			positionY = positionXY[1] * 4; 
-			ctx.fillText(values[ctx.name], positionX, positionY)
+			console.log(field.fieldName); 
+			console.log(values[field.fieldName]); 
+			if(values[field.fieldName]){
+				ctx.fillText(values[field.fieldName], positionX, positionY)
+			}
+			else{
+				ctx.fillText(field.placeholderText, positionX, positionY)
+			}
 		}
 	}
 
