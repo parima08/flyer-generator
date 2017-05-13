@@ -4,13 +4,10 @@
 	<div class = "login-box">
     <h1>Welcome!</h1>
     <p>Please login using your center gmail id:</p>
-      <!-- <div ng-if = "{{ $rootScope.loggedInUser == null}}"> -->
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <!-- </div> -->
-    
-    <!-- <div ng-if = "{{$rootScope.loggedInUser !== null}}"> -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div ng-if = loggedInUser>
       <button ng-click = "signOut()">Sign Out</button>
-    <!-- </div> -->
+    </div>
 	</div> 
 </div>
 

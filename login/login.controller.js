@@ -40,11 +40,11 @@ function LoginController($scope, $window, $rootScope, $location){
             /console.log("postLogInRoute" + $rootScope.postLoginRoute); 
             $location.path($rootScope.postLoginRoute).replace();
             $rootScope.postLoginRoute = null; 
+            $scope.loggedInUser = $rootScope.loggedInUser; 
             $scope.$apply(); 
             
         } else {
             console.log('the user must not be signed in if this is printing');
-            $scope.user = {};
             $scope.$digest();
         }
     };
@@ -56,6 +56,8 @@ function LoginController($scope, $window, $rootScope, $location){
     $scope.signOut = function() {
         console.log('signOut()');
         auth2.signOut().then(function() {
+            $rootScope.loggedInUser = null; 
+            $scope.loggedInUser = null; 
             signinChanged(false);    
         });
         console.log(auth2);
