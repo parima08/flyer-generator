@@ -1,13 +1,15 @@
-<script  src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
+<script  type='text/javascript-lazy' src="https://apis.google.com/js/platform.js" async defer></script>
 
 <div>
 	<div class = "login-box">
     <h1>Welcome!</h1>
     <p>Please login using your center gmail id:</p>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+     <button ng-show="!isSignedIn" ng-click="signIn()">Sign in</button>
+    <button ng-show="isSignedIn" ng-click="signOut()">Sign out</button>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <div ng-if = loggedInUser>
       <button ng-click = "signOut()">Sign Out</button>
-    </div>
+    </div> -->
 	</div> 
 </div>
 

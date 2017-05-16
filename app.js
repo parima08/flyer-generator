@@ -46,6 +46,7 @@ function config($routeProvider, $locationProvider){
             templateUrl: 'home/details.view.html',
             controllerAs: 'vm'
         })
+        
         .otherwise({ redirectTo: '/home' });
 
     // $locationProvider.html5Mode({
@@ -54,8 +55,8 @@ function config($routeProvider, $locationProvider){
     // });
 }
 
-run.$inject = ['$rootScope', '$location']; 
-function run($rootScope, $location){
+run.$inject = ['$rootScope', '$location', 'googleService']; 
+function run($rootScope, $location, googleService){
   console.log("*****In RUN******"); 
   console.log("The location path is: " + $location.path()); 
   $rootScope.postLoginRoute =  $location.path();
@@ -65,7 +66,8 @@ function run($rootScope, $location){
      console.log("The next template is: " + next.templateUrl); 
      console.log("postLogInRoute in routeChangeStart is: " + $rootScope.postLoginRoute); 
      //console.log($rootScope.loggedInUser.name); 
-    if ($rootScope.loggedInUser == null) {
+    // if ($rootScope.loggedInUser == null) {
+    if($rootScope.loggedInUser == null){
       console.log("no logged in user"); 
         if ( next.templateUrl === "login/login.view.html") {
            console.log("The location path already is login and the next template matches"); 
@@ -75,7 +77,9 @@ function run($rootScope, $location){
           $location.path('/login');
         }
     }
-
+    else{
+      console.log($rootScope.loggedInUser); 
+    }
     });
 }
 
