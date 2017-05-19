@@ -35,7 +35,7 @@ app.factory('spreadsheetIdListing', function(){
 
 // });
 
-app.service("objectDetailsService", function($http, $q){
+app.service("objectDetailsService", function($http, $q, $sce){
 	var jsonData = []; 
 	var objectDetailsService = {}; 
 	var lookUpObject = {}; 
@@ -44,10 +44,11 @@ app.service("objectDetailsService", function($http, $q){
 	var loadDataAsync = function(spreadsheetID){
 		var deffered = $q.defer();
 		jsonData = []; 
-		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetID +"/od6/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
-		//$sce.trustAsResourceUrl(url)
+		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetID +"/od6/public/values?alt=json-in-script"
+		$sce.trustAsResourceUrl(url)
 		$http.jsonp(url)
-			.success(function(data, status){
+			.then(function(data, status){
+				data = data.data
 				for(var i = 0; i < data.feed.entry.length; i++){
 					jsonData.push(grabObjectInfo(data.feed.entry[i])); 
 				}
@@ -71,8 +72,10 @@ app.service("objectDetailsService", function($http, $q){
   	var lookupObjectByNameAsync = function(spreadsheetId, name){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
+  		$sce.trustAsResourceUrl(url)
   		$http.jsonp(url)
-			.success(function(data, status){		
+			.then(function(data, status){
+				data = data.data		
 				for(var i = 0; i < data.feed.entry.length; i++){
 					if(data.feed.entry[i].gsx$name.$t == name){
 						lookUpObject = grabObjectInfo(data.feed.entry[i]); 
@@ -102,7 +105,8 @@ app.service("objectDetailsService", function($http, $q){
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/"+ worksheetIndex +
   						"/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
   		$http.jsonp(url)
-		.success(function(data, status){
+		.then(function(data, status){
+			data = data.data
 			console.log("Data: "); 	
 			console.log(data); 	
 			console.log("status: "); 	
@@ -127,7 +131,7 @@ app.service("objectDetailsService", function($http, $q){
   	// var lookupObjectById = function(spreadsheetId, id){
   	// 	var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetID +"/od6/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
   	// 	http.jsonp(url)
-			// .success(function(data, status){
+			// .then(function(data, status){
 			// 	var flyer = {}
 			// 	flyer = data.feed.entry[id]
 			// 	return flyer; 
@@ -147,12 +151,12 @@ app.service("objectDetailsService", function($http, $q){
 
 HomeController.$inject = ['$scope', '$rootScope', '$location', '$http', 
 						'$sce', 'objectDetailsService', 
-						'spreadsheetIdListing']; 
+						'spreadsheetIdListing', 'userPersistenceService']; 
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, 
-	spreadsheetIdListing){
+	spreadsheetIdListing, userPersistenceService){
 	console.log("HomeController");
-	console.log($rootScope.loggedInUser.fullName);
+	console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
 
 	$scope.saveMaterial = function(currObj){

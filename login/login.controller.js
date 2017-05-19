@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 var app = angular.module('myApp'); 
 
@@ -9,10 +9,13 @@ LoginController.$inject = ['$scope','googleService',
                       'userPersistenceService', '$window']; 
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
   $window.init = function(){
+      console.log("In Init"); 
       $scope.isSignedIn = false;
       googleService.load().then(function(){
         $scope.signIn = function(){
+          console.log("in signin"); 
           googleService.signIn().then(function(){
+            console.log("loaded googleservice"); 
             $scope.isSignedIn = googleService.isSignedIn();
             var profile = googleService.getUserProfileInformation(); 
             console.log(profile); 
@@ -50,7 +53,6 @@ app.service('googleService', ['$q', function ($q) {
         });
         addAuth2Functions(auth2);
       });
-      
       return deferred.promise;
     };
     
@@ -83,20 +85,17 @@ app.service('googleService', ['$q', function ($q) {
 
 app.factory("userPersistenceService", [
   "$cookies", function($cookies) {
-    var userName = "";
 
     return {
-      setCookieData: function(username, useEmail) {
-        userName = username;
-        $cookies.put("userName", username);
-        $cookies.put("userEmail", username);
+      setCookieData: function(userName, userEmail) {
+        $cookies.put("userName", userName);
+        $cookies.put("userEmail", userEmail);
       },
       getUserNameData: function() {
-        userName = $cookies.get("userName");
-        return userName;
+        return $cookies.get("userName");
       },
       getUserEmailData: function(){
-        userEmail = $cookies.get("userEmail")
+        return $cookies.get("userEmail");
       }, 
       clearCookieData: function() {
         userName = "";

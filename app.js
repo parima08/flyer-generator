@@ -11,9 +11,10 @@ angular.module('myApp', [
 ]).config(config)
 .run(run); 
 
-config.$inject = ['$routeProvider', '$locationProvider'];
-function config($routeProvider, $locationProvider){
-	//$locationProvider.hashPrefix('!');
+config.$inject = ['$routeProvider', '$locationProvider', '$sceDelegateProvider'];
+function config($routeProvider, $locationProvider, $sceDelegateProvider){
+	$locationProvider.hashPrefix('');
+  $sceDelegateProvider.resourceUrlWhitelist(['**']);
 	$routeProvider
         .when('/', {
             controller: 'HomeController',
@@ -66,7 +67,7 @@ function run($rootScope, $location, googleService, userPersistenceService){
      console.log("postLogInRoute in routeChangeStart is: " + $rootScope.postLoginRoute); 
      //console.log($rootScope.loggedInUser.name); 
     // if ($rootScope.loggedInUser == null) {
-    if($rootScope.loggedInUser == null){
+    if(userPersistenceService.getUserNameData() == null){
       console.log("no logged in user"); 
         if ( next.templateUrl === "login/login.view.html") {
            console.log("The location path already is login and the next template matches"); 
@@ -77,6 +78,9 @@ function run($rootScope, $location, googleService, userPersistenceService){
         }
     }
     else{
+      $rootScope.loggedInUser = {}; 
+      $rootScope.loggedInUser.email = userPersistenceService.getEmailData(); 
+      $rootScope.loggedIn.fullName = userPersistenceService.getUserNameData(); 
       console.log($rootScope.loggedInUser); 
     }
     });
