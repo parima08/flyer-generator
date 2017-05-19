@@ -1,88 +1,109 @@
-'use strict';
+'use strict'
 
 var app = angular.module('myApp'); 
 
+app.controller('LoginController', LoginController); 
 
-app.controller('LoginController', LoginController);
+LoginController.$inject = ['$scope','googleService', 
+                      '$rootScope', '$location', 
+                      'userPersistenceService', '$window']; 
+function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
+  $window.init = function(){
+      $scope.isSignedIn = false;
+      googleService.load().then(function(){
+        $scope.signIn = function(){
+          googleService.signIn().then(function(){
+            $scope.isSignedIn = googleService.isSignedIn();
+            var profile = googleService.getUserProfileInformation(); 
+            console.log(profile); 
 
-LoginController.$inject = ['$scope', '$window', '$rootScope', '$location'];
-function LoginController($scope, $window, $rootScope, $location){
-    var auth2;
-    $scope.user = {};
-
-    var postLogInRoute; 
-
-    $window.appStart = function() {
-        console.log('appStart()');
-        gapi.load('auth2', initSigninV2);
-    };
-
-    var initSigninV2 = function() {
-        console.log('initSigninV2()');
-        auth2 = gapi.auth2.getAuthInstance();
-        auth2.isSignedIn.listen(signinChanged);
-        auth2.currentUser.listen(userChanged);
-
-        if(auth2.isSignedIn.get() == true) {
-            auth2.signIn();
-        }
-    };
-
-    var signinChanged = function(isSignedIn) {
-        console.log('signinChanged() = ' + isSignedIn);
-        if(isSignedIn) {
-            console.log('the user must be signed in to print this');
-            var googleUser = auth2.currentUser.get();
-            var authResponse = googleUser.getAuthResponse();
-            var profile = googleUser.getBasicProfile();
             $rootScope.loggedInUser = profile; 
-            $rootScope.loggedInUser.fullName  = profile.getName(); 
-            $rootScope.loggedInUser.email  = profile.getEmail(); 
+            $rootScope.loggedInUser.fullName = profile.w3.U3; 
+            $rootScope.loggedInUser.email = profile.w3.ig; 
             
-            console.log("Trying to redirect")
-            $location.path($rootScope.postLogInRoute).replace();
-            $rootScope.postLogInRoute = null; 
+            userPersistenceService.setCookieData(profile.w3.U3, profile.w3.ig); 
+            $location.path('/home').replace(); 
             $scope.$apply(); 
+            //googleService.getUser
+          });
+        };
+        
+        $scope.signOut = function(){
+          googleService.signOut().then(function(){
+            $scope.isSignedIn = googleService.isSignedIn();
+            userPersistenceService.clearCookieData(); 
+          });
+        };
+      });
+  }
+}; 
 
+app.service('googleService', ['$q', function ($q) {
+    var self = this;
+    this.load = function(){
+      var deferred = $q.defer();
+      gapi.load('auth2', function(){
+        var auth2 = gapi.auth2.init();
+        //normally I'd just pass resolve and reject, but page keeps crashing (probably gapi bug)
+        auth2.then(function(){
+          deferred.resolve();
+        });
+        addAuth2Functions(auth2);
+      });
+      w
+      return deferred.promise;
+    };
+    
+    function addAuth2Functions(auth2){
+      self.signIn = function() {
+        var deferred = $q.defer();
+        auth2.signIn().then(deferred.resolve, deferred.reject);
+        return deferred.promise;
+      };
 
-            // $scope.user.id          = profile.getId();
-            // $scope.user.fullName    = profile.getName();
-            // $scope.user.firstName   = profile.getGivenName();
-            // $scope.user.lastName    = profile.getFamilyName();
-            // $scope.user.photo       = profile.getImageUrl();
-            // $scope.user.email       = profile.getEmail();
-            // $scope.user.domain      = googleUser.getHostedDomain();
-            // $scope.$digest();
-            // console.log($rootScope); 
-           
-            // console.log("postLogInRoot" + postLogInRoot); 
-            // 
-            // postLogInRoute = null;
-            
-        } else {
-            console.log('the user must not be signed in if this is printing');
-            $scope.user = {};
-            $scope.$digest();
+      self.getUserProfileInformation = function(){
+        if(auth2.isSignedIn.get()){
+          console.log("The User is signed in"); 
+          return auth2.currentUser.get(); 
         }
-    };
+      }; 
+      
+      self.isSignedIn = function(){
+        return auth2.isSignedIn.get();
+      };
 
-    var userChanged = function(user) {
-        console.log('userChanged()');
-    };
+      self.signOut = function(){
+        var deferred = $q.defer();
+        auth2.signOut().then(deferred.resolve, deferred.reject);
+        return deferred.promise;
+      };
+    }
     
-    $scope.signOut = function() {
-        console.log('signOut()');
-        auth2.signOut().then(function() {
-            signinChanged(false);    
-        });
-        console.log(auth2);
-    };
-    
-    $scope.disconnect = function() {
-        console.log('disconnect()');
-        auth2.disconnect().then(function() {
-            signinChanged(false);
-        });
-        console.log(auth2);
-    };
-};
+}]);
+
+app.factory("userPersistenceService", [
+  "$cookies", function($cookies) {
+    var userName = "";
+
+    return {
+      setCookieData: function(username, useEmail) {
+        userName = username;
+        $cookies.put("userName", username);
+        $cookies.put("userEmail", username);
+      },
+      getUserNameData: function() {
+        userName = $cookies.get("userName");
+        return userName;
+      },
+      getUserEmailData: function(){
+        userEmail = $cookies.get("userEmail")
+      }, 
+      clearCookieData: function() {
+        userName = "";
+        userEmail = ""; 
+        $cookies.remove("userName");
+        $cookies.remove("userEmail"); 
+      }
+    }
+  }
+]);

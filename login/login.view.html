@@ -1,68 +1,18 @@
-<script type = "text/javascript-lazy" src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
-<script type = "text/javascript-lazy">
-	console.log("hello"); 
-</script>
+<script  type='text/javascript' src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
-<div class = "jumbotron"> 
-<div data-ng-controller="LoginController">
-	<h4>Please login using google authentication: </h4>
+<div>
+	<div class = "login-box">
+    <h1>Welcome!</h1>
+    <p>Please login using your center gmail id:</p>
+     <button ng-show="!isSignedIn" ng-click="signIn()">Sign in</button>
+    <button ng-show="isSignedIn" ng-click="signOut()">Sign out</button>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div ng-if = loggedInUser>
+      <button ng-click = "signOut()">Sign Out</button>
+    </div> -->
+	</div> 
+</div>
 
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<button id="signout" class = "button" ng-click="signOut()">Signout</button>
-	 <div id="user-details">
-      <table>
-        <tr>
-          <td><img ng-show="user.photo" ng-src="{{ user.photo }}"></td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>Photo URL: </td>
-          <td>{{ user.photo }}</td>
-        </tr>
-        <tr>
-          <td>User ID: </td>
-          <td>{{ user.id }}</td>
-        </tr>
-        <tr>
-          <td>Full Name: </td>
-          <td>{{ user.fullName }}</td>
-        </tr>
-        <tr>
-          <td>First Name: </td>
-          <td>{{ user.firstName }}</td>
-        </tr>
-        <tr>
-          <td>Last Name: </td>
-          <td>{{ user.lastName }}</td>
-        </tr>
-        <tr>
-          <td>Email: </td>
-          <td>{{ user.email }}</td>
-        </tr>
-        <tr>
-          <td>Domain: </td>
-          <td>{{ user.domain }}</td>
-        </tr>
-        <tr>
-          <td>Timestamp: </td>
-          <td>{{ user.timestamp }}</td>
-        </tr>
-        <tr>
-          <td>IP Address: </td>
-          <td>{{ user.ip }}</td>
-        </tr>
-        <tr>
-          <td>ID Token: </td>
-          <td>{{ user.idToken }}</td>
-        </tr>
-        <tr>
-          <td>Expires At: </td>
-          <td>{{ user.expiresAt }}</td>
-        </tr>
-      </table>      
-    </div>
-</div>
-</div>
 
 
 

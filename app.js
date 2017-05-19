@@ -2,17 +2,20 @@
 
 
 // Declare app level module which depends on views, and components
+// removed:  'angular.filter'
 angular.module('myApp', [
   'ngRoute',
   'myApp.version', 
   'ngLoadScript',
   'ui.bootstrap', 
+   'ngCookies'
 ]).config(config)
 .run(run); 
 
+
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider){
-	$locationProvider.hashPrefix('!');
+	//$locationProvider.hashPrefix('!');
 	$routeProvider
         .when('/', {
             controller: 'HomeController',
@@ -39,44 +42,51 @@ function config($routeProvider, $locationProvider){
             templateUrl: 'home/home.view.html',
             controllerAs: 'vm'
         })
+        .when('/dharmayatra/:name', {
+            controller: 'DetailsController', 
+            templateUrl: 'home/details.view.html',
+            controllerAs: 'vm'
+        })
+        
         .otherwise({ redirectTo: '/home' });
 
     // $locationProvider.html5Mode({
     //   enabled: true,
-    //   requireBase: true
+    //   requireBase: false
     // });
 }
 
-run.$inject = ['$rootScope', '$location']; 
-function run($rootScope, $location){
-  // HOME_URL = "/home"; 
-  // DHARMAYATRA_URL = "/dharmayatra"; 
-  // LOGIN_URL + "/login"
-
-
-  //var postLogInRoute; 
-  console.log("In Run"); 
-  if($location.path()){
-    $rootScope.postLogInRoute =  $location.path();
-  }else{
-    $rootScope.postLogInRoute =  '/home';
-  }
-  console.log("postLogInRoute: " + $rootScope.postLogInRoute )
-  $rootScope.postLogInRoute =  $location.path() || "/home";
-	$rootScope.$on( "$routeChangeStart", function(event, next, current) {
+run.$inject = ['$rootScope', '$location', 'googleService', 'userPersistenceService']; 
+function run($rootScope, $location, googleService, userPersistenceService){
+  console.log("*****In RUN******"); 
+  console.log("The location path is: " + $location.path()); 
+  $rootScope.postLoginRoute =  $location.path();
+	console.log("postLoginRoute just set to (in Run) : " + $rootScope.postLoginRoute); 
+  $rootScope.$on( "$routeChangeStart", function(event, next, current) {
 	   console.log("in routeChangeStart"); 
+     console.log("The next template is: " + next.templateUrl); 
+     console.log("postLogInRoute in routeChangeStart is: " + $rootScope.postLoginRoute); 
      //console.log($rootScope.loggedInUser.name); 
-    if ($rootScope.loggedInUser == null) {
+    // if ($rootScope.loggedInUser == null) {
+    if($rootScope.loggedInUser == null){
       console.log("no logged in user"); 
-        // no logged user, redirect to /login
-        if ( next.templateUrl === "partials/login.html") {
-        } else {
-          console.log("$location.path: " + $location.path()); 
-          $location.path("/login");
+        if ( next.templateUrl === "login/login.view.html") {
+           console.log("The location path already is login and the next template matches"); 
+        } 
+        else {
+          console.log("$location.path is not login, so redirecting - it is: " + $location.path()); 
+          $location.path('/login');
         }
-      } 
+    }
+    else{
+      console.log($rootScope.loggedInUser); 
+    }
     });
 }
+
+
+
+
 
 
  // run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
