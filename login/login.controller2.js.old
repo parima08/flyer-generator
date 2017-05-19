@@ -57,7 +57,7 @@ function LoginController($scope, $window, $rootScope, $location){
         console.log('signOut()');
         var authTwo = gapi.auth2.getAuthInstance(); 
         console.log("auth2: " + auth2.toString()); 
-        console.log("authTwo: " + authTwo.toString()); 
+        console.log("authTwo: " + authTwo.toString());
         authTwo.signOut().then(function() {
             $rootScope.loggedInUser = null; 
             $scope.loggedInUser = null; 

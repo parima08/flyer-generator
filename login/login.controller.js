@@ -1,34 +1,41 @@
-'use strict'
+'use strict';
 
 var app = angular.module('myApp'); 
 
 app.controller('LoginController', LoginController); 
 
 LoginController.$inject = ['$scope','googleService', 
-                      '$rootScope', '$location']; 
-function LoginController($scope, googleService, $rootScope, $location) {
-  $scope.isSignedIn = false;
-  googleService.load().then(function(){
-    $scope.signIn = function(){
-      googleService.signIn().then(function(){
-        $scope.isSignedIn = googleService.isSignedIn();
-        var profile = googleService.getUserProfileInformation(); 
-        console.log(profile); 
-        $rootScope.loggedInUser = profile; 
-        $rootScope.loggedInUser.fullName = profile.w3.U3; 
-        $rootScope.loggedInUser.email = profile.w3.ig; 
-        $location.path('/home').replace(); 
-        $scope.$apply(); 
-        //googleService.getUser
+                      '$rootScope', '$location', 
+                      'userPersistenceService', '$window']; 
+function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
+  $window.init = function(){
+      $scope.isSignedIn = false;
+      googleService.load().then(function(){
+        $scope.signIn = function(){
+          googleService.signIn().then(function(){
+            $scope.isSignedIn = googleService.isSignedIn();
+            var profile = googleService.getUserProfileInformation(); 
+            console.log(profile); 
+
+            $rootScope.loggedInUser = profile; 
+            $rootScope.loggedInUser.fullName = profile.w3.U3; 
+            $rootScope.loggedInUser.email = profile.w3.ig; 
+            
+            userPersistenceService.setCookieData(profile.w3.U3, profile.w3.ig); 
+            $location.path('/home').replace(); 
+            $scope.$apply(); 
+            //googleService.getUser
+          });
+        };
+        
+        $scope.signOut = function(){
+          googleService.signOut().then(function(){
+            $scope.isSignedIn = googleService.isSignedIn();
+            userPersistenceService.clearCookieData(); 
+          });
+        };
       });
-    };
-    
-    $scope.signOut = function(){
-      googleService.signOut().then(function(){
-        $scope.isSignedIn = googleService.isSignedIn();
-      });
-    };
-  });
+  }
 }; 
 
 app.service('googleService', ['$q', function ($q) {
@@ -43,6 +50,7 @@ app.service('googleService', ['$q', function ($q) {
         });
         addAuth2Functions(auth2);
       });
+      
       return deferred.promise;
     };
     
@@ -72,3 +80,30 @@ app.service('googleService', ['$q', function ($q) {
     }
     
 }]);
+
+app.factory("userPersistenceService", [
+  "$cookies", function($cookies) {
+    var userName = "";
+
+    return {
+      setCookieData: function(username, useEmail) {
+        userName = username;
+        $cookies.put("userName", username);
+        $cookies.put("userEmail", username);
+      },
+      getUserNameData: function() {
+        userName = $cookies.get("userName");
+        return userName;
+      },
+      getUserEmailData: function(){
+        userEmail = $cookies.get("userEmail")
+      }, 
+      clearCookieData: function() {
+        userName = "";
+        userEmail = ""; 
+        $cookies.remove("userName");
+        $cookies.remove("userEmail"); 
+      }
+    }
+  }
+]);

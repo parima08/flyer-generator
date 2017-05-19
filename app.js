@@ -7,10 +7,9 @@ angular.module('myApp', [
   'myApp.version', 
   'ngLoadScript',
   'ui.bootstrap', 
-  'angular.filter'
+   'ngCookies'
 ]).config(config)
 .run(run); 
-
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider){
@@ -55,8 +54,8 @@ function config($routeProvider, $locationProvider){
     // });
 }
 
-run.$inject = ['$rootScope', '$location', 'googleService']; 
-function run($rootScope, $location, googleService){
+run.$inject = ['$rootScope', '$location', 'googleService', 'userPersistenceService']; 
+function run($rootScope, $location, googleService, userPersistenceService){
   console.log("*****In RUN******"); 
   console.log("The location path is: " + $location.path()); 
   $rootScope.postLoginRoute =  $location.path();
@@ -82,6 +81,8 @@ function run($rootScope, $location, googleService){
     }
     });
 }
+
+
 
 
 
