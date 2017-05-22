@@ -10,7 +10,13 @@ LoginController.$inject = ['$scope','googleService',
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
   $window.init = function(){
       console.log("In Init"); 
-      $scope.isSignedIn = false;
+      if(userPersistenceService.getUserNameData()){
+        $scope.isSignedIn = true
+      }
+      else{
+        $scope.isSignedIn = false; 
+      }
+      //$scope.isSignedIn = false;
       googleService.load().then(function(){
         $scope.signIn = function(){
           console.log("in signin"); 
@@ -21,6 +27,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
             console.log(profile); 
 
             $rootScope.loggedInUser = profile; 
+            console.log(profile); 
             $rootScope.loggedInUser.fullName = profile.w3.U3; 
             $rootScope.loggedInUser.email = profile.w3.ig; 
             
@@ -98,8 +105,7 @@ app.factory("userPersistenceService", [
         return $cookies.get("userEmail");
       }, 
       clearCookieData: function() {
-        userName = "";
-        userEmail = ""; 
+        console.log("Clearing Cookie Data")
         $cookies.remove("userName");
         $cookies.remove("userEmail"); 
       }

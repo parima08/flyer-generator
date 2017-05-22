@@ -71,7 +71,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 
   	var lookupObjectByNameAsync = function(spreadsheetId, name){
   		var deffered = $q.defer();
-  		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
+  		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url)
   		$http.jsonp(url)
 			.then(function(data, status){
@@ -103,7 +103,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		var deffered = $q.defer();
   		formInfo = []; 
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/"+ worksheetIndex +
-  						"/public/values?alt=json-in-script&\callback=JSON_CALLBACK"
+  						"/public/values?alt=json-in-script"
   		$http.jsonp(url)
 		.then(function(data, status){
 			data = data.data
@@ -196,8 +196,12 @@ function HomeController($scope, $rootScope, $location,
 		// 	console.log("Default location"); 
 		// 	$scope.title = "Home Page";
 		// 	break; 
+		case '/home': 
+			console.log("Home Page"); 
+			$scope.title = "Home Page"; 
+			break; 
 		default: 
-			$scope.title = "Home Page";
+			$scope.title = "Coming Soon";
 	}; 
 
 	

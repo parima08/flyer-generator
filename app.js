@@ -68,7 +68,7 @@ function run($rootScope, $location, googleService, userPersistenceService){
      //console.log($rootScope.loggedInUser.name); 
     // if ($rootScope.loggedInUser == null) {
     if(userPersistenceService.getUserNameData() == null){
-      console.log("no logged in user"); 
+      console.log("no logged in user");
         if ( next.templateUrl === "login/login.view.html") {
            console.log("The location path already is login and the next template matches"); 
         } 
@@ -78,9 +78,14 @@ function run($rootScope, $location, googleService, userPersistenceService){
         }
     }
     else{
+      // if($rootScope.previousUrl != null){
+      //   $location.path($rootScope.previousUrl); 
+      // }
+      console.log(userPersistenceService.getUserNameData() ); 
+      console.log(userPersistenceService.getUserEmailData() ); 
       $rootScope.loggedInUser = {}; 
-      $rootScope.loggedInUser.email = userPersistenceService.getEmailData(); 
-      $rootScope.loggedIn.fullName = userPersistenceService.getUserNameData(); 
+      $rootScope.loggedInUser.email = userPersistenceService.getUserEmailData(); 
+      $rootScope.loggedInUser.fullName = userPersistenceService.getUserNameData(); 
       console.log($rootScope.loggedInUser); 
     }
     });

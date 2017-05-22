@@ -34,6 +34,11 @@ function DetailsController($scope, $routeParams, $location,
 		canvasSetup(); 
 	}
 
+	$scope.download = function(){
+		console.log("Downloading...")
+		downloadCanvas(); 
+	}
+
    	var canvasSetup = function(){
    		var canvas = $("#canvas")[0];
 		console.log(canvas); 
@@ -48,6 +53,7 @@ function DetailsController($scope, $routeParams, $location,
 	         drawImageScaled(values, img, canvas)
 	     };
 	    img.src = $scope.object.imageLink; 
+	    //img.setAttribute('crossOrigin', 'anonymous');
 	}
 
 	var drawImageScaled = function(values, img, canvas) {
@@ -97,6 +103,15 @@ function DetailsController($scope, $routeParams, $location,
 	   	ctx = canvas.getContext('2d'); 
 	   	ctx.scale(.25, .25);
 	   	//ctx.scale(scale_ratio, scale_ratio);  
+	}
+
+	var downloadCanvas = function(){
+		var canvas = $("#canvas")[0];
+		var download = $('#download'); 
+		var img    = canvas.toDataURL("image/png");
+    	 //.replace("image/png", "image/octet-stream");
+		download.attr("href", img);
+		download.attr("download", "flyer");
 	}
 
 	// var changeResolution = function(canvas, scaleFactor) {
