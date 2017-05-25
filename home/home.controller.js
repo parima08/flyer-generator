@@ -91,9 +91,14 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var grabObjectInfo = function(jsonElement){
   		var mObject = {}
   		mObject.name = jsonElement.gsx$name.$t; 
-  		var linkId = jsonElement.gsx$linkid.$t
+  		var linkId = jsonElement.gsx$linkid.$t; 
+  		var filePath = jsonElement.gsx$awslinkpath.$t; 
   		if(linkId != ""){
-			mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
+			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
+			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + filePath; 
+			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/200x300/" + filePath; 
+
+			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
 		}
   		mObject.worksheetIndex = jsonElement.gsx$worksheetindex.$t; 
   		return mObject
@@ -197,6 +202,7 @@ function HomeController($scope, $rootScope, $location,
 		// 	$scope.title = "Home Page";
 		// 	break; 
 		case '/home': 
+		case '/':
 			console.log("Home Page"); 
 			$scope.title = "Home Page"; 
 			break; 

@@ -88,7 +88,29 @@ function run($rootScope, $location, googleService, userPersistenceService){
       $rootScope.loggedInUser.fullName = userPersistenceService.getUserNameData(); 
       console.log($rootScope.loggedInUser); 
     }
-    });
+  });
+
+
+  $rootScope.$on('$locationChangeSuccess', function() {
+      $rootScope.actualLocation = $location.path();
+  });
+
+  $rootScope.$watch(function () {return $location.path()}, function (newLocation, oldLocation) {
+      if($rootScope.actualLocation === newLocation) {
+          //if the old location has several sublayers, then go the last layer
+          var ol_split = oldLocation.split("/")
+          if(ol_split.length >= 3){
+            var correctLocation = ""; 
+            for(var i = 0; i < ol_split.length - 1; i++){
+              console.log(ol_split[i]); 
+              correctLocation = correctLocation + ol_split[i] + "/"; 
+            }
+            console.log(correctLocation); 
+            $location.path(correctLocation); 
+          }
+
+      }
+  });   
 }
 
 

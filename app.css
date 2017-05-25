@@ -24,6 +24,18 @@
   padding-right: 0.3em;
 }
 
+.navbar-brand {
+  padding: 0px;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 5px;
+  width: auto;
+}
+
 .material-container{
 	text-align: center;
 }
@@ -66,5 +78,5 @@ canvas{
 	padding: 10px;
 	top: 100px;
 	width: 450px;
-	height: 600px;
+	min-height: 600px;
 }
