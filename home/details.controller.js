@@ -48,6 +48,7 @@ function DetailsController($scope, $routeParams, $location,
 		    values[field.name] = field.value;
 		});
 		var img = new Image();
+		img.setAttribute('crossOrigin', 'anonymous');
 		resizeCanvas(canvas); ; 
 		img.onload = function(){
 	         drawImageScaled(values, img, canvas)
@@ -109,9 +110,9 @@ function DetailsController($scope, $routeParams, $location,
 		var canvas = $("#canvas")[0];
 		var download = $('#download'); 
 		var img    = canvas.toDataURL("image/png");
-    	 //.replace("image/png", "image/octet-stream");
+			//.replace("image/png", "image/octet-stream");
 		download.attr("href", img);
-		download.attr("download", "flyer");
+		download.attr("download", "flyer.png");
 	}
 
 	// var changeResolution = function(canvas, scaleFactor) {

@@ -46,7 +46,11 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
             templateUrl: 'home/details.view.html',
             controllerAs: 'vm'
         })
-        
+        .when('/articles', {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
         .otherwise({ redirectTo: '/home' });
 
     // $locationProvider.html5Mode({

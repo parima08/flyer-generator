@@ -96,6 +96,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		if(linkId != ""){
 			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
 			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + filePath; 
+			//mObject.imageLink = "https://srmd-flyer-generator.s3.amazonaws.com/" + filePath; 
 			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/200x300/" + filePath; 
 
 			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
@@ -201,6 +202,9 @@ function HomeController($scope, $rootScope, $location,
 		// 	console.log("Default location"); 
 		// 	$scope.title = "Home Page";
 		// 	break; 
+		case '/articles': 
+			$scope.title = "Articles Page"; 
+			break; 
 		case '/home': 
 		case '/':
 			console.log("Home Page"); 
