@@ -109,8 +109,7 @@ function DetailsController($scope, $routeParams, $location,
 	var downloadCanvas = function(){
 		var canvas = $("#canvas")[0];
 		var download = $('#download'); 
-		var img    = canvas.toDataURL("image/png");
-			//.replace("image/png", "image/octet-stream");
+		var img    = canvas.toDataURL("image/jpeg"); 
 		download.attr("href", img);
 		download.attr("download", "flyer.png");
 	}

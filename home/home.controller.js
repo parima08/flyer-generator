@@ -161,6 +161,7 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, 
 	spreadsheetIdListing, userPersistenceService){
+	$scope.isHomePage = false; 
 	console.log("HomeController");
 	console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
@@ -207,6 +208,7 @@ function HomeController($scope, $rootScope, $location,
 			break; 
 		case '/home': 
 		case '/':
+			$scope.isHomePage = true; 
 			console.log("Home Page"); 
 			$scope.title = "Home Page"; 
 			break; 

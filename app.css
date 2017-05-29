@@ -1,4 +1,5 @@
 /* app css stylesheet */
+@import url(http://fonts.googleapis.com/earlyaccess/notosansgujarati.css);
 
 .menu {
   list-style: none;
@@ -80,3 +81,45 @@ canvas{
 	width: 450px;
 	min-height: 600px;
 }
+
+.background-container{
+	width: 100%;
+	background-color: red;
+}
+
+.home-background{
+	background-size: cover;
+	width: 100%;
+	margin-top: -20px;
+	max-height: 600px;
+	position: relative;
+}
+
+.home-title{
+	position: absolute;
+	width: auto;
+	height: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #ffffff;
+	/*background-color: green;*/
+	font-family: "Source Sans Pro", "sans-serif"; 
+}
+
+.home-title h1, h4{
+	display: inline;
+}
+
+.home-title h1{
+	font-size: 70px;
+	font-weight: 600;
+}
+
+.home-title h4{
+	font-size: 30px;
+	font-weight: 300;
+	position: absolute;
+	top: 0;
+}
+
