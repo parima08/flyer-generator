@@ -107,7 +107,7 @@ canvas{
 	font-family: "Source Sans Pro", "sans-serif"; 
 }
 
-.home-title h1, h4{
+.home-title h1, .home-title h4{
 	display: inline;
 }
 
@@ -121,5 +121,9 @@ canvas{
 	font-weight: 300;
 	position: absolute;
 	top: 0;
+}
+
+#myForm h4{
+	display: block;
 }
 

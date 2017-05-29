@@ -123,6 +123,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.placeholderText = data.feed.entry[i].gsx$placeholdertext.$t;
 				formFieldInfo.fontColor = data.feed.entry[i].gsx$fontcolor.$t; 
 				formFieldInfo.fontSize = data.feed.entry[i].gsx$fontsize.$t
+				formFieldInfo.fontWeight = data.feed.entry[i].gsx$fontweight.$t
 				formFieldInfo.font = data.feed.entry[i].gsx$font.$t
 				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t
 				formFieldInfo.position = data.feed.entry[i].gsx$position.$t; 
@@ -197,12 +198,7 @@ function HomeController($scope, $rootScope, $location,
 			}); 
 			
 
-			break;
-		// case '/home':
-		// case '/#/':
-		// 	console.log("Default location"); 
-		// 	$scope.title = "Home Page";
-		// 	break; 
+			break;; 
 		case '/articles': 
 			$scope.title = "Articles Page"; 
 			break; 
