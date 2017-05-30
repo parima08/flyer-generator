@@ -126,7 +126,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.fontWeight = data.feed.entry[i].gsx$fontweight.$t
 				formFieldInfo.font = data.feed.entry[i].gsx$font.$t
 				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t
-				formFieldInfo.position = data.feed.entry[i].gsx$position.$t; 
+				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
+				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
 				formInfo.push(formFieldInfo);
 			}
 			deffered.resolve();

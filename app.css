@@ -128,11 +128,15 @@ canvas{
 }
 
 .imageFindXy{
-	height: 600px;
-	width: auto;
+	width: 500px;
+	height: auto;
 }
 
 .imageFindXy img{
-	height: 100%;
+	width: 100%;
+}
+
+.imageCoords{
+
 }
 

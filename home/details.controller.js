@@ -69,7 +69,11 @@ function DetailsController($scope, $routeParams, $location,
 	   	ctx = canvas.getContext('2d'); 
 	   	ctx.scale(scale_ratio, scale_ratio); 
 		ctx.imageSmoothingEnabled = true;
-		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height)
+		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
+		console.log("*******" + img.width); 
+		console.log("*******" + img.height); 
+		console.log("*******" + canvas.width);
+		console.log("*******" + canvas.height);
 
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
 			field = $scope.formInfo[i]; 
@@ -78,9 +82,15 @@ function DetailsController($scope, $routeParams, $location,
 			ctx.font = fontSize.toString() + "pt " + field.font; 
 			ctx.fillStyle = field.fontColor; 
 			ctx.textAlign = field.textAlign; 
-			positionXY = field.position.split(','); 
-			positionX = positionXY[0] * 4; 
-			positionY = positionXY[1] * 4; 
+			ctx.lineHeight = ctx.font; 
+			canvasWidthRatio = canvas.width
+			console.log(canvas.width / 500 ); 
+			console.log(canvas.height/ 693);
+			positionX = field.positionX * (canvas.width / 500 ); 
+			positionY = field.positionY * (canvas.height / 693 ); 
+			//positionXY = field.position.split(','); 
+			//positionX = positionXY[0] * 4; 
+			//positionY = positionXY[1] * 4; 
 			console.log(field.fieldName); 
 			console.log(values[field.fieldName]); 
 			if(values[field.fieldName]){

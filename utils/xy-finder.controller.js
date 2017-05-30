@@ -13,9 +13,13 @@ function XyCoordController($scope){
 		var img = new Image(); 
 		img.src = imageLink; 
 		$('.imageFindXy').append(img); 
+		//var topOffset = $('.imageFindXy img').offset().top; 
+		//console.log(topOffset); 
 		$('.imageFindXy img').on("mousemove", function(e){
-			console.log("x: " + e.clientX, "y: " + e.clientY)
-			$('.imageCoords').html("<h1>x: " + e.clientX +  "y: " + e.clientY + "</h1>"); 
+			//console.log("x: " + e.clientX, "y: " + e.clientY)
+			//console.log(e); 
+			var yCoords = e.pageY - 166; 
+			$('.imageCoords').html("<h1>x: " + e.pageX +  " y: " + yCoords + "</h1>"); 
 		}); 
 	}
 
