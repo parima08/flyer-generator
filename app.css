@@ -127,3 +127,12 @@ canvas{
 	display: block;
 }
 
+.imageFindXy{
+	height: 600px;
+	width: auto;
+}
+
+.imageFindXy img{
+	height: 100%;
+}
+

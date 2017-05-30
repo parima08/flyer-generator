@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,8 +17,15 @@
 
       <ul class="nav navbar-nav">
         <li><a href="#/home">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="#/dharmayatra">Dharmayatra</a></li>
+        <li class="dropdown" uib-dropdown is-open="status.isopen">
+          <a href="#" uib-dropdown-toggle ng-disabled="disabled">Flyers <span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="#/dharmayatra">Dharmayatras</a></li>
+          </ul>
+        </li>
         <li><a href="#/articles"> Articles </a>
+        <li><a href="#">Banners</a></li>
+        <li><a href="#">Backdrops</a></li>
         <!-- <li><a href="#">Swadhyaykar</a></li>
         <li><a href="#">Group Satsang</a></li>
         <li><a href="#">Special Ocassions</a></li>

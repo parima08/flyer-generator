@@ -51,6 +51,11 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
             templateUrl: 'home/home.view.html',
             controllerAs: 'vm'
         })
+        .when('/xy-coords', {
+          controller: "XyCoordController",
+          templateUrl: 'utils/xy-finder.view.html',
+          controllerAs: "vm"
+        })
         .otherwise({ redirectTo: '/home' });
 
     // $locationProvider.html5Mode({
