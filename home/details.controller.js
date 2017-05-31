@@ -2,7 +2,7 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 'objectDetailsService', 
-'spreadsheetIdListing']
+'spreadsheetIdListing']; 
 function DetailsController($scope, $routeParams, $location, 
 	objectDetailsService, spreadsheetIdListing){
 	console.log("Details Controller"); 
@@ -20,12 +20,16 @@ function DetailsController($scope, $routeParams, $location,
 		$scope.object = objectDetailsService.getObject(); 
 		console.log("object"); 
 		console.log($scope.object); 
+		$scope.language = $scope.object.language; 
 		objectDetailsService.loadFormInfoAsync(spreadsheetId, $scope.object.worksheetIndex)
 		.then(function(){
 			$scope.formInfo = objectDetailsService.getFormInfo(); 
+			if($scope.language != ""){
+				loadTransliteration(); 
+			}
 			canvasSetup(); 
 		});
-	}); 
+	});
 
 	var values = {};
 
@@ -131,6 +135,44 @@ function DetailsController($scope, $routeParams, $location,
 		download.attr("download", "flyer.png");
 	}
 
+	var loadTransliteration = function(){
+		google.load("elements", "1", {
+    	packages: "transliteration",
+    	callback: onLoad
+		});
+	}
+
+	var onLoad = function() {
+        console.log("Onload"); 
+        var destinationLanguage; 
+        if($scope.language ==="Gujarati"){
+        	destinationLanguage = google.elements.transliteration.LanguageCode.GUJARATI;
+        }
+        else if ($scope.language === "Hindi"){
+        	destinationLanguage = google.elements.transliteration.LanguageCode.HINDI; 
+        }
+        else{
+        	destinationLanguage = ""; 
+        }
+        var options = {
+            sourceLanguage:
+                google.elements.transliteration.LanguageCode.ENGLISH,
+            destinationLanguage:
+                [destinationLanguage],
+            shortcutKey: 'ctrl+g',
+            transliterationEnabled: true
+        };
+ 
+        // Create an instance on TransliterationControl with the required
+        // options.
+        var control =
+            new google.elements.transliteration.TransliterationControl(options);
+ 
+        // Enable transliteration in the textbox with id
+        // 'transliterateTextarea'.
+        control.makeTransliteratable(['transliterateInput']);
+    }
+
 	// var changeResolution = function(canvas, scaleFactor) {
 	//     // Set up CSS size if it's not set up already
 	//     if (!canvas.style.width)
@@ -143,4 +185,4 @@ function DetailsController($scope, $routeParams, $location,
 	//     var ctx = canvas.getContext('2d');
 	//     ctx.scale(scaleFactor, scaleFactor);
 	// }
-}
+};

@@ -101,6 +101,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 
 			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
 		}
+		if(jsonElement.gsx$language){
+			mObject.language = jsonElement.gsx$language.$t
+		}
   		mObject.worksheetIndex = jsonElement.gsx$worksheetindex.$t; 
   		return mObject
   	}
