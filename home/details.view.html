@@ -11,7 +11,7 @@
 	      <div class= "field" ng-repeat="field in formInfo">
 		        <h4>{{field.fieldName}}</h4>
             <p class = "intructions">{{field.instructions}}</p>
-		       <input id = "transliterateInput" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
+		       <input id = "{{field.id}}" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
 	      </div>
         <input type="submit" value="Submit" ng-click = "submitForm()">
         <a class = "btn" id = "download" ng-click="download()">Download</a>

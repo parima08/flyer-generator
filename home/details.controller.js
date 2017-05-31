@@ -83,10 +83,14 @@ function DetailsController($scope, $routeParams, $location,
 			field = $scope.formInfo[i]; 
 			var fontSize = parseInt(field.fontSize) * 3.5; 
 			console.log(fontSize); 
-			ctx.font = fontSize.toString() + "pt " + field.font; 
+			ctx.font = fontSize.toString() + "pt " + field.font;
+			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
 			ctx.fillStyle = field.fontColor; 
 			ctx.textAlign = field.textAlign; 
 			ctx.lineHeight = ctx.font; 
+			if(field.letterSpacing){
+				ctx.letterSpacing = field.letterSpacing;
+			}
 			canvasWidthRatio = canvas.width
 			console.log(canvas.width / 500 ); 
 			console.log(canvas.height/ 693);
@@ -154,6 +158,7 @@ function DetailsController($scope, $routeParams, $location,
         else{
         	destinationLanguage = ""; 
         }
+
         var options = {
             sourceLanguage:
                 google.elements.transliteration.LanguageCode.ENGLISH,
@@ -167,10 +172,21 @@ function DetailsController($scope, $routeParams, $location,
         // options.
         var control =
             new google.elements.transliteration.TransliterationControl(options);
- 
+ 		
+ 		var arrayOfIds = []; 
+ 		for(var i = 0; i < $scope.formInfo.length; i++){
+ 			//arrayOfIds.push($scope.formInfo[i].fieldName.toLowerCase().replace(/ /g,"_").toString());
+ 			arrayOfIds.push($scope.formInfo[i].id);; 
+ 		}
+ 		console.log("arrayOfIds: " + arrayOfIds.toString()); 
+ 		console.log(arrayOfIds); 
         // Enable transliteration in the textbox with id
         // 'transliterateTextarea'.
-        control.makeTransliteratable(['transliterateInput']);
+        //control.makeTransliteratable(arrayOfIds);
+        // Enable transliteration in the textbox with id
+        // 'transliterateTextarea'.
+      
+  		control.makeTransliteratable(arrayOfIds);
     }
 
 	// var changeResolution = function(canvas, scaleFactor) {

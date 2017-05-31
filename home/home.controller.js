@@ -44,6 +44,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 	var loadDataAsync = function(spreadsheetID){
 		var deffered = $q.defer();
 		jsonData = []; 
+		console.log("loading data from gsheets"); 
 		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetID +"/od6/public/values?alt=json-in-script"
 		$sce.trustAsResourceUrl(url)
 		$http.jsonp(url)
@@ -91,15 +92,18 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var grabObjectInfo = function(jsonElement){
   		var mObject = {}
   		mObject.name = jsonElement.gsx$name.$t; 
-  		var linkId = jsonElement.gsx$linkid.$t; 
-  		var filePath = jsonElement.gsx$awslinkpath.$t; 
-  		if(linkId != ""){
+  		//var linkId = jsonElement.gsx$linkid.$t; 
+  		var awsLinkPath = jsonElement.gsx$awslinkpath.$t; 
+  		if(awsLinkPath != ""){
 			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
-			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + filePath; 
+			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath; 
 			//mObject.imageLink = "https://srmd-flyer-generator.s3.amazonaws.com/" + filePath; 
-			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/200x300/" + filePath; 
+			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/200x300/" + awsLinkPath; 
 
 			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
+		}
+		else{
+			console.log("The linkID is empty"); 
 		}
 		if(jsonElement.gsx$language){
 			mObject.language = jsonElement.gsx$language.$t
@@ -131,6 +135,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
+				formFieldInfo.id = formFieldInfo.fieldName.toLowerCase().replace(/ /g,"_").toString();
 				if(data.feed.entry[i].gsx$linespacing){
 					formFieldInfo.lineSpacing = data.feed.entry[i].gsx$linespacing.$t; 
 				}
