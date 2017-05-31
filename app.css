@@ -140,3 +140,13 @@ canvas{
 
 }
 
+#myForm .field{
+	padding-bottom: 15px;
+}
+
+#myForm p{
+	color: #7C7C7C;
+	margin-top: -7px;
+	margin-bottom: 10px;
+}
+

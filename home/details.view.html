@@ -8,8 +8,9 @@
 	<canvas id ="canvas" width ="500" height="600"></canvas>
     <div class = "form-container">
       <form id="myForm">
-	      <div ng-repeat="field in formInfo">
+	      <div class= "field" ng-repeat="field in formInfo">
 		        <h4>{{field.fieldName}}</h4>
+            <p class = "intructions">{{field.instructions}}</p>
 		       <input type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
 	       </div>
         <input type="submit" value="Submit" ng-click = "submitForm()">

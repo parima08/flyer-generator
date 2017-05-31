@@ -128,6 +128,15 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
+				if(data.feed.entry[i].gsx$linespacing){
+					formFieldInfo.lineSpacing = data.feed.entry[i].gsx$linespacing.$t; 
+				}
+				if( data.feed.entry[i].gsx$instructions){
+					formFieldInfo.instructions = data.feed.entry[i].gsx$instructions.$t
+				}
+				// if(data.feed.entry[i].gsx$additionalrequiredtext){
+				// 	formFieldInfo.additionalRequiredText = data.feed.entry[i].gsx$additionalrequiredtext.$t
+				// }
 				formInfo.push(formFieldInfo);
 			}
 			deffered.resolve();

@@ -94,7 +94,14 @@ function DetailsController($scope, $routeParams, $location,
 			console.log(field.fieldName); 
 			console.log(values[field.fieldName]); 
 			if(values[field.fieldName]){
-				ctx.fillText(values[field.fieldName], positionX, positionY)
+				var text; 
+				// if(field.ad ditionalRequiredText){
+				// 	text = field.additionalRequiredText + values[field.fieldName]
+				// }
+				// else{
+				// 	text = values[field.fieldName]
+				// }
+				ctx.fillText(values[field.fieldName], positionX, positionY, 400)
 			}
 			else{
 				ctx.fillText(field.placeholderText, positionX, positionY)
