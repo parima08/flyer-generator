@@ -82,15 +82,14 @@ function DetailsController($scope, $routeParams, $location,
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
 			field = $scope.formInfo[i]; 
 			var fontSize = parseInt(field.fontSize) * 3.5; 
-			console.log(fontSize); 
-			ctx.font = fontSize.toString() + "pt " + field.font;
+			var fontWeight = field.fontWeight; 
+			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
 			ctx.fillStyle = field.fontColor; 
 			ctx.textAlign = field.textAlign; 
 			ctx.lineHeight = ctx.font; 
-			if(field.letterSpacing){
-				ctx.letterSpacing = field.letterSpacing;
-			}
+			ctx.letterSpacing = field.letterSpacing + "px";
+			console.log("letterspacing: " + field.letterSpacing); 
 			canvasWidthRatio = canvas.width
 			console.log(canvas.width / 500 ); 
 			console.log(canvas.height/ 693);
@@ -109,7 +108,7 @@ function DetailsController($scope, $routeParams, $location,
 				// else{
 				// 	text = values[field.fieldName]
 				// }
-				ctx.fillText(values[field.fieldName], positionX, positionY, 400)
+				ctx.fillText(values[field.fieldName], positionX, positionY)
 			}
 			else{
 				ctx.fillText(field.placeholderText, positionX, positionY)

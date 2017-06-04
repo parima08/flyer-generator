@@ -136,9 +136,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
 				formFieldInfo.id = formFieldInfo.fieldName.toLowerCase().replace(/ /g,"_").toString();
-				if(data.feed.entry[i].gsx$linespacing){
-					formFieldInfo.lineSpacing = data.feed.entry[i].gsx$linespacing.$t; 
-				}
+				formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t; 
+				console.log(data.feed.entry[i].gsx$letterspacing.$t);
 				if( data.feed.entry[i].gsx$instructions){
 					formFieldInfo.instructions = data.feed.entry[i].gsx$instructions.$t
 				}
