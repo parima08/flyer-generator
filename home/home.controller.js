@@ -221,6 +221,10 @@ function HomeController($scope, $rootScope, $location,
 		case '/articles': 
 			$scope.title = "Articles Page"; 
 			break; 
+		case '/banners': 
+			console.log("in banners"); 
+			$scope.title = "Banner Page";
+			break;  
 		case '/home': 
 		case '/':
 			$scope.isHomePage = true; 

@@ -8,8 +8,19 @@ function XyCoordController($scope){
 	console.log("XyCoodController"); 
 	$scope.submitImage = function(){
 		console.log("Submitting Image"); 
-		var imageLink = $('#xyform').serializeArray()[0].value
+		var formArray = $('#xyform').serializeArray(); 
+		console.log(formArray); 
+		var imageLink = formArray[1].value; 
+		var typeOfFile = formArray[0].value; 
+		if(typeOfFile == "banner"){
+			$('.imageFindXy').width(834); 
+		}
+		else{
+			//assumes that it is a flyer
+			$('.imageFindXy').width(500)
+		}
 		console.log(imageLink); 
+		console.log(typeOfFile); 
 		var img = new Image(); 
 		img.src = imageLink; 
 		$('.imageFindXy').append(img); 

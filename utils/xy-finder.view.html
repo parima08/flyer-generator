@@ -1,6 +1,9 @@
 <h1>Find the xy coordinates:</h1>
 <form id = "xyform">
-	<label>Image Link</label>
+	<label>Select File Type</label> <br />
+	<input type="radio" name="fileType" value="flyer" checked> Flyer <br />
+  	<input type="radio" name="fileType" value="banner"> Banner <br /> 
+  	<label>Image Link</label>
 	<input type = "text" name = "imageLink" value = "https://s3.amazonaws.com/srmd-flyer-generator/" />
 	<input type = "submit" ng-click="submitImage()" />
 </form>

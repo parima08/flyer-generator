@@ -132,8 +132,17 @@ canvas{
 	height: auto;
 }
 
-.imageFindXy img{
+.imageFindXy img, .imageFindXyBanner img{
 	width: 100%;
+}
+
+
+.imageFindXyBanner{
+	width: 834px; 
+}
+
+.imageFindXyBackdrop{
+
 }
 
 .imageCoords{
