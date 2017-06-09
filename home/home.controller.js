@@ -6,7 +6,26 @@ app.controller('HomeController', HomeController);
 app.factory('spreadsheetIdListing', function(){
 	var spreadSheetIds = {}; 
 	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"; 
+	spreadSheetIds.banners = "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8"
 	return spreadSheetIds; 
+});
+
+app.factory('cssDimensions', function(){
+	console.log("I get here"); 
+	var css = {}; 
+	css.dharmayatra = {
+						thumbnailWidth: 200, 
+						thumbnailHeight: 300, 
+						canvasWidth: 500, 
+						canvasHeight: 693
+					};
+	css.banners = {
+						thumbnailWidth: 200, 
+						thumbnailHeight: 120, 
+						canvasWidth: 834, 
+						canvasHeight: 500
+					};
+	return css; 
 });
 
 // app.service('objectDetailService', function() {
@@ -193,7 +212,10 @@ function HomeController($scope, $rootScope, $location,
 		var locationPath = $location.path().toString(); 
 		//$rootScope.postLogInRoute = locationPath ;
 		console.log("Save Material LocationPath: " + locationPath); 
-		$location.path('/dharmayatra/' +  currObj.name.replace(/ /g,"_")).replace(); 
+		//$location.path('/dharmayatra/' +  currObj.name.replace(/ /g,"_")).replace(); 
+		console.log("***********")
+		console.log(locationPath + '/' +  currObj.name.replace(/ /g,"_")); 
+		$location.path(locationPath + '/' +  currObj.name.replace(/ /g,"_")).replace(); 
 		//var newPath = locationPath + "/" + currObj.name.replace(/ /g,"_"); 
 		//$window.location.href = newPath; 
 		//$location.path(newPath).replace(); 
@@ -215,8 +237,6 @@ function HomeController($scope, $rootScope, $location,
 				console.log("flyers: "); 
 				console.log($scope.flyers);
 			}); 
-			
-
 			break;; 
 		case '/articles': 
 			$scope.title = "Articles Page"; 
@@ -224,6 +244,14 @@ function HomeController($scope, $rootScope, $location,
 		case '/banners': 
 			console.log("in banners"); 
 			$scope.title = "Banner Page";
+			var spreadsheetId = spreadsheetIdListing.banners; 
+			objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
+				console.log("loaded"); 
+				console.log("inside get Data: "); 
+				console.log(objectDetailsService.getData()); 
+				$scope.flyers = objectDetailsService.getData(); 
+			}); 
+
 			break;  
 		case '/home': 
 		case '/':

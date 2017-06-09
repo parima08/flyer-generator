@@ -2,9 +2,9 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 'objectDetailsService', 
-'spreadsheetIdListing']; 
+'spreadsheetIdListing', 'cssDimensions']; 
 function DetailsController($scope, $routeParams, $location, 
-	objectDetailsService, spreadsheetIdListing){
+	objectDetailsService, spreadsheetIdListing, cssDimensions){
 	console.log("Details Controller"); 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name); 
@@ -12,6 +12,9 @@ function DetailsController($scope, $routeParams, $location,
 		.replace(/[^/]*$/, "")
 		.replace(/\//g, ''); 
 	var spreadsheetId = spreadsheetIdListing[section]; 
+	$scope.cssStyles = cssDimensions[section]; 
+	console.log(section); 
+	console.log($scope.cssStyles);
 	console.log(spreadsheetId); 
 	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name)
 	.then(function(){
@@ -83,6 +86,7 @@ function DetailsController($scope, $routeParams, $location,
 			field = $scope.formInfo[i]; 
 			var fontSize = parseInt(field.fontSize) * 3.5; 
 			var fontWeight = field.fontWeight; 
+			console.log(fontSize); 
 			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
 			ctx.fillStyle = field.fontColor; 
@@ -91,10 +95,10 @@ function DetailsController($scope, $routeParams, $location,
 			ctx.letterSpacing = field.letterSpacing + "px";
 			console.log("letterspacing: " + field.letterSpacing); 
 			canvasWidthRatio = canvas.width
-			console.log(canvas.width / 500 ); 
-			console.log(canvas.height/ 693);
-			positionX = field.positionX * (canvas.width / 500 ); 
-			positionY = field.positionY * (canvas.height / 693 ); 
+			console.log(canvas.width / $scope.cssStyles.canvasWidth ); 
+			console.log(canvas.height/ $scope.cssStyles.canvasHeight);
+			positionX = field.positionX * (canvas.width / $scope.cssStyles.canvasWidth ); 
+			positionY = field.positionY * (canvas.height/ $scope.cssStyles.canvasHeight ); 
 			//positionXY = field.position.split(','); 
 			//positionX = positionXY[0] * 4; 
 			//positionY = positionXY[1] * 4; 
@@ -117,8 +121,8 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	var resizeCanvas = function(canvas){
-		canvas_width_shld_be= 500; 
-		canvas_height_shld_be = 693;
+		canvas_width_shld_be= $scope.cssStyles.canvasWidth; 
+		canvas_height_shld_be = $scope.cssStyles.canvasHeight;
 		scale_ratio = 4;  
 		//canvas_height_shld_be = image_ratio * canvas_width_shld_be; 
 	   	canvas.style.width = canvas_width_shld_be + "px"; 
