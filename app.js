@@ -46,6 +46,16 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
             templateUrl: 'home/details.view.html',
             controllerAs: 'vm'
         })
+        .when('/invitations', {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
+        .when('/invitations/:name', {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
+        })
         .when('/banners/:name', {
             controller: 'DetailsController', 
             templateUrl: 'home/details.view.html',

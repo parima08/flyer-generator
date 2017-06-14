@@ -6,7 +6,8 @@ app.controller('HomeController', HomeController);
 app.factory('spreadsheetIdListing', function(){
 	var spreadSheetIds = {}; 
 	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"; 
-	spreadSheetIds.banners = "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8"
+	spreadSheetIds.banners = "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8";
+	spreadSheetIds.invitations = "1nfrfZ-TIXRJXl5lshiBRgOpKIpdT7k1Txe0X0z8g24k";
 	return spreadSheetIds; 
 });
 
@@ -222,21 +223,22 @@ function HomeController($scope, $rootScope, $location,
 		//$scope.apply(); 
 	}
 
+	var populatePage = function(spreadsheetId){
+		objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
+			console.log("loaded"); 
+			console.log("inside get Data: "); 
+			console.log(objectDetailsService.getData()); 
+			$scope.flyers = objectDetailsService.getData(); 
+			console.log("flyers: "); 
+			console.log($scope.flyers);
+		}); 
+	}
+
 	switch($location.path()){
 		case '/dharmayatra':
-			$scope.title = "Dharmayatra Page";
+			$scope.title = "Dharmayatra Page";		
 			var spreadsheetId = spreadsheetIdListing.dharmayatra; 
-			console.log("Grabbing flyers again"); 
-			console.log(objectDetailsService); 
-			console.log(spreadsheetIdListing); 
-			objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
-				console.log("loaded"); 
-				console.log("inside get Data: "); 
-				console.log(objectDetailsService.getData()); 
-				$scope.flyers = objectDetailsService.getData(); 
-				console.log("flyers: "); 
-				console.log($scope.flyers);
-			}); 
+			populatePage(spreadsheetId); 
 			break;; 
 		case '/articles': 
 			$scope.title = "Articles Page"; 
@@ -245,14 +247,13 @@ function HomeController($scope, $rootScope, $location,
 			console.log("in banners"); 
 			$scope.title = "Banner Page";
 			var spreadsheetId = spreadsheetIdListing.banners; 
-			objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
-				console.log("loaded"); 
-				console.log("inside get Data: "); 
-				console.log(objectDetailsService.getData()); 
-				$scope.flyers = objectDetailsService.getData(); 
-			}); 
-
-			break;  
+			populatePage(spreadsheetId); 
+			break;
+		case '/invitations': 
+			$scope.title = "Invitations"
+			var spreadsheetId = spreadsheetIdListing.invitations; 
+			populatePage(spreadsheetId); 
+			break; 
 		case '/home': 
 		case '/':
 			$scope.isHomePage = true; 
@@ -261,9 +262,5 @@ function HomeController($scope, $rootScope, $location,
 			break; 
 		default: 
 			$scope.title = "Coming Soon";
-	}; 
-
-	
-
-	
+	}; 	
 }
