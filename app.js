@@ -43,7 +43,9 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
 
       //DETAILS 
       var subpages = ['/dharmayatra', '/home', '/invitations', 
-                      '/banners', '/articles']; 
+                      '/banners', '/articles', '/special-occasions', 
+                      '/general-flyers', '/social-media', '/emailers', 
+                      '/backdrops']; 
       for (var i = 0; i < subpages.length; i++) {
         $routeProvider.when(subpages[i], {
             controller: 'HomeController',
