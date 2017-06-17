@@ -3,6 +3,8 @@ var app = angular.module('myApp');
 
 app.controller('HomeController', HomeController);
 
+
+
 app.factory('spreadsheetIdListing', function(){
 	var spreadSheetIds = {}; 
 	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"; 
@@ -26,6 +28,12 @@ app.factory('cssDimensions', function(){
 						canvasWidth: 834, 
 						canvasHeight: 500
 					};
+	css.invitations = {
+					thumbnailWidth: 200, 
+					thumbnailHeight: 132, 
+					canvasWidth: 757, 
+					canvasHeight: 500
+	}
 	return css; 
 });
 

@@ -15,6 +15,9 @@ config.$inject = ['$routeProvider', '$locationProvider', '$sceDelegateProvider']
 function config($routeProvider, $locationProvider, $sceDelegateProvider){
 	$locationProvider.hashPrefix('');
   $sceDelegateProvider.resourceUrlWhitelist(['**']);
+
+
+
 	$routeProvider
         .when('/', {
             controller: 'HomeController',
@@ -26,57 +29,33 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
             templateUrl: 'home/home.view.html',
             controllerAs: 'vm'
         })
-        .when('/home', {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
         .when('/login', {
             controller: 'LoginController',
             templateUrl: 'login/login.view.html',
             controllerAs: 'vm'
         })
-        .when('/dharmayatra', {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/dharmayatra/:name', {
-            controller: 'DetailsController', 
-            templateUrl: 'home/details.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/invitations', {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/invitations/:name', {
-            controller: 'HomeController',
-            templateUrl: 'home/details.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/banners/:name', {
-            controller: 'DetailsController', 
-            templateUrl: 'home/details.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/articles', {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/xy-coords', {
+         .when('/xy-coords', {
           controller: "XyCoordController",
           templateUrl: 'utils/xy-finder.view.html',
           controllerAs: "vm"
         })
-        .when('/banners', {
-          controller: 'HomeController', 
-          templateUrl: 'home/home.view.html', 
-          controllerAs: 'vm'
+        .otherwise({ redirectTo: '/home' });; 
+
+      //DETAILS 
+      var subpages = ['/dharmayatra', '/home', '/invitations', 
+                      '/banners', '/articles']; 
+      for (var i = 0; i < subpages.length; i++) {
+        $routeProvider.when(subpages[i], {
+            controller: 'HomeController',
+            templateUrl: 'home/home.view.html',
+            controllerAs: 'vm'
         })
-        .otherwise({ redirectTo: '/home' });
+        .when(subpages[i] + '/:name', {
+            controller: 'DetailsController', 
+            templateUrl: 'home/details.view.html',
+            controllerAs: 'vm'
+        });      
+      }; 
 
     // $locationProvider.html5Mode({
     //   enabled: true,
