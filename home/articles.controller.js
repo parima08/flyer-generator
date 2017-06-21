@@ -18,7 +18,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 					var articleInfo = {}
 					var article = data.feed.entry[i]; 
 					articleInfo.name = article.gsx$name.$t ? article.gsx$name.$t : ""; 
-					articleInfo.month = article.gsx$month.$t ? article. d x.$t : ""; 
+					articleInfo.month = article.gsx$month.$t ? article.gsx$month.$t : ""; 
 					articleInfo.year = article.gsx$year.$t ? article.gsx$year.$t : ""; 
 					articleInfo.wordCount = article.gsx$wordcount.$t ? article.gsx$wordcount.$t : ""; 
 					articleInfo.magazineSection = article.gsx$magazinesection.$t ? article.gsx$magazinesection.$t : ""; 
