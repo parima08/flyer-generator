@@ -1,20 +1,18 @@
 var app = angular.module('myApp'); 
 app.controller('DetailsController', DetailsController);
 
-DetailsController.$inject = ['$scope', '$routeParams','$location', 'objectDetailsService', 
-'spreadsheetIdListing', 'cssDimensions']; 
+DetailsController.$inject = ['$scope', '$routeParams','$location', 
+					'objectDetailsService', 'pageDetails']; 
 function DetailsController($scope, $routeParams, $location, 
-	objectDetailsService, spreadsheetIdListing, cssDimensions){
+	objectDetailsService, pageDetails){
 	console.log("Details Controller"); 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name); 
 	var section = $location.path()
 		.replace(/[^/]*$/, "")
 		.replace(/\//g, ''); 
-	var spreadsheetId = spreadsheetIdListing[section]; 
-	$scope.cssStyles = cssDimensions[section]; 
-	console.log(section); 
-	console.log($scope.cssStyles);
+	$scope.pageDetails = pageDetails[section]; 
+	var spreadsheetId = pageDetails[section]['spreadsheetId']; 
 	console.log(spreadsheetId); 
 	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name)
 	.then(function(){
@@ -95,10 +93,10 @@ function DetailsController($scope, $routeParams, $location,
 			ctx.letterSpacing = field.letterSpacing + "px";
 			console.log("letterspacing: " + field.letterSpacing); 
 			canvasWidthRatio = canvas.width
-			console.log(canvas.width / $scope.cssStyles.canvasWidth ); 
-			console.log(canvas.height/ $scope.cssStyles.canvasHeight);
-			positionX = field.positionX * (canvas.width / $scope.cssStyles.canvasWidth ); 
-			positionY = field.positionY * (canvas.height/ $scope.cssStyles.canvasHeight ); 
+			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
+			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
+			positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
+			positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
 			//positionXY = field.position.split(','); 
 			//positionX = positionXY[0] * 4; 
 			//positionY = positionXY[1] * 4; 
@@ -121,8 +119,8 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	var resizeCanvas = function(canvas){
-		canvas_width_shld_be= $scope.cssStyles.canvasWidth; 
-		canvas_height_shld_be = $scope.cssStyles.canvasHeight;
+		canvas_width_shld_be= $scope.pageDetails.canvasWidth; 
+		canvas_height_shld_be = $scope.pageDetails.canvasHeight;
 		scale_ratio = 4;  
 		//canvas_height_shld_be = image_ratio * canvas_width_shld_be; 
 	   	canvas.style.width = canvas_width_shld_be + "px"; 

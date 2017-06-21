@@ -3,65 +3,34 @@ var app = angular.module('myApp');
 
 app.controller('HomeController', HomeController);
 
-
-
-app.factory('spreadsheetIdListing', function(){
-	var spreadSheetIds = {}; 
-	spreadSheetIds.dharmayatra = "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg"; 
-	spreadSheetIds.banners = "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8";
-	spreadSheetIds.invitations = "1nfrfZ-TIXRJXl5lshiBRgOpKIpdT7k1Txe0X0z8g24k";
-	return spreadSheetIds; 
-});
-
-app.factory('cssDimensions', function(){
-	console.log("I get here"); 
-	var css = {}; 
-	css.dharmayatra = {
-						thumbnailWidth: 200, 
-						thumbnailHeight: 300, 
-						canvasWidth: 500, 
-						canvasHeight: 693
-					};
-	css.banners = {
-						thumbnailWidth: 200, 
-						thumbnailHeight: 120, 
-						canvasWidth: 834, 
-						canvasHeight: 500
-					};
-	css.invitations = {
-					thumbnailWidth: 200, 
-					thumbnailHeight: 132, 
-					canvasWidth: 757, 
-					canvasHeight: 500
+app.factory('pageDetails', function(){
+	var pageDetails = {}; 
+	pageDetails.dharmayatra = {
+		spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg", 
+		thumbnailWidth: 200, 
+		thumbnailHeight: 300, 
+		canvasWidth: 500, 
+		canvasHeight: 693
+	}; 
+	pageDetails.banners = {
+		spreadsheetId: "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8", 
+		thumbnailWidth: 200, 
+		thumbnailHeight: 120, 
+		canvasWidth: 834, 
+		canvasHeight: 500 
+	}; 
+	pageDetails.invitations = {
+		spreadsheetId: "1nfrfZ-TIXRJXl5lshiBRgOpKIpdT7k1Txe0X0z8g24k", 
+		thumbnailWidth: 200, 
+		thumbnailHeight: 132, 
+		canvasWidth: 757, 
+		canvasHeight: 500
+	}; 
+	pageDetails.articles = {
+		spreadsheetId: "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
 	}
-	return css; 
-});
-
-// app.service('objectDetailService', function() {
-//   var objects = [];
-
-//   var addObject = function(newObj) {
-//       objects.push(newObj);
-//   };
-
-//   var getObject = function(name){
-//   	  console.log(objects); 
-//       for(var i = 0; i < objects.length; i++){
-//       	console.log(objects[i]); 
-//       	if(objects[i].name == name){
-//       		return objects[i]
-//       	}
-//       }
-//       return ""; 
-//   };
-
-
-//   return {
-//     addObject: addObject,
-//     getObject: getObject
-//   };
-
-// });
+ 	return pageDetails; 
+ }); 
 
 app.service("objectDetailsService", function($http, $q, $sce){
 	var jsonData = []; 
@@ -202,16 +171,16 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	};
 }); 
 
-
+//'spreadsheetIdListing',
 HomeController.$inject = ['$scope', '$rootScope', '$location', '$http', 
 						'$sce', 'objectDetailsService', 
-						'spreadsheetIdListing', 'userPersistenceService']; 
+						 'userPersistenceService', 
+						'pageDetails']; 
 function HomeController($scope, $rootScope, $location, 
-	$http, $sce, objectDetailsService, 
-	spreadsheetIdListing, userPersistenceService){
+	$http, $sce, objectDetailsService, userPersistenceService, pageDetails){
 	$scope.isHomePage = false; 
 	console.log("HomeController");
-	console.log(userPersistenceService.getUserNameData());
+	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
 
 	$scope.saveMaterial = function(currObj){
@@ -240,26 +209,31 @@ function HomeController($scope, $rootScope, $location,
 			console.log("flyers: "); 
 			console.log($scope.flyers);
 		}); 
-	}
+	};
+
+
+	//TODO: Refactor the switch statement on the route URL
+	//[a,b,c,d,e].indexOf(x) with the location path. 
+	//
 
 	switch($location.path()){
 		case '/dharmayatra':
-			$scope.title = "Dharmayatra Page";		
-			var spreadsheetId = spreadsheetIdListing.dharmayatra; 
+			$scope.title = "Dharmayatra Page";	
+			var spreadsheetId = pageDetails.dharmayatra.spreadsheetId; 	
 			populatePage(spreadsheetId); 
-			break;; 
-		case '/articles': 
-			$scope.title = "Articles Page"; 
-			break; 
+			break;
+		// case '/articles': 
+		// 	$scope.title = "Articles Page"; 
+		// 	break; 
 		case '/banners': 
 			console.log("in banners"); 
 			$scope.title = "Banner Page";
-			var spreadsheetId = spreadsheetIdListing.banners; 
+			var spreadsheetId = pageDetails.banners.spreadsheetId; 	
 			populatePage(spreadsheetId); 
 			break;
 		case '/invitations': 
 			$scope.title = "Invitations"
-			var spreadsheetId = spreadsheetIdListing.invitations; 
+			var spreadsheetId = pageDetails.invitations.spreadsheetId; 	
 			populatePage(spreadsheetId); 
 			break; 
 		case '/home': 

@@ -16,8 +16,6 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
 	$locationProvider.hashPrefix('');
   $sceDelegateProvider.resourceUrlWhitelist(['**']);
 
-
-
 	$routeProvider
         .when('/', {
             controller: 'HomeController',
@@ -39,11 +37,21 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
           templateUrl: 'utils/xy-finder.view.html',
           controllerAs: "vm"
         })
+        .when('/articles',{
+          controller: "ArticlesController",
+          templateUrl: 'home/articles.view.html',
+          controllerAs: "vm"
+        })
+        .when('/articles/:name', {
+          controller: "ArticlesController",
+          templateUrl: 'home/articles.view.html',
+          controllerAs: "vm"
+        })
         .otherwise({ redirectTo: '/home' });; 
 
       //DETAILS 
       var subpages = ['/dharmayatra', '/home', '/invitations', 
-                      '/banners', '/articles', '/special-occasions', 
+                      '/banners', '/special-occasions', 
                       '/general-flyers', '/social-media', '/emailers', 
                       '/backdrops']; 
       for (var i = 0; i < subpages.length; i++) {
