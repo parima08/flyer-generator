@@ -18,7 +18,7 @@
           <td>{{article.month}}</td>
           <td>{{article.year}}</td>
           <td>{{article.wordCount}}</td>
-          <td ><a ng-if = "article.articleLink" ng-href="{{article.articleLink}}">view</a></td>
+          <td ><a ng-if = "article.articleLink" ng-click="saveArticle(article)">view</a></td>
         </tr>
         </tbody>
       </table>
