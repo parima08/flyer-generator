@@ -5,15 +5,17 @@
   <!-- <div class = "heading">
     <h4>Please note: As these are high quality files, it might take some time for these images to load if your network speed is slow. Please be patient. Thanks!</h4>
   </div> -->
-	<canvas id ="canvas" width ="500" height="600"></canvas>
-  <div class = "form-container">
+  <div class = "canvas-container">
+	 <canvas id ="canvas" class= "shadow" width ="500" height="600"></canvas>
+  </div>
+  <div class = "form-container ">
       <form id="myForm">
 	      <div class= "field" ng-repeat="field in formInfo">
-		        <h4>{{field.fieldName}}</h4>
+		        <h4><b>{{field.fieldName}}</b></h4>
             <p class = "intructions">{{field.instructions}}</p>
-		       <input id = "{{field.id}}" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
+		       <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
 	      </div>
-        <input type="submit" value="Submit" ng-click = "submitForm()">
+        <input type="submit" value="UPDATE" ng-click = "submitForm()">
         <a class = "btn" id = "download" ng-click="download()">Download</a>
       </form>
     </div>
