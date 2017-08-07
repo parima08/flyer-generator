@@ -1,21 +1,22 @@
 <div class= "container">
 <h2> Request for {{articleDetails.name}}</h2>
 
-<iframe src = "{{articleDetails.iframeLink}}" width="40%" height="500"frameborder="0">	
+<iframe src = "{{articleDetails.iframeLink}}" width="600" height="700"frameborder="0">	
 </iframe>
 <div class = "form-container">
+	<h4>Request this article by submitting the following form: </h4>
       <form id="myForm" method= "POST" target="no-target"> 
 	    <div class= "field">
 		    <h4>Center Name: </h4>
-		    <input id = "centerName" name = "center_name" type="text" placeholder="Center Name"/><br/>
+		    <input  class = "detail-field"  id = "centerName" name = "center_name" type="text" placeholder="Center Name"/><br/>
 	    </div>
 	    <div class= "field">
 		    <h4>Center Email: </h4>
-		    <input id = "centerEmail" name = "center_email" type="text" placeholder="centre@shrimadrajchandramission.org"/><br/>
+		    <input class = "detail-field" id = "centerEmail" name = "center_email" type="text" placeholder="centre@shrimadrajchandramission.org"/><br/>
 	    </div>
 	    <div class= "field">
 		    <h4>Request Reason</h4>
-		    <input id = "requestReason" type="text" placeholder=""/><br/>
+		    <input class = "detail-field"  id = "requestReason" type="paragraph" placeholder=""/><br/>
 	    </div>
 
 	    <input id = "articleName" name  = "article_name" type = "hidden" value="{{articleDetails.name}}">

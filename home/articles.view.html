@@ -6,8 +6,8 @@
         <thead>
         <tr>
           <th st-sort="getters.firstName">Article Name</th>
-          <th st-sort="lastName">Month</th>
-          <th st-sort="birthDate">Year</th>
+          <th st-sort="lastName">Subcategory</th>
+          <th st-sort="birthDate">Langauge</th>
           <th st-sort="balance" st-skip-natural="true" >Wordcount</th>
           <th>View</th>
         </tr>
@@ -15,8 +15,8 @@
         <tbody>
         <tr ng-repeat="article in articles">
           <td>{{article.name | uppercase}}</td>
-          <td>{{article.month}}</td>
-          <td>{{article.year}}</td>
+          <td>{{article.category}}</td>
+          <td>{{article.langauge}}</td>
           <td>{{article.wordCount}}</td>
           <td ><a ng-if = "article.articleLink" ng-click="saveArticle(article)">view</a></td>
         </tr>

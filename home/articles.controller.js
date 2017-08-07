@@ -67,7 +67,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.magazineSection = article.gsx$magazinesection.$t ? article.gsx$magazinesection.$t : ""; 
 		articleInfo.category = article.gsx$category.$t ? article.gsx$category.$t : ""; 
 		articleInfo.subcategory =article.gsx$subcategory.$t ? article.gsx$subcategory.$t : ""; 
-		articleInfo.langauge = article.gsx$language.$t ? article.gsx$language.$t : ""; 
+		articleInfo.language = article.gsx$language.$t ? article.gsx$language.$t : ""; 
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
 		articleInfo.articleDetailsLink = articleInfo.name.replace(/ /g,"_"); 
 		if(articleInfo.articleLink){
