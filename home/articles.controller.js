@@ -163,6 +163,32 @@ function ArticlesController($scope, $rootScope, $location,
 		// });
 	}
 
+	$scope.searchTable = function(){
+		  var input, filter, table, tr, td, i;
+		  input = document.getElementById("myInput");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("articleTable");
+		  tr = table.getElementsByTagName("tr");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    var name = tr[i].getElementsByTagName("td")[0];
+		    var category = tr[i].getElementsByTagName("td")[1];
+		    var language = tr[i].getElementsByTagName("td")[2];
+		    var wordCount = tr[i].getElementsByTagName("td")[3];
+		    if (name || category || language || wordCount) {
+		      if (name.innerHTML.toUpperCase().indexOf(filter) > -1 || 
+		      	  category.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+		      	  language.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+		        tr[i].style.display = "";
+		      }
+		      else {
+		        tr[i].style.display = "none";
+		      }
+		    } 
+  		}
+	}
+
 	//https://docs.google.com/forms/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/viewform?usp=pp_url&entry.1745447166=hello&entry.2114019815&entry.550354372&entry.2009048180
 
 }

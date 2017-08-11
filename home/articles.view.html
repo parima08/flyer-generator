@@ -2,12 +2,20 @@
   <div ng-include src= "'home/navigation.view.html'"></div>
     <div class = "container">
       <h1>{{title}}</h1>
-      <table st-table="rowCollection" class="table table-striped">
+
+      <h3>Filters: </h3>
+     <button>English</button>
+     <button>Hindi</button>
+     <button>Generic</button>
+     <button>Special Occasions</button>
+
+      <input type="text" id="myInput" ng-keyup="searchTable()" placeholder="Search the table for a keyword">
+      <table id="articleTable" st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>
           <th st-sort="getters.firstName">Article Name</th>
           <th st-sort="lastName">Subcategory</th>
-          <th st-sort="birthDate">Langauge</th>
+          <th st-sort="birthDate">Language</th>
           <th st-sort="balance" st-skip-natural="true" >Wordcount</th>
           <th>View</th>
         </tr>
@@ -16,7 +24,7 @@
         <tr ng-repeat="article in articles">
           <td>{{article.name | uppercase}}</td>
           <td>{{article.category}}</td>
-          <td>{{article.langauge}}</td>
+          <td>{{article.language}}</td>
           <td>{{article.wordCount}}</td>
           <td ><a ng-if = "article.articleLink" ng-click="saveArticle(article)">view</a></td>
         </tr>
