@@ -38,7 +38,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 	var lookUpObject = {}; 
 	var formInfo = []; 
 
-	var loadDataAsync = function(spreadsheetID){
+	var loadDataAsync = function(spreadsheetID, thumbnailWidth, thumbnailHeight){
 		var deffered = $q.defer();
 		jsonData = []; 
 		console.log("loading data from gsheets"); 
@@ -48,7 +48,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			.then(function(data, status){
 				data = data.data
 				for(var i = 0; i < data.feed.entry.length; i++){
-					jsonData.push(grabObjectInfo(data.feed.entry[i])); 
+					jsonData.push(grabObjectInfo(data.feed.entry[i], thumbnailWidth, thumbnailHeight)); 
 				}
 				deffered.resolve();
 			}); 
@@ -67,7 +67,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		return formInfo; 
 	}
 
-  	var lookupObjectByNameAsync = function(spreadsheetId, name){
+  	var lookupObjectByNameAsync = function(spreadsheetId, name, thumbnailWidth, thumbnailHeight){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url)
@@ -86,7 +86,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		return deffered.promise;
   	}
 
-  	var grabObjectInfo = function(jsonElement){
+  	var grabObjectInfo = function(jsonElement, thumbnailWidth, thumbnailHeight){
   		var mObject = {}
   		mObject.name = jsonElement.gsx$name.$t; 
   		//var linkId = jsonElement.gsx$linkid.$t; 
@@ -95,7 +95,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
 			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath; 
 			//mObject.imageLink = "https://srmd-flyer-generator.s3.amazonaws.com/" + filePath; 
-			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/200x300/" + awsLinkPath; 
+			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + thumbnailWidth +  "x" + thumbnailHeight + "/" + awsLinkPath; 
 
 			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
 		}
@@ -200,8 +200,11 @@ function HomeController($scope, $rootScope, $location,
 		//$scope.apply(); 
 	}
 
-	var populatePage = function(spreadsheetId){
-		objectDetailsService.loadDataAsync(spreadsheetId).then(function(){
+	var populatePage = function(section){
+		var spreadsheetId = pageDetails[section]['spreadsheetId']; 
+		var thumbnailWidth = pageDetails[section]['thumbnailWidth']; 
+		var thumbnailHeight = pageDetails[section]['thumbnailHeight']; 
+		objectDetailsService.loadDataAsync(spreadsheetId, thumbnailWidth, thumbnailHeight).then(function(){
 			console.log("loaded"); 
 			console.log("inside get Data: "); 
 			console.log(objectDetailsService.getData()); 
@@ -219,22 +222,16 @@ function HomeController($scope, $rootScope, $location,
 	switch($location.path()){
 		case '/dharmayatra':
 			$scope.title = "Dharmayatra Page";	
-			var spreadsheetId = pageDetails.dharmayatra.spreadsheetId; 	
-			populatePage(spreadsheetId); 
+			populatePage("dharmayatra"); 
 			break;
-		// case '/articles': 
-		// 	$scope.title = "Articles Page"; 
-		// 	break; 
 		case '/banners': 
 			console.log("in banners"); 
 			$scope.title = "Banner Page";
-			var spreadsheetId = pageDetails.banners.spreadsheetId; 	
-			populatePage(spreadsheetId); 
+			populatePage("banners"); 
 			break;
 		case '/invitations': 
 			$scope.title = "Invitations"
-			var spreadsheetId = pageDetails.invitations.spreadsheetId; 	
-			populatePage(spreadsheetId); 
+			populatePage("invitations"); 
 			break; 
 		case '/home': 
 		case '/':

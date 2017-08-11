@@ -13,6 +13,8 @@ function DetailsController($scope, $routeParams, $location,
 		.replace(/\//g, ''); 
 	$scope.pageDetails = pageDetails[section]; 
 	var spreadsheetId = pageDetails[section]['spreadsheetId']; 
+	var thumbnailWidth = pageDetails[section]['thumbnailWidth']; 
+	var thumbnailHeight = pageDetails[section]['thumbnailHeight']; 
 	console.log(spreadsheetId); 
 	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name)
 	.then(function(){
