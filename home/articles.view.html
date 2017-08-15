@@ -4,12 +4,14 @@
       <h1>{{title}}</h1>
 
       <h3>Filters: </h3>
-     <button>English</button>
-     <button>Hindi</button>
-     <button>Generic</button>
-     <button>Special Occasions</button>
+     <button ng-click = "filterOnPress($event)" name = "English">English</button>
+     <button ng-click = "filterOnPress($event)"  name = "Gujarati">Gujarati</button>
+     <button ng-click = "filterOnPress($event)" name = "Generic" >Generic</button>
+     <button ng-click = "filterOnPress($event)"  name = "Special">Special Occasions</button>
 
       <input type="text" id="myInput" ng-keyup="searchTable()" placeholder="Search the table for a keyword">
+
+      <button class = "viewAllArticles" ng-click="removeFilter()">X Close Filter</button>
       <table id="articleTable" st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>

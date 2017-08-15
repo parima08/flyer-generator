@@ -171,7 +171,21 @@ function ArticlesController($scope, $rootScope, $location,
 		  tr = table.getElementsByTagName("tr");
 
 		  // Loop through all table rows, and hide those who don't match the search query
-		  for (i = 0; i < tr.length; i++) {
+		  searchTable(tr, filter); 
+		  var closeView = $('.viewAllArticles').css("display", ""); 
+	}
+
+	$scope.filterOnPress = function($event){
+		var filterString = $event.currentTarget.name.toUpperCase(); 
+		//$event.currentTarget.style.background = "red";
+		table = document.getElementById("articleTable");
+		tr = table.getElementsByTagName("tr");
+		var closeView = $('.viewAllArticles').css("display", "block"); 
+		searchTable(tr, filterString); 
+	}
+
+	var searchTable = function(tr, filter){
+		for (i = 0; i < tr.length; i++) {
 		    var name = tr[i].getElementsByTagName("td")[0];
 		    var category = tr[i].getElementsByTagName("td")[1];
 		    var language = tr[i].getElementsByTagName("td")[2];
@@ -180,6 +194,7 @@ function ArticlesController($scope, $rootScope, $location,
 		      if (name.innerHTML.toUpperCase().indexOf(filter) > -1 || 
 		      	  category.innerHTML.toUpperCase().indexOf(filter) > -1 ||
 		      	  language.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+		        console.log(language.innerHTML.toUpperCase().indexOf(filter)); 
 		        tr[i].style.display = "";
 		      }
 		      else {
@@ -187,6 +202,16 @@ function ArticlesController($scope, $rootScope, $location,
 		      }
 		    } 
   		}
+	}
+
+	$scope.removeFilter = function(){
+		table = document.getElementById("articleTable");
+		tr = table.getElementsByTagName("tr")
+		for (i = 0; i < tr.length; i++) {
+			tr[i].style.display = ""; 
+		}
+		var closeView = $('.viewAllArticles').css("display", "none"); 
+		//$event.currentTarget.style.background = "none";
 	}
 
 	//https://docs.google.com/forms/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/viewform?usp=pp_url&entry.1745447166=hello&entry.2114019815&entry.550354372&entry.2009048180
