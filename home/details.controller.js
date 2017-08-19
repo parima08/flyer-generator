@@ -16,7 +16,7 @@ function DetailsController($scope, $routeParams, $location,
 	var thumbnailWidth = pageDetails[section]['thumbnailWidth']; 
 	var thumbnailHeight = pageDetails[section]['thumbnailHeight']; 
 	console.log(spreadsheetId); 
-	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name)
+	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, thumbnailWidth, thumbnailHeight)
 	.then(function(){
 		console.log("loaded"); 				
 		console.log(objectDetailsService.getData()); 
@@ -45,6 +45,11 @@ function DetailsController($scope, $routeParams, $location,
 		console.log("Downloading...")
 		downloadCanvas(); 
 	}
+
+	$scope.openSidebar = function($event){
+		$('.sidebar-form').addClass("sidebar-open"); 
+		$('.pusher').addClass("sidebar-open"); 
+    }
 
    	var canvasSetup = function(){
    		var canvas = $("#canvas")[0];
@@ -191,6 +196,8 @@ function DetailsController($scope, $routeParams, $location,
       
   		control.makeTransliteratable(arrayOfIds);
     }
+
+    
 
 	// var changeResolution = function(canvas, scaleFactor) {
 	//     // Set up CSS size if it's not set up already
