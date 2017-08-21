@@ -47,8 +47,14 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	$scope.openSidebar = function($event){
-		$('.sidebar-form').addClass("sidebar-open"); 
-		$('.pusher').addClass("sidebar-open"); 
+		if($('.sidebar-form').hasClass("sidebar-open")){
+			$('.sidebar-form').removeClass("sidebar-open"); 
+			$('.pusher').removeClass("sidebar-open"); 
+		}
+		else{
+			$('.sidebar-form').addClass("sidebar-open"); 
+			$('.pusher').addClass("sidebar-open"); 
+		}
     }
 
    	var canvasSetup = function(){

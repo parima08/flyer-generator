@@ -305,7 +305,9 @@ button.viewAllArticles{
 	color: #BCC1C7;
 }
 
-.buttons button, .buttons a	{
+.buttons button, .buttons a, 
+.form-container2 input[type=submit],
+.form-container2 .btn{
 	background-color: #5A5E65;
 	color: #BCC1C7;
 	padding: 10px 20px;
@@ -328,7 +330,8 @@ button.viewAllArticles{
 	z-index: 100;
 	visibility: hidden;
 	width: 400px;
-	height: 100%;
+	min-height: calc(100% - 112px);
+	max-height: 100%;
 	overflow: scroll;
 	/*background: #9D9D9D;*/
 	color: #5A5E65;
@@ -336,8 +339,10 @@ button.viewAllArticles{
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;  
 	z-index: 1;
-	-webkit-transform: translate3d(50%, 0, 0);
-	transform: translate3d(50%, 0, 0); 
+	/*-webkit-transform: translate3d(50%, 0, 0);
+	transform: translate3d(50%, 0, 0); */
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
 }
 
 .pusher{
@@ -348,6 +353,7 @@ button.viewAllArticles{
 	height: 100%;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
+	overflow: hidden;
 }
 
 .sidebar-open.pusher::after {
@@ -410,4 +416,15 @@ button.viewAllArticles{
 	/*color: #4A4A4A;*/
 	padding-top: 20px;
 	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+.content{
+	overflow: hidden;
+}
+
+.jumbotron{
+	background-color: #929292;
+	margin-top: -30px;
+	text-align: center;
 }
