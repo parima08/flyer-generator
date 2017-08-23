@@ -88,7 +88,8 @@ canvas{
 	margin: 0 auto; 
 }
 
-.form-container{
+.form-container,
+.article-form-container{
 	background-color: #DCDCDC;
 	/*border: 1px solid #0A0A0A;*/
 	box-sizing: "border-box";
@@ -100,6 +101,10 @@ canvas{
 	min-width: 400px;
 	width: 40%;
 	min-height: 600px;
+}
+
+.article-form-container{
+	top: 225px;
 }
 
 .background-container{
@@ -307,6 +312,7 @@ button.viewAllArticles{
 
 .buttons button, .buttons a, 
 .form-container2 input[type=submit],
+.articleRequestForm input[type=submit],
 .form-container2 .btn{
 	background-color: #5A5E65;
 	color: #BCC1C7;
@@ -318,6 +324,7 @@ button.viewAllArticles{
 	letter-spacing: 1px;
     font-weight: 700;
 }
+
 
 .buttons a:hover{
 	text-decoration: none;
