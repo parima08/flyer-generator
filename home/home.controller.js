@@ -32,6 +32,8 @@ app.factory('pageDetails', function(){
  	return pageDetails; 
  }); 
 
+
+
 app.service("objectDetailsService", function($http, $q, $sce){
 	var jsonData = []; 
 	var objectDetailsService = {}; 
@@ -40,6 +42,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 
 	var loadDataAsync = function(spreadsheetID, thumbnailWidth, thumbnailHeight){
 		var deffered = $q.defer();
+		var english = []; 
+		var hindi = []; 
+		var gujarati = []; 
 		jsonData = []; 
 		console.log("loading data from gsheets"); 
 		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetID +"/od6/public/values?alt=json-in-script"
@@ -48,8 +53,25 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			.then(function(data, status){
 				data = data.data
 				for(var i = 0; i < data.feed.entry.length; i++){
-					jsonData.push(grabObjectInfo(data.feed.entry[i], thumbnailWidth, thumbnailHeight)); 
+					var mObject = grabObjectInfo(data.feed.entry[i], thumbnailWidth, thumbnailHeight)
+					//jsonData.push(mObject); 
+					console.log("Language:" + mObject.language.toLowerCase);
+					switch(mObject.language.toLowerCase()){
+						case "hindi":
+							hindi.push(mObject);
+							break;
+						case 'gujarati':
+							gujarati.push(mObject);
+							break; 
+						case 'english':
+						default:
+							english.push(mObject); 
+						    break; 
+					}
 				}
+				jsonData.push(english); 
+				jsonData.push(hindi); 
+				jsonData.push(gujarati); 
 				deffered.resolve();
 			}); 
 			return deffered.promise;
@@ -178,7 +200,8 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 						'pageDetails']; 
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, userPersistenceService, pageDetails){
-	$scope.isHomePage = false; 
+	$scope.isHomePage = false;
+	$scope.tabTitles = {"English", "Hindi", "Gujarati"}
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
