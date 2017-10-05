@@ -12,7 +12,7 @@
 </ul> -->
 <div class = "container">
 <uib-tabset active="active">
-    <uib-tab index="$index" ng-repeat="language in flyers" heading="tabTitles[$index]" disable="tab.disabled">
+    <uib-tab index="$index" ng-repeat="language in flyers" heading="{{tabTitles[$index]}}" disable="tab.disabled">
       <div class = "material-container" ng-repeat="flyer in language">
         <a class = "material-link" ng-click="saveMaterial(flyer)">
           <div class = "material-element col-md-4">

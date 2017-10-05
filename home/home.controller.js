@@ -201,7 +201,10 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, userPersistenceService, pageDetails){
 	$scope.isHomePage = false;
-	$scope.tabTitles = {"English", "Hindi", "Gujarati"}
+	// $scope.tabTitles = { title: "English",
+	// 					title: "Hindi", 
+	// 					title: "Gujarati"}; 
+	$scope.tabTitles = ["English", "Hindi", "Gujarati"]; 
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
