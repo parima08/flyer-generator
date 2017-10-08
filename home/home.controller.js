@@ -33,7 +33,7 @@ app.factory('pageDetails', function(){
 		spreadsheetId: "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
 	}; 
 	pageDetails.srdFlyers = {
-		spreadsheetId: "1RyIVJyR-KR4g3PFdld-oy13K-GcXCtufFye5RM0Su9I", 
+		spreadsheetId: "1OR8SnYpxaAuhT1j7Cgm_hqYIxw6ry6nr5c6rtJWklNQ", 
 		thumbnailWidth: 200, 
 		thumbnailHeight: 300, 
 		canvasWidth: 500, 
@@ -268,7 +268,11 @@ function HomeController($scope, $rootScope, $location,
 			break; 
 		case '/srd-flyers': 
 			$scope.title = "SRD Flyers"; 
-			populatePage("srdFlyers")
+			populatePage("srdFlyers"); 
+			break;
+		case '/standees': 
+			$scope.title = "Standees"; 
+			break;
 		case '/home': 
 		case '/':
 			$scope.isHomePage = true; 

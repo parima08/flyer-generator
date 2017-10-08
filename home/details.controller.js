@@ -9,8 +9,9 @@ function DetailsController($scope, $routeParams, $location,
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name); 
 	var section = $location.path()
-		.replace(/[^/]*$/, "")
+		.replace(/[^/]*$/, " ")
 		.replace(/\//g, ''); 
+	section = camelize(section).replace(/-/g, ""); 
 	$scope.pageDetails = pageDetails[section]; 
 
 	//if the page is loading Logos on the page, we can pull supported countries
@@ -62,6 +63,13 @@ function DetailsController($scope, $routeParams, $location,
 		}
     }
 
+    function camelize(str) {
+	  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+	    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+	    return index == 0 ? match.toLowerCase() : match.toUpperCase();
+	  });
+}
+
    	var canvasSetup = function(){
    		var canvas = $("#canvas")[0];
 		console.log(canvas); 
@@ -107,9 +115,14 @@ function DetailsController($scope, $routeParams, $location,
 			positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
 
 			if(field.id == "srmd_logo"){
-				addLogoToCanvas(ctx, field.value, positionX, positionY); 
+				addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
 				break; 
 			}
+			if(field.id == "upload_logo"){
+				addLogoToCanvas(ctx, "blah", positionX, positionY); 
+				break; 
+			}
+
 			var fontSize = parseInt(field.fontSize) * 3.5; 
 			var fontWeight = field.fontWeight; 
 			console.log(fontSize); 
@@ -217,15 +230,18 @@ function DetailsController($scope, $routeParams, $location,
   		control.makeTransliteratable(arrayOfIds);
     }
 
-    var addLogoToCanvas = function(ctx, country, x, y){
+    var addSrmdLogoToCanvas = function(ctx, fieldId, x, y){
     	//RESIZE THE IMAGE
     	var srmdLogo = new Image(); 
-    	console.log("ADDED LOGO"); 
-    	switch(country){
-    		case $scope.supportedLogoCountries[1]: 
+    	console.log("ADDED SRMD LOGO"); 
+    	srmdLogo.onload = function(){
+    		ctx.drawImage(srmdLogo, x, y, 235, 270);
+    	}; 
+    	switch($("input[name='srmd_logo']:checked").val()){
+    		case $scope.supportedLogoCountries[1]:
     			srmdLogo.src = "../img/logos/srmd_usa.png"
     			break; 
-    		case $scope.supportedLogoCountries[2]: 
+    		case $scope.supportedLogoCountries[2]:
     			srmdLogo.src = "../img/logos/srmd_canada.png"
     			break; 
     		case $scope.supportedLogoCountries[3]: 
@@ -236,11 +252,15 @@ function DetailsController($scope, $routeParams, $location,
     			srmdLogo.src = "../img/logos/srmd_usa.png"
     			break; 
     	}
-    	ctx.drawImage(srmdLogo, x, y); 
-    	console.log("DREW IMAGE"); 
+    	console.log(srmdLogo.src); 
+    	console.log("End of drawing the logo!"); 
     }
 
-    
+    var addLogoToCanvas = function(ctx, imageFile, x, y){
+    	logo = new Image(); 
+    	console.log("Adding Logo to the Canvas"); 
+    }
+
 
 	// var changeResolution = function(canvas, scaleFactor) {
 	//     // Set up CSS size if it's not set up already
