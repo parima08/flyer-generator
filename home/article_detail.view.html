@@ -4,8 +4,16 @@
  </div>
 <div class= "container">
 
-<iframe src = "{{articleDetails.iframeLink}}" width="600" height="700"frameborder="0">	
-</iframe>
+
+<!-- <iframe id="articleIframe"></iframe> -->
+<!-- <iframe class = "article-iframe no-selectable-text" src = "{{articleDetails.iframeLink}}" width="600" height="700" frameborder="0">	
+</iframe> -->
+
+<iframe src="https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/preview" width="640" height="480"></iframe>
+
+<iframe src="https://drive.google.com/file/d/0B8Yv5CEFlJZtMHdBSEdEWG9XWmc/preview?embedded=true&chrome=false" width="640" height="480"></iframe>
+<iframe  id = "articles-iframe" class = "article-iframe no-selectable-text"  src="https://docs.google.com/document/d/e/2PACX-1vS7Sn-ynm40B_PvndoSWVV0W01zJwX8QAYxwaHGhOp4a16-wwDSYKYz-p4EASeAeqxMQJVziw3gJUNn/pub?embedded=true" width="600" height="700" ></iframe>
+
 <div class = "article-form-container">
 	<h4>Request this article by submitting the following form: </h4>
       <form id="myForm" class = "articleRequestForm" method= "POST" target="no-target"> 
@@ -30,4 +38,29 @@
     </div>
   </div>
  </div>
+
+ <script>
+
+// $(document).ready(function(){
+// 	$('iframe').load(function(){
+// 		console.log($('iframe').contents().find("html").html()); 
+// 	});
+
+// 	document.addEventListener('copy', function(e){
+//     e.clipboardData.setData('text/plain', 'Hello, world!');
+//     e.clipboardData.setData('text/html', '<b>Hello, world!</b>');
+//     e.preventDefault(); // We want our data, not data from any selection, to be written to the clipboard
+// });
+// 	// $('iframe').on("click", function(){
+// 	// 	alert("hello"); 
+// 	// }); 
+// 	// $('iframe').contents().find("html").css({
+// 	//     "-moz-user-select": "none",
+// 	//   	"-webkit-user-select": "none",
+// 	//   	"-ms-user-select": "none",
+// 	//   	"user-select": "none"
+// 	// });
+// })
+
+ </script>
 <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/viewform?embedded=true" width="40%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe> -->

@@ -15,9 +15,22 @@
   <div class = "form-container2">
       <form id="myForm">
         <div class= "field" ng-repeat="field in formInfo">
+        <p>{{field.id}}</p>
+          <div ng-if="field.id == 'srmd_logo'">
+            <h4><b>SRMD Logo Country</h4></b>
+            <div class="radio-button" ng-repeat = "country in supportedLogoCountries">
+              <input type = "radio" name = "logoCountry" value = "{{country}}" />{{country}}</input><br/> 
+            </div>
+          </div>
+          <div ng-if= "field.id == 'upload_logo'">
+            <h4><b>Upload Your Logo - Not working</h4></b>
+            <div class="radio-button" ng-repeat = "country in supportedLogoCountries">
+              <input type = "radio" name = "logoCountry" value = "{{country}}" />{{country}}</input><br/> 
+            </div>
+          </div>
             <h4><b>{{field.fieldName}}</b></h4>
             <p class = "intructions">{{field.instructions}}</p>
-           <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
+            <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
         </div>
         <input type="submit" value="UPDATE" ng-click = "submitForm()">
        <!--  <a class = "btn" id = "download" ng-click="download()">Download</a> -->

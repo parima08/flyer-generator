@@ -3,6 +3,9 @@ var app = angular.module('myApp');
 
 app.controller('HomeController', HomeController);
 
+//TBD: CREATE A FACTORY FOR VARIOUS SIZES 
+//OR A CALCULATOR FROM FEET INTO PIXELS. 
+
 app.factory('pageDetails', function(){
 	var pageDetails = {}; 
 	pageDetails.dharmayatra = {
@@ -28,7 +31,14 @@ app.factory('pageDetails', function(){
 	}; 
 	pageDetails.articles = {
 		spreadsheetId: "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
-	}
+	}; 
+	pageDetails.srdFlyers = {
+		spreadsheetId: "1RyIVJyR-KR4g3PFdld-oy13K-GcXCtufFye5RM0Su9I", 
+		thumbnailWidth: 200, 
+		thumbnailHeight: 300, 
+		canvasWidth: 500, 
+		canvasHeight: 693
+	}; 
  	return pageDetails; 
  }); 
 
@@ -201,9 +211,6 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, userPersistenceService, pageDetails){
 	$scope.isHomePage = false;
-	// $scope.tabTitles = { title: "English",
-	// 					title: "Hindi", 
-	// 					title: "Gujarati"}; 
 	$scope.tabTitles = ["English", "Hindi", "Gujarati"]; 
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());
@@ -256,9 +263,12 @@ function HomeController($scope, $rootScope, $location,
 			populatePage("banners"); 
 			break;
 		case '/invitations': 
-			$scope.title = "Invitations"
+			$scope.title = "Invitations";
 			populatePage("invitations"); 
 			break; 
+		case '/srd-flyers': 
+			$scope.title = "SRD Flyers"; 
+			populatePage("srdFlyers")
 		case '/home': 
 		case '/':
 			$scope.isHomePage = true; 

@@ -12,9 +12,14 @@ function DetailsController($scope, $routeParams, $location,
 		.replace(/[^/]*$/, "")
 		.replace(/\//g, ''); 
 	$scope.pageDetails = pageDetails[section]; 
+
+	//if the page is loading Logos on the page, we can pull supported countries
+	//from ehre
+	$scope.supportedLogoCountries = ["General", "USA", "Canada", "UK"]
 	var spreadsheetId = pageDetails[section]['spreadsheetId']; 
 	var thumbnailWidth = pageDetails[section]['thumbnailWidth']; 
 	var thumbnailHeight = pageDetails[section]['thumbnailHeight']; 
+	//var radioOptions = pageDetails[section]['radioOptions'];
 	console.log(spreadsheetId); 
 	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, thumbnailWidth, thumbnailHeight)
 	.then(function(){
@@ -94,7 +99,17 @@ function DetailsController($scope, $routeParams, $location,
 		console.log("*******" + canvas.height);
 
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
+			
 			field = $scope.formInfo[i]; 
+			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
+			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
+			positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
+			positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
+
+			if(field.id == "srmd_logo"){
+				addLogoToCanvas(ctx, field.value, positionX, positionY); 
+				break; 
+			}
 			var fontSize = parseInt(field.fontSize) * 3.5; 
 			var fontWeight = field.fontWeight; 
 			console.log(fontSize); 
@@ -105,16 +120,15 @@ function DetailsController($scope, $routeParams, $location,
 			ctx.lineHeight = ctx.font; 
 			ctx.letterSpacing = field.letterSpacing + "px";
 			console.log("letterspacing: " + field.letterSpacing); 
-			canvasWidthRatio = canvas.width
-			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
-			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
-			positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
-			positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
-			//positionXY = field.position.split(','); 
-			//positionX = positionXY[0] * 4; 
-			//positionY = positionXY[1] * 4; 
 			console.log(field.fieldName); 
 			console.log(values[field.fieldName]); 
+
+
+			//if the field name is COUNTRY/RADIO remove it from the list
+			//and add it to the end. 
+			//or maybe we can do the country by the type of file? - if it's a flyer
+
+
 			if(values[field.fieldName]){
 				var text; 
 				// if(field.ad ditionalRequiredText){
@@ -201,6 +215,29 @@ function DetailsController($scope, $routeParams, $location,
         // 'transliterateTextarea'.
       
   		control.makeTransliteratable(arrayOfIds);
+    }
+
+    var addLogoToCanvas = function(ctx, country, x, y){
+    	//RESIZE THE IMAGE
+    	var srmdLogo = new Image(); 
+    	console.log("ADDED LOGO"); 
+    	switch(country){
+    		case $scope.supportedLogoCountries[1]: 
+    			srmdLogo.src = "../img/logos/srmd_usa.png"
+    			break; 
+    		case $scope.supportedLogoCountries[2]: 
+    			srmdLogo.src = "../img/logos/srmd_canada.png"
+    			break; 
+    		case $scope.supportedLogoCountries[3]: 
+    			srmdLogo.src = "../img/logos/srmd_uk.png"
+    			break; 
+    		case $scope.supportedLogoCountries[0]: 
+    		default: 
+    			srmdLogo.src = "../img/logos/srmd_usa.png"
+    			break; 
+    	}
+    	ctx.drawImage(srmdLogo, x, y); 
+    	console.log("DREW IMAGE"); 
     }
 
     
