@@ -238,17 +238,17 @@ function HomeController($scope, $rootScope, $location,
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
 
-	$scope.saveMaterial = function(currObj){
+	$scope.saveMaterial = function(currObj, option){
+
 		console.log("Saving the object"); 
 		// objectDetailService.addObject(currObj);
 		// console.log(currObj); 
+		var optionUrl = ""
+		if(option == 1){
+			optionUrl = "_1"; 
+		}
 		var locationPath = $location.path().toString(); 
-		//$rootScope.postLogInRoute = locationPath ;
-		console.log("Save Material LocationPath: " + locationPath); 
-		//$location.path('/dharmayatra/' +  currObj.name.replace(/ /g,"_")).replace(); 
-		console.log("***********")
-		console.log(locationPath + '/' +  currObj.name.replace(/ /g,"_")); 
-		$location.path(locationPath + '/' +  currObj.name.replace(/ /g,"_")).replace(); 
+		$location.path(locationPath + '/' +  currObj.name.replace(/ /g,"_") + optionUrl).replace();
 	}
 
 	var populatePage = function(section){

@@ -6,12 +6,19 @@ DetailsController.$inject = ['$scope', '$routeParams','$location',
 function DetailsController($scope, $routeParams, $location, 
 	objectDetailsService, pageDetails){
 	console.log("Details Controller"); 
+	var option2 = false;
 	var name = $routeParams.name.replace(/_/g, " "); 
+	console.log(name);
+	if(name.includes("1")){
+		option2 = true; 
+		name = name.replace("1", "").trim();  
+	}
 	console.log(name); 
 	var section = $location.path()
 		.replace(/[^/]*$/, " ")
 		.replace(/\//g, ''); 
 	section = camelize(section).replace(/-/g, ""); 
+
 	$scope.pageDetails = pageDetails[section]; 
 
 	//if the page is loading Logos on the page, we can pull supported countries
@@ -29,6 +36,10 @@ function DetailsController($scope, $routeParams, $location,
 		$scope.object = objectDetailsService.getObject(); 
 		console.log("object"); 
 		console.log($scope.object); 
+		if(option2 == true){
+			$scope.object.imageLink = $scope.object.secondaryImageLink; 
+			$scope.object.worksheetIndex = $scope.object.secondaryWorksheetIndex; 
+		}
 		$scope.language = $scope.object.language; 
 		objectDetailsService.loadFormInfoAsync(spreadsheetId, $scope.object.worksheetIndex)
 		.then(function(){
