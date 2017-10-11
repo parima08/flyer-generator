@@ -11,27 +11,48 @@
   <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
 </ul> -->
 <div class = "container">
-<uib-tabset active="active">
-    <uib-tab index="$index" ng-repeat="language in flyers" heading="{{tabTitles[$index]}}" disable="tab.disabled">
-      <div class = "material-container" ng-repeat="flyer in language">
-        <a class = "material-link" ng-click="saveMaterial(flyer)">
-          <div class = "material-element col-md-4">
-            <div class = "object-container">
-              <div class = "image-container">
-              <div class = "hover-overlay"></div>
-              <img src = "{{flyer.thumbnailLink}}" />
-            </div>
-            <div class= "name-container">
-             <h4>{{flyer.name}}</h4>
-            </div>
+  <uib-tabset active="active">
+      <uib-tab index="$index" ng-repeat="language in flyers" heading="{{tabTitles[$index]}}" disable="tab.disabled">
+        <div class = "material-container" ng-repeat="flyer in language">
+          <div ng-if="flyer.twoOptions != true">
+            <a class = "material-link" ng-click="saveMaterial(flyer)">
+              <div class = "material-element col-md-4">
+                <div class = "object-container">
+                  <div class = "image-container">
+                  <div class = "hover-overlay"></div>
+                  <img src = "{{flyer.thumbnailLink}}" />
+                </div>
+                <div class= "name-container">
+                 <h4>{{flyer.name}}</h4>
+                </div>
+              </div>
+              </div>
+            </a>
           </div>
+          <div ng-if="flyer.twoOptions == true">
+              <div class = "material-element col-md-4">
+                <div class = "object-container">
+                  <div class = "image-container">
+                  <div class = "hover-overlay"></div>
+                  <img src = "{{flyer.thumbnailLink}}" />
+                  <div class="buttons overlay-buttons ">
+                      <a class= "overlay-button" mg-click="saveMaterial(flyer)"> Default </a>
+                      <a class= "overlay-button" href="saveMaterial(flyer)"> {{flyer.secondaryButtonDescription}} </a>
+                  </div>
+
+                </div>
+                <div class= "name-container">
+                 <h4>{{flyer.name}}</h4>
+                </div>
+              </div>
+              </div>
           </div>
-        </a>
-      </div>
-      </div>
-    </uib-tab>
-  </uib-tabset>
-    <div ng-show="isHomePage">
+        </div>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ng-show="isHomePage">
     <div class = "container-fluid" style="margin:0!important; padding: 0!important">
       <div class = "background-container">
         <img class = "home-background" src="../img/home_background.png" />

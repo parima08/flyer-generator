@@ -268,6 +268,28 @@ button.viewAllArticles{
 }
 
 
+.overlay-buttons {
+    opacity: 0;
+    z-index: 100;
+    position: absolute;
+    top: 180px;
+    margin: 0 auto;
+    left: 50%;
+    width: 90%;
+    transform: translateX(-50%);
+}
+
+.object-container:hover .overlay-buttons{
+	opacity: 1;
+}
+
+.overlay-buttons .overlay-button{
+	display: block;
+	margin: 0 auto;
+    margin-top: 20px;
+    width: 80%;
+}
+
 .object-container:before {
     content: '';
     z-index: 9;
@@ -442,6 +464,32 @@ button.viewAllArticles{
   -ms-user-select: none;
   user-select: none;
 }
+
+.button-option {
+  position: absolute;
+  width: 500px;
+  left:0;
+  top: 180px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.button-option a {
+  width: 200px;
+  padding: 12px 48px;
+  text-align: center;
+  color: white;
+  border: solid 2px white;
+  z-index: 1;
+}
+
+.container:hover .button {
+  opacity: 1;
+}
+
+
+
 
 /*background: #304352;  
 background: -webkit-linear-gradient(to right, #d7d2cc, #304352);   

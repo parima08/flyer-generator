@@ -6,15 +6,27 @@ app.controller('HomeController', HomeController);
 //TBD: CREATE A FACTORY FOR VARIOUS SIZES 
 //OR A CALCULATOR FROM FEET INTO PIXELS. 
 
-app.factory('pageDetails', function(){
-	var pageDetails = {}; 
-	pageDetails.dharmayatra = {
-		spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg", 
+app.factory('assetSize', function(){
+	var assetSize = {}; 
+	assetSize.flyers = {
 		thumbnailWidth: 200, 
 		thumbnailHeight: 300, 
 		canvasWidth: 500, 
 		canvasHeight: 693
-	}; 
+	}
+	assetSize.bannerSmall = {};
+	assetSize.bannerBig = {};
+	assetSize.standee = {};
+	assetSize.invitation = {}; 
+	return assetSize; 
+}); 
+
+//pass in assetSize into pageDetails? 
+app.factory('pageDetails', ['assetSize', function(assetSize){
+	var pageDetails = {}; 
+	pageDetails.dharmayatra = Object.assign({
+		spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg", 
+	}, assetSize.flyers); 
 	pageDetails.banners = {
 		spreadsheetId: "1ZJfpP4N5f6kbFj93Xhj0ptMLkqlcIeapsdKiLRDcFq8", 
 		thumbnailWidth: 200, 
@@ -40,7 +52,7 @@ app.factory('pageDetails', function(){
 		canvasHeight: 693
 	}; 
  	return pageDetails; 
- }); 
+ }]); 
 
 
 
@@ -121,8 +133,12 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var grabObjectInfo = function(jsonElement, thumbnailWidth, thumbnailHeight){
   		var mObject = {}
   		mObject.name = jsonElement.gsx$name.$t; 
+  		var secondaryLinkPath = ""
   		//var linkId = jsonElement.gsx$linkid.$t; 
   		var awsLinkPath = jsonElement.gsx$awslinkpath.$t; 
+  		if(jsonElement.gsx$secondaryawslinkpath){
+  			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t;
+  		}
   		if(awsLinkPath != ""){
 			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
 			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath; 
@@ -130,6 +146,12 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + thumbnailWidth +  "x" + thumbnailHeight + "/" + awsLinkPath; 
 
 			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
+		}
+		if(secondaryLinkPath != ""){
+			mObject.twoOptions = true; 
+			mObject.secondaryImageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + secondaryLinkPath; 
+			mObject.secondaryButtonDescription = jsonElement.gsx$secondarybuttondescription.$t; 
+			mObject.secondaryWorksheetIndex = jsonElement.gsx$secondaryworksheetindex.$t;
 		}
 		else{
 			console.log("The linkID is empty"); 
@@ -227,10 +249,6 @@ function HomeController($scope, $rootScope, $location,
 		console.log("***********")
 		console.log(locationPath + '/' +  currObj.name.replace(/ /g,"_")); 
 		$location.path(locationPath + '/' +  currObj.name.replace(/ /g,"_")).replace(); 
-		//var newPath = locationPath + "/" + currObj.name.replace(/ /g,"_"); 
-		//$window.location.href = newPath; 
-		//$location.path(newPath).replace(); 
-		//$scope.apply(); 
 	}
 
 	var populatePage = function(section){

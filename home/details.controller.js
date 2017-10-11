@@ -197,7 +197,7 @@ function DetailsController($scope, $routeParams, $location,
         	destinationLanguage = google.elements.transliteration.LanguageCode.HINDI; 
         }
         else{
-        	destinationLanguage = ""; 
+        	destinationLanguage = google.elements.transliteration.LanguageCode.ENGLISH; 
         }
 
         var options = {
