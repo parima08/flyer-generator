@@ -14,8 +14,18 @@ app.factory('assetSize', function(){
 		canvasWidth: 500, 
 		canvasHeight: 693
 	}
-	assetSize.bannerSmall = {};
-	assetSize.bannerBig = {};
+	assetSize.bannerSmall = {
+		thumbnailWidth: 200, 
+		thumbnailHeight: 120, 
+		canvasWidth: 834, 
+		canvasHeight: 500 
+	};
+	assetSize.bannerBig = {
+		thumbnailWidth: 200, 
+		thumbnailHeight: 120, 
+		canvasWidth: 834, 
+		canvasHeight: 500 
+	};
 	assetSize.standee = {};
 	assetSize.invitation = {}; 
 	return assetSize; 
@@ -51,6 +61,13 @@ app.factory('pageDetails', ['assetSize', function(assetSize){
 		canvasWidth: 500, 
 		canvasHeight: 693
 	}; 
+	pageDetails.banners6x10 = Object.assign({
+		spreadsheetId: "1jL69EN-uNUtvmG1rAtKFjLZ7feqblrW-j8rhbu1VhOE"
+	}, assetSize.bannerBig); 
+	pageDetails.banners4x6 = Object.assign({
+		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM"
+
+	}, assetSize.bannerSmall); 
  	return pageDetails; 
  }]); 
 
@@ -280,6 +297,15 @@ function HomeController($scope, $rootScope, $location,
 			$scope.title = "Banner Page";
 			populatePage("banners"); 
 			break;
+		case '/banners6x10':
+			console.log("banners 6x10"); 
+			$scope.title = "Banners 6x10"; 
+			populatePage("banners6x10");
+			break; 
+		case '/banners4x6':
+			$scope.title = "Banners 4x6";
+			populatePage("banners4x6"); 
+			break; 
 		case '/invitations': 
 			$scope.title = "Invitations";
 			populatePage("invitations"); 

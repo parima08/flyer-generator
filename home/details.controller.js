@@ -44,6 +44,7 @@ function DetailsController($scope, $routeParams, $location,
 		objectDetailsService.loadFormInfoAsync(spreadsheetId, $scope.object.worksheetIndex)
 		.then(function(){
 			$scope.formInfo = objectDetailsService.getFormInfo(); 
+			console.log("FORM INFO" + $scope.formInfo.length); 
 			if($scope.language != ""){
 				loadTransliteration(); 
 			}
@@ -118,20 +119,22 @@ function DetailsController($scope, $routeParams, $location,
 		console.log("*******" + canvas.height);
 
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
-			
+			console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
 			field = $scope.formInfo[i]; 
 			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
 			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
 			positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
 			positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
-
+			console.log("fieldId: " + field.id); 
 			if(field.id == "srmd_logo"){
 				addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
-				break; 
+				continue; 
 			}
 			if(field.id == "upload_logo"){
-				addLogoToCanvas(ctx, "blah", positionX, positionY); 
-				break; 
+				//console.log("upload_logo: " + field.value); 
+				src = $("img.upload_logo").attr('src');
+				addLogoToCanvas(ctx, src , positionX, positionY); 
+				continue; 
 			}
 
 			var fontSize = parseInt(field.fontSize) * 3.5; 
@@ -267,9 +270,14 @@ function DetailsController($scope, $routeParams, $location,
     	console.log("End of drawing the logo!"); 
     }
 
-    var addLogoToCanvas = function(ctx, imageFile, x, y){
+    var addLogoToCanvas = function(ctx, src, x, y){
     	logo = new Image(); 
-    	console.log("Adding Logo to the Canvas"); 
+    	console.log("Adding Logo to the Canvas");
+    	//CHANGE THE DIMENSIONS OF THE UPLOADED LOGO
+    	logo.onload = function(){
+    		ctx.drawImage(logo, x, y, 235, 270);
+    	};
+    	logo.src = src; 
     }
 
 

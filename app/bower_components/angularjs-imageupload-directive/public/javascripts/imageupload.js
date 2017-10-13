@@ -2,6 +2,8 @@ angular.module('imageupload', [])
     .directive('image', function($q) {
         'use strict'
 
+        console.log("image upload directive being called");
+
         var URL = window.URL || window.webkitURL;
 
         var getResizeArea = function () {
@@ -64,6 +66,7 @@ angular.module('imageupload', [])
 
         var fileToDataURL = function (file) {
             var deferred = $q.defer();
+            console.log("READING FILE from ImageUpload.js"); 
             var reader = new FileReader();
             reader.onload = function (e) {
                 deferred.resolve(e.target.result);

@@ -272,11 +272,11 @@ button.viewAllArticles{
     opacity: 0;
     z-index: 100;
     position: absolute;
-    top: 180px;
+    top: 50%;
     margin: 0 auto;
     left: 50%;
     width: 90%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .object-container:hover .overlay-buttons{
@@ -288,6 +288,11 @@ button.viewAllArticles{
 	margin: 0 auto;
     margin-top: 20px;
     width: 80%;
+    cursor: pointer;
+}
+
+.overlay-buttons .overlay-button:hover{
+	background-color: black;
 }
 
 .object-container:before {

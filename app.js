@@ -7,7 +7,8 @@ angular.module('myApp', [
   'myApp.version', 
   'ngLoadScript',
   'ui.bootstrap', 
-   'ngCookies'
+   'ngCookies', 
+   'imageupload'
 ]).config(config)
 .run(run); 
 
@@ -51,7 +52,7 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
 
       //DETAILS 
       var subpages = ['/dharmayatra', '/home', '/invitations', 
-                      '/banners', '/special-occasions', 
+                      '/banners', '/banners6x10', '/banners4x6', '/special-occasions', 
                       '/general-flyers', '/social-media', '/emailers', 
                       '/backdrops', '/standees',
                       '/srlc-flyers', '/srlc-banners', 
