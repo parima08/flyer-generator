@@ -6,6 +6,8 @@ app.controller('HomeController', HomeController);
 //TBD: CREATE A FACTORY FOR VARIOUS SIZES 
 //OR A CALCULATOR FROM FEET INTO PIXELS. 
 
+
+
 app.factory('assetSize', function(){
 	var assetSize = {}; 
 	assetSize.flyers = {
@@ -14,15 +16,18 @@ app.factory('assetSize', function(){
 		canvasWidth: 500, 
 		canvasHeight: 693
 	}
-	assetSize.bannerSmall = {
+	//6x10; 
+	assetSize.bannerBig = {
 		thumbnailWidth: 200, 
 		thumbnailHeight: 120, 
 		canvasWidth: 834, 
 		canvasHeight: 500 
 	};
-	assetSize.bannerBig = {
-		thumbnailWidth: 200, 
-		thumbnailHeight: 120, 
+
+	//4x6
+	assetSize.bannerSmall = {
+		thumbnailWidth: 499.8, 
+		thumbnailHeight: 333.2, 
 		canvasWidth: 834, 
 		canvasHeight: 500 
 	};
@@ -66,12 +71,20 @@ app.factory('pageDetails', ['assetSize', function(assetSize){
 	}, assetSize.bannerBig); 
 	pageDetails.banners4x6 = Object.assign({
 		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM"
-
 	}, assetSize.bannerSmall); 
+
+	pageDetails.srlcFlyers = Object.assign({spreadsheetId: }, assetSize.flyers)
  	return pageDetails; 
  }]); 
 
-
+app.service("createAssetSize", function(width, height){
+	var ratio = 83.3; 
+	var thumbnailRatio = ; 
+	var canvasHeight = height * ratio; 
+	var canvasWidth = width *ratio; 
+	var thumbnailHeight =; 
+	var thumbnailWidth =;  
+});
 
 app.service("objectDetailsService", function($http, $q, $sce){
 	var jsonData = []; 
