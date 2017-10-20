@@ -87,12 +87,13 @@ app.service('articleDetailsService', function($http, $q, $sce){
 }); 
 
 ArticlesController.$inject = ['$scope', '$rootScope', '$location', '$http', 
-						'$sce', 'articleDetailsService', 'pageDetails', '$routeParams']; 
+						'$sce', 'articleDetailsService', 'subpageDetails', '$routeParams']; 
 function ArticlesController($scope, $rootScope, $location, 
-	$http, $sce, articleDetailsService, pageDetails, $routeParams){
+	$http, $sce, articleDetailsService, pageDetails, $routeParams, subpageDetails){
 	console.log("Articles Controller"); 
 	$scope.title = "Articles Page";
-	var spreadsheetId = pageDetails['articles'].spreadsheetId;
+	//var spreadsheetId = pageDetails['articles'].spreadsheetId;
+	var spreadsheetId = pageDetails[$location.path()].spreadsheetId; 
 	console.log("SpreadsheetId: " + spreadsheetId); 
 	console.log("LOCATION PATH"); 
 	

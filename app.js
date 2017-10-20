@@ -12,8 +12,8 @@ angular.module('myApp', [
 ]).config(config)
 .run(run); 
 
-config.$inject = ['$routeProvider', '$locationProvider', '$sceDelegateProvider'];
-function config($routeProvider, $locationProvider, $sceDelegateProvider){
+config.$inject = ['$routeProvider', '$locationProvider', '$sceDelegateProvider', 'subpageDetailsProvider'];
+function config($routeProvider, $locationProvider, $sceDelegateProvider, subpageDetailsProvider){
 	$locationProvider.hashPrefix('');
   $sceDelegateProvider.resourceUrlWhitelist(['**']);
 
@@ -51,12 +51,13 @@ function config($routeProvider, $locationProvider, $sceDelegateProvider){
         .otherwise({ redirectTo: '/home' });; 
 
       //DETAILS 
-      var subpages = ['/dharmayatra', '/home', '/invitations', 
-                      '/banners', '/banners6x10', '/banners4x6', '/special-occasions', 
-                      '/general-flyers', '/social-media', '/emailers', 
-                      '/backdrops', '/standees',
-                      '/srlc-flyers', '/srlc-banners', 
-                      '/srd-flyers']; 
+      var subpages = Object.keys(subpageDetailsProvider.$get()); 
+      // var subpages = ['/dharmayatra', '/home', '/invitations', 
+      //                 '/banners', '/banners6x10', '/banners4x6', '/special-occasions', 
+      //                 '/general-flyers', '/social-media', '/emailers', 
+      //                 '/backdrops', '/standees',
+      //                 '/srlc-flyers', '/srlc-banners', 
+      //                 '/srd-flyers']; 
       for (var i = 0; i < subpages.length; i++) {
         $routeProvider.when(subpages[i], {
             controller: 'HomeController',
@@ -110,6 +111,14 @@ function run($rootScope, $location, googleService, userPersistenceService){
       console.log($rootScope.loggedInUser); 
     }
   });
+
+  //write all the names of the url - and the pageDetails for each one... 
+  //make a factory of subpage - inject it above and also inject into this function. 
+  //then return the pageDetails of the according section - you have to pass in 
+  // the section 
+  //or rather create a factory for all the details and then do a lookup through the calculator here.
+
+
 
 
   $rootScope.$on('$locationChangeSuccess', function() {

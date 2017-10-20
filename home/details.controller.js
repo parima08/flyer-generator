@@ -2,9 +2,9 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 
-					'objectDetailsService', 'pageDetails']; 
+					'objectDetailsService', 'subpageDetails']; 
 function DetailsController($scope, $routeParams, $location, 
-	objectDetailsService, pageDetails){
+objectDetailsService, subpageDetails){
 	console.log("Details Controller"); 
 	var option2 = false;
 	var name = $routeParams.name.replace(/_/g, " "); 
@@ -19,17 +19,23 @@ function DetailsController($scope, $routeParams, $location,
 		.replace(/\//g, ''); 
 	section = camelize(section).replace(/-/g, ""); 
 
-	$scope.pageDetails = pageDetails[section]; 
+	$scope.pageDetails = subpageDetails["/" + section]; 
 
 	//if the page is loading Logos on the page, we can pull supported countries
 	//from ehre
 	$scope.supportedLogoCountries = ["General", "USA", "Canada", "UK"]
-	var spreadsheetId = pageDetails[section]['spreadsheetId']; 
-	var thumbnailWidth = pageDetails[section]['thumbnailWidth']; 
-	var thumbnailHeight = pageDetails[section]['thumbnailHeight']; 
+	
+	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
+	var dimensions = objectDetailsService.calculateAssetSize($scope.pageDetails['width'], $scope.pageDetails['height']); 
+	$scope.pageDetails['thumbnailHeight'] = dimensions.thumbnailHeight;
+	$scope.pageDetails['thumbnailWidth'] = dimensions.thumbnailWidth;
+	$scope.pageDetails['canvasHeight'] = dimensions.canvasHeight; 
+	$scope.pageDetails['canvasWidth'] = dimensions.canvasWidth; 
 	//var radioOptions = pageDetails[section]['radioOptions'];
 	console.log(spreadsheetId); 
-	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, thumbnailWidth, thumbnailHeight)
+	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, 
+												$scope.pageDetails.thumbnailWidth, 
+												$scope.pageDetails.thumbnailHeight) 
 	.then(function(){
 		console.log("loaded"); 				
 		console.log(objectDetailsService.getData()); 

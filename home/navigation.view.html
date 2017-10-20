@@ -27,13 +27,20 @@
         </li>
         <li><a href="#/articles"> Articles </a>
         <li><a href="#/banners">Banners</a></li>
-        <li class="dropdown" uib-dropdown is-open="status.isopen">
-          <a href="#" uib-dropdown-toggle ng-disabled="disabled">Banners <span class="caret"></span></a>
+        <li  uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle>Banners <span class="caret"></span></a>
           <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
             <li role="menuitem"><a href="#/banners4x6">Banners 4x6 </a></li>
             <li role="menuitem"> <a href="#/banners6x10">Banners 6x10</a></li>
           </ul>
         </li>
+        <!-- <li class="dropdown" uib-dropdown is-open="status.isopen">
+          <a href="#" uib-dropdown-toggle ng-disabled="disabled">Banners <span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="#/banners4x6">Banners 4x6 </a></li>
+            <li role="menuitem"> <a href="#/banners6x10">Banners 6x10</a></li>
+          </ul>
+        </li> -->
          <li><a href="#/standees">Standees</a></li>
         <li><a href="#/invitations">Invitations</a></li>
         <li><a href="#/backdrops">Backdrops</a></li>
