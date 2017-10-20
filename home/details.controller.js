@@ -259,7 +259,7 @@ objectDetailsService, subpageDetails){
     	}; 
     	switch($("input[name='srmd_logo']:checked").val()){
     		case $scope.supportedLogoCountries[1]:
-    			srmdLogo.src = "../img/logos/srmd_usa.png"
+    			srmdLogo.src = "../img/logos/srmd_general_eng.png"
     			break; 
     		case $scope.supportedLogoCountries[2]:
     			srmdLogo.src = "../img/logos/srmd_canada.png"
