@@ -93,7 +93,9 @@ function ArticlesController($scope, $rootScope, $location,
 	console.log("Articles Controller"); 
 	$scope.title = "Articles Page";
 	//var spreadsheetId = pageDetails['articles'].spreadsheetId;
-	var spreadsheetId = pageDetails[$location.path()].spreadsheetId; 
+	//var spreadsheetId = pageDetails[$location.path()].spreadsheetId; 
+	//hard coded because it is not a part of the homepage controller
+	var spreadsheetId = "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
 	console.log("SpreadsheetId: " + spreadsheetId); 
 	console.log("LOCATION PATH"); 
 	
