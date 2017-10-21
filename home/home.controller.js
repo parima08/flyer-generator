@@ -347,7 +347,6 @@ function HomeController($scope, $rootScope, $location,
 			$scope.title = "Home Page"; 
 	}
 	else{
-		console.log("THIS IS NOT HOME PAGE"); 
 		var sectionDetails = subpageDetails[$location.path()];
 		if(sectionDetails == "Articles"){
 			//deal with articles

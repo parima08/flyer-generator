@@ -7,6 +7,7 @@ function DetailsController($scope, $routeParams, $location,
 objectDetailsService, subpageDetails){
 	console.log("Details Controller"); 
 	var option2 = false;
+	var convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name);
 	if(name.includes("1")){
@@ -18,6 +19,10 @@ objectDetailsService, subpageDetails){
 		.replace(/[^/]*$/, " ")
 		.replace(/\//g, ''); 
 	section = camelize(section).replace(/-/g, ""); 
+
+	if(section=="invitations"){
+		convertInvitationPDF = true; 
+	}
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
 
@@ -195,9 +200,27 @@ objectDetailsService, subpageDetails){
 	var downloadCanvas = function(){
 		var canvas = $("#canvas")[0];
 		var download = $('#download'); 
-		var img    = canvas.toDataURL("image/jpeg"); 
-		download.attr("href", img);
-		download.attr("download", "flyer.png");
+		if(convertInvitationPDF == true){
+			var imgData = canvas.toDataURL("image/jpeg");
+			console.log("I get here");
+			var pdf = new jsPDF({format: [498, 340]});
+			pdf.internal.scaleFactor = 2
+			pdf.addImage(imgData, 'PNG', 0, 0, 
+				$scope.pageDetails.canvasWidth,
+			 	$scope.pageDetails.canvasHeight);
+			pdf.addPage(); 
+			pdf.addImage(imgData, 'PNG', ($scope.pageDetails.canvasWidth * -.5) - 30, 0, 
+				$scope.pageDetails.canvasWidth,
+			 	$scope.pageDetails.canvasHeight);
+			pdf.save("blah.pdf")
+			download.attr("href", pdf.output('datauri'));
+			//download.attr("download", "flyer.pdf");
+		}
+		else{
+			var img  = canvas.toDataURL("image/jpeg"); 
+			download.attr("href", img);
+			download.attr("download", "flyer.png");
+		}
 	}
 
 	var loadTransliteration = function(){
