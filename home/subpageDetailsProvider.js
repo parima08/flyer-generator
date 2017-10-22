@@ -46,6 +46,27 @@ app.provider('subpageDetails', function(){
 		height: 6,
 	}
 
+	subpages["/srlcflyers"] = {
+		title: "SRLC Flyers",
+		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
+		width: 3, 
+		height: 6,
+	}
+
+	subpages["/srlcbanners"] = {
+		title: "SRLC Banners",
+		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
+		width: 3, 
+		height: 6,
+	}
+
+	subpages["/srlcstandees"] = {
+		title: "SRLC Standee",
+		spreadsheetId: "1PiKOAkctDOLLXIueqfUt4dOYpilpEtuTerMDZXxj6zw",
+		width: 3, 
+		height: 6,
+	}
+
 	this.subpages = subpages; 
 	this.$get = function() {
         return subpages; 
