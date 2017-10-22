@@ -6,6 +6,7 @@ app.controller('ArticlesController', ArticlesController);
 app.service('articleDetailsService', function($http, $q, $sce){
 	var articlesData = []; 
 	var articleDetails = []; 
+	var articleText = [];
 
 	var loadArticleInfoAsync = function(spreadsheetId){
 		console.log("loadArticleInfoAysnc");
@@ -78,14 +79,25 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		return articleInfo; 
   	}
 
-  	var getArticleText = function(articleId){
+  	var loadArticleText = function(articleId){
+  		//var accessToken = gapi.auth.getToken().access_token;
+  		console.log("get here"); 
   		var deffered = $q.defer();
-  		var url = "https://www.googleapis.com/drive/v3/files/" + articleId;
-  		$sce.trustAsResourceUrl(url);  
-  		$http.jsonp(url).then(function(data, status){
-  			var data = data.data; 
-  			console.log(data); 
-  		});
+  		var url = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=txt"
+  		var xhr = new XMLHttpRequest();
+    	xhr.open('GET', url);
+    	xhr.onload = function() {
+	      articleText = xhr.responseText; 
+	      console.log(articleText);
+	      deffered.resolve();
+	    };
+	    xhr.send();
+
+	    return deffered.promise;
+  	}
+
+  	var getArticleText = function(){
+  		return articleText; 
   	}
 
 	return {
@@ -94,6 +106,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		loadArticleDetails: loadArticleDetails,
 		lookupArticleByName: lookupArticleByName, 
 		getArticleDetails: getArticleDetails, 
+		loadArticleText: loadArticleText,
 		getArticleText: getArticleText
 	}
 }); 
@@ -120,7 +133,11 @@ function ArticlesController($scope, $rootScope, $location,
 		var articleName = $routeParams.name.replace(/_/g, " "); 
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
-			$scope.articleText = articleDetailsService.getArticleText($scope.articleDetails.articleSpreadsheetId); 
+			console.log($scope.articleDetails.articleSpreadsheetId);
+			articleDetailsService.loadArticleText($scope.articleDetails.articleSpreadsheetId).then(function(){
+				$scope.articleText = articleDetailsService.getArticleText(); 
+			})
+			//getArticleText($scope.articleDetails.articleSpreadsheetId); 
 		}); 
 	}
 	

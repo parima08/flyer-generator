@@ -493,6 +493,12 @@ button.viewAllArticles{
   opacity: 1;
 }
 
+.article-text{
+	white-space: pre-wrap;
+	user-select: none;
+	width: 50%;
+	background-color: white;
+}
 
 
 
