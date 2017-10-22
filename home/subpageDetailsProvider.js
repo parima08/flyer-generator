@@ -32,6 +32,8 @@ app.provider('subpageDetails', function(){
 		height: 4,
 	}
 
+//SRD -----------------------------------------
+
 	subpages["/srdflyers"] = {
 		title: "SRD Flyers", 
 		spreadsheetId: "1OR8SnYpxaAuhT1j7Cgm_hqYIxw6ry6nr5c6rtJWklNQ",
@@ -46,11 +48,13 @@ app.provider('subpageDetails', function(){
 		height: 6,
 	}
 
-	subpages["/srlcflyers"] = {
-		title: "SRLC Flyers",
+
+//SRLC -----------------------------------------
+	subpages["/srlcposters"] = {
+		title: "SRLC Posters",
 		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
-		width: 3, 
-		height: 6,
+		width: 11, 
+		height: 16,
 	}
 
 	subpages["/srlcbanners"] = {

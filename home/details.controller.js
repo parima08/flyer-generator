@@ -113,22 +113,11 @@ objectDetailsService, subpageDetails){
 
 	var drawImageScaled = function(values, img, canvas) {
 	   	image_ratio = img.height/img.width; 
-	   	//scale_ratio = 2; 
-	   	//canvas_width_shld_be = 500; 
-	   	// canvas_height_shld_be = image_ratio * canvas_width_shld_be; 
-	   	// canvas.style.width = canvas_width_shld_be + "px"; 
-	   	// canvas.style.height = canvas_height_shld_be + "px"; 
-	   	// canvas.width = canvas_width_shld_be * scale_ratio; 
-	   	// canvas.height = canvas_height_shld_be * scale_ratio; 
 	   	ctx = canvas.getContext('2d'); 
-	   	ctx.scale(scale_ratio, scale_ratio); 
 		ctx.imageSmoothingEnabled = true;
-		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
-		console.log("*******" + img.width); 
-		console.log("*******" + img.height); 
-		console.log("*******" + canvas.width);
-		console.log("*******" + canvas.height);
-
+		var image_width = img.width; 
+		var image_height = img.height; 
+		ctx.drawImage(img, 0,0, image_width, image_height, 0, 0, canvas.width, canvas.height); 
 		for(var i = 0; i <  $scope.formInfo.length; i++) {
 			console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
 			field = $scope.formInfo[i]; 
@@ -195,14 +184,14 @@ objectDetailsService, subpageDetails){
 	var resizeCanvas = function(canvas){
 		canvas_width_shld_be= $scope.pageDetails.canvasWidth; 
 		canvas_height_shld_be = $scope.pageDetails.canvasHeight;
-		scale_ratio = 4;  
+		scale_ratio = 7;  
 		//canvas_height_shld_be = image_ratio * canvas_width_shld_be; 
 	   	canvas.style.width = canvas_width_shld_be + "px"; 
 	   	canvas.style.height = canvas_height_shld_be + "px"; 
 	   	canvas.width = canvas_width_shld_be * scale_ratio; 
 	   	canvas.height = canvas_height_shld_be * scale_ratio;
 	   	ctx = canvas.getContext('2d'); 
-	   	ctx.scale(.25, .25);
+	   	//ctx.scale((1/6), (1/6));
 	   	//ctx.scale(scale_ratio, scale_ratio);  
 	}
 
@@ -213,7 +202,7 @@ objectDetailsService, subpageDetails){
 			var imgData = canvas.toDataURL("image/jpeg");
 			console.log("I get here");
 			var pdf = new jsPDF({format: [498, 340]});
-			pdf.internal.scaleFactor = 2
+			pdf.internal.scaleFactor = 2;
 			pdf.addImage(imgData, 'PNG', 0, 0, 
 				$scope.pageDetails.canvasWidth,
 			 	$scope.pageDetails.canvasHeight);

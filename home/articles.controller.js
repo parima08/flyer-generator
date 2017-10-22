@@ -71,10 +71,21 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
 		articleInfo.articleDetailsLink = articleInfo.name.replace(/ /g,"_"); 
 		if(articleInfo.articleLink){
-			var id = articleInfo.articleLink.split("id=")[1]
+			var id = articleInfo.articleLink.split("id=")[1]; 
+			articleInfo.articleSpreadsheetId = id; 
 			articleInfo.iframeLink = "https://drive.google.com/file/d/" + id + "/preview"; 
 		}
 		return articleInfo; 
+  	}
+
+  	var getArticleText = function(articleId){
+  		var deffered = $q.defer();
+  		var url = "https://www.googleapis.com/drive/v3/files/" + articleId;
+  		$sce.trustAsResourceUrl(url);  
+  		$http.jsonp(url).then(function(data, status){
+  			var data = data.data; 
+  			console.log(data); 
+  		});
   	}
 
 	return {
@@ -82,7 +93,8 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		getArticlesData: getArticlesData,
 		loadArticleDetails: loadArticleDetails,
 		lookupArticleByName: lookupArticleByName, 
-		getArticleDetails: getArticleDetails 
+		getArticleDetails: getArticleDetails, 
+		getArticleText: getArticleText
 	}
 }); 
 
@@ -107,7 +119,8 @@ function ArticlesController($scope, $rootScope, $location,
 	else{
 		var articleName = $routeParams.name.replace(/_/g, " "); 
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
-			$scope.articleDetails = articleDetailsService.getArticleDetails();	
+			$scope.articleDetails = articleDetailsService.getArticleDetails();
+			$scope.articleText = articleDetailsService.getArticleText($scope.articleDetails.articleSpreadsheetId); 
 		}); 
 	}
 	
