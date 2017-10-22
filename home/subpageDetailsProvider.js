@@ -32,6 +32,20 @@ app.provider('subpageDetails', function(){
 		height: 4,
 	}
 
+	subpages["/srdflyers"] = {
+		title: "SRD Flyers", 
+		spreadsheetId: "1OR8SnYpxaAuhT1j7Cgm_hqYIxw6ry6nr5c6rtJWklNQ",
+		width: 11, 
+		height: 16,
+	}
+
+	subpages["/srdstandees"] = {
+		title: "SRD Standees",
+		spreadsheetId: "1RyIVJyR-KR4g3PFdld-oy13K-GcXCtufFye5RM0Su9I",
+		width: 3, 
+		height: 6,
+	}
+
 	this.subpages = subpages; 
 	this.$get = function() {
         return subpages; 

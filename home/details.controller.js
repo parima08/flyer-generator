@@ -7,7 +7,7 @@ function DetailsController($scope, $routeParams, $location,
 objectDetailsService, subpageDetails){
 	console.log("Details Controller"); 
 	var option2 = false;
-	var convertInvitationPDF = false; 
+	$scope.convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name);
 	if(name.includes("1")){
@@ -21,7 +21,7 @@ objectDetailsService, subpageDetails){
 	section = camelize(section).replace(/-/g, ""); 
 
 	if(section=="invitations"){
-		convertInvitationPDF = true; 
+		$scope.convertInvitationPDF = true; 
 	}
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
@@ -148,11 +148,20 @@ objectDetailsService, subpageDetails){
 				continue; 
 			}
 
+			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
+			var loadFont = function(font) {
+			  WebFont.load({
+			    google: {
+			      families: [ctx.font]
+			    }
+			  });
+			};
+
 			var fontSize = parseInt(field.fontSize) * 3.5; 
 			var fontWeight = field.fontWeight; 
 			console.log(fontSize); 
 			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
-			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
+
 			ctx.fillStyle = field.fontColor; 
 			ctx.textAlign = field.textAlign; 
 			ctx.lineHeight = ctx.font; 
@@ -200,7 +209,7 @@ objectDetailsService, subpageDetails){
 	var downloadCanvas = function(){
 		var canvas = $("#canvas")[0];
 		var download = $('#download'); 
-		if(convertInvitationPDF == true){
+		if($scope.convertInvitationPDF == true){
 			var imgData = canvas.toDataURL("image/jpeg");
 			console.log("I get here");
 			var pdf = new jsPDF({format: [498, 340]});
