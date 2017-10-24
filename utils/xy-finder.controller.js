@@ -33,10 +33,12 @@ function XyCoordController($scope, $rootScope, subpageDetails, objectDetailsServ
 		$('.imageFindXy').append(img); 
 		//var topOffset = $('.imageFindXy img').offset().top; 
 		//console.log(topOffset); 
+		//var rectDimensions = $('.imageFindXy img').getBoundingClientRect();
+		var topOffset = $('.imageFindXy img').offset().top
 		$('.imageFindXy img').on("mousemove", function(e){
 			//console.log("x: " + e.clientX, "y: " + e.clientY)
 			//console.log(e); 
-			var yCoords = e.pageY - 166; 
+			var yCoords = e.pageY - topOffset; 
 			$('.imageCoords').html("<h1>x: " + e.pageX +  " y: " + yCoords + "</h1>"); 
 		}); 
 	}

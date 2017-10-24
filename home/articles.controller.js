@@ -83,11 +83,15 @@ app.service('articleDetailsService', function($http, $q, $sce){
   		//var accessToken = gapi.auth.getToken().access_token;
   		console.log("get here"); 
   		var deffered = $q.defer();
-  		var url = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=txt"
+  		//var articleId2 = "1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM"
+  		var articleId2 = "1wiImif3tsB1crvS95P9gI29Iy0P_AnrJ1B5t-mW_QCA"
+  		var format = "txt"
+  		var url = "https://docs.google.com/document/d/"+articleId2+"/export?format=pdf"
   		var xhr = new XMLHttpRequest();
     	xhr.open('GET', url);
     	xhr.onload = function() {
-	      articleText = xhr.responseText; 
+	      //articleText = to_unicode(xhr.responseText); 
+	      
 	      console.log(articleText);
 	      deffered.resolve();
 	    };
@@ -100,6 +104,10 @@ app.service('articleDetailsService', function($http, $q, $sce){
   		return articleText; 
   	}
 
+  //var _0x9e25=["\x66\x6F\x6E\x74\x5F\x6E\x6D","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x76\x61\x6C\x75\x65","\x73\x65\x6C\x65\x63\x74\x65\x64\x49\x6E\x64\x65\x78","\x6F\x70\x74\x69\x6F\x6E\x73","\x67\x6F\x70\x69\x6B\x61","\x66\x6F\x6E\x74\x46\x61\x6D\x69\x6C\x79","\x73\x74\x79\x6C\x65","\x6C\x65\x67\x61\x63\x79\x5F\x74\x65\x78\x74","\x42\x20\x42\x68\x61\x72\x61\x74\x69\x20\x47\x6F\x70\x69\x6B\x61\x54\x77\x6F","\x6B\x72\x69\x73\x68\x6E\x61","\x4B\x72\x69\x73\x68\x6E\x61","\x73\x68\x79\x61\x6D\x61","\x41\x6B\x72\x75\x74\x69\x47\x75\x6A\x53\x68\x79\x61\x6D\x61"];
+   //var from_unicode = function(){ var _0x1067x2=document[_0x9e25[1]](_0x9e25[0]),_0x1067x2=_0x1067x2[_0x9e25[4]][_0x1067x2[_0x9e25[3]]][_0x9e25[2]];_0x9e25[5]== _0x1067x2&& (document[_0x9e25[1]](_0x9e25[8])[_0x9e25[7]][_0x9e25[6]]= _0x9e25[9],Convert_Unicode_to_Gopika());_0x9e25[10]== _0x1067x2&& (document[_0x9e25[1]](_0x9e25[8])[_0x9e25[7]][_0x9e25[6]]= _0x9e25[11],Convert_Unicode_to_Krishna());_0x9e25[12]== _0x1067x2&& (document[_0x9e25[1]](_0x9e25[8])[_0x9e25[7]][_0x9e25[6]]= _0x9e25[13],Convert_Unicode_to_Shyama())}
+   //var to_unicode = function()
+   //{var _0x1067x2=document[_0x9e25[1]](_0x9e25[0]),_0x1067x2=_0x1067x2[_0x9e25[4]][_0x1067x2[_0x9e25[3]]][_0x9e25[2]];_0x9e25[5]== _0x1067x2&& convert_to_unicode();_0x9e25[10]== _0x1067x2&& convert_krishna_to_unicode();_0x9e25[12]== _0x1067x2&& convert_Shyama_to_unicode()}
 	return {
 		loadArticleInfoAsync: loadArticleInfoAsync, 
 		getArticlesData: getArticlesData,
@@ -131,11 +139,24 @@ function ArticlesController($scope, $rootScope, $location,
 	}
 	else{
 		var articleName = $routeParams.name.replace(/_/g, " "); 
+		var canvas = $('.canvas-container'); 
+
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
 			console.log($scope.articleDetails.articleSpreadsheetId);
 			articleDetailsService.loadArticleText($scope.articleDetails.articleSpreadsheetId).then(function(){
-				$scope.articleText = articleDetailsService.getArticleText(); 
+					$scope.articleText = articleDetailsService.getArticleText(); 
+					var url = "https://drive.google.com/uc?id=0B8Yv5CEFlJZtV2c0bUNQN3FRSzg"
+					PDFJS.getDocument(url).then(function(pdf){
+						console.log("GET HERE!!!");
+					});
+
+					// var pdf = new Image(); 
+			  //   	console.log("ADDED SRMD LOGO"); 
+			  //   	srmdLogo.onload = function(){
+			  //   	ctx.drawImage(pdf, x, y, 235, 270);
+			  //   	pdf.src = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=pdf"; 
+		    	//}; 
 			})
 			//getArticleText($scope.articleDetails.articleSpreadsheetId); 
 		}); 
@@ -246,6 +267,10 @@ function ArticlesController($scope, $rootScope, $location,
 		var closeView = $('.viewAllArticles').css("display", "none"); 
 		//$event.currentTarget.style.background = "none";
 	}
+
+
+  
+        
 
 	//https://docs.google.com/forms/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/viewform?usp=pp_url&entry.1745447166=hello&entry.2114019815&entry.550354372&entry.2009048180
 

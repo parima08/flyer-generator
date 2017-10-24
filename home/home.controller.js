@@ -179,7 +179,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var lookupObjectByNameAsync = function(spreadsheetId, name, thumbnailWidth, thumbnailHeight){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
-  		$sce.trustAsResourceUrl(url)
+  		$sce.trustAsResourceUrl(url);
   		$http.jsonp(url)
 			.then(function(data, status){
 				data = data.data		

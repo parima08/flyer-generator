@@ -10,12 +10,14 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg", 
 		width: 11, 
 		height: 16,
+		scale: 10
 	};	
 	subpages["/invitations"] = {
 		title: "Invitations",
 		spreadsheetId: "15bLgpQIlL-o1HaO34WOer5rHO2I7MzA_0-h8mi4togo",
 		width: 6, 
-		height: 4
+		height: 4, 
+		scale: 4
 	};
 
 	subpages["/banners"] = {};
@@ -24,12 +26,14 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM",
 		width: 10, 
 		height: 6,
+		scale: 20
 	};
 	subpages["/banners4x6"] = {
 		title: "Banners 4x6",
 		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM",
 		width: 6, 
 		height: 4,
+		scale: 20
 	}
 
 //SRD -----------------------------------------
