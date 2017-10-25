@@ -141,12 +141,14 @@ objectDetailsService, subpageDetails, $q){
 				if(field.id == "upload_logo"){
 					//console.log("upload_logo: " + field.value); 
 					src = $("img.upload_logo").attr('src');
-					addLogoToCanvas(ctx, src , positionX, positionY); 
-					continue; 
+					if(src){
+						addLogoToCanvas(ctx, src , positionX, positionY); 
+						continue; 
+					}
 				}
-				// if(field.id == "swamivatsalya"){
-				// 	console.log("This is working");
-				// }
+				if(field.id == "swamivatsalya"){
+					values[field.fieldName] = $('input[name="swamivatsalya"]:checked').val()
+				}
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
 				var fontWeight = field.fontWeight; 
 				console.log(fontSize); 
