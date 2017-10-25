@@ -525,6 +525,25 @@ button.viewAllArticles{
 }
 
 
+.footer,
+.push {
+  height: 50px;
+}
+
+.all-content{
+	margin: 0 auto -50px;
+	min-height: 100%;
+}
+
+.footer {
+  background-color: #bcc1c7;
+  text-align: center;
+  padding: 10px;
+  line-height: 30px;
+  font-size: 15px;
+}
+
+
 
 
 

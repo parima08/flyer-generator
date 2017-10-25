@@ -29,11 +29,14 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-    <div class="container-fluid" style="margin: 0!important; padding: 0!important; ">
+    <div class="container-fluid all-content" style="margin: 0!important; padding: 0!important; ">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
             <!-- <div>Logged In</div> -->
             <div ng-view></div>
+      <div class="push"></div>
     </div>
+
+    <div class = "footer"><a href="https://drive.google.com/open?authuser=0&id=1VKcPoxcNzXZSUvQ3569part80pgOrzAlUaGdzbbReeQ">If you are experiencing trouble, click here</a></div>
 
 
 <!--   <div>Angular seed app: v<span app-version></span></div> -->
