@@ -20,7 +20,7 @@ app.provider('subpageDetails', function(){
 		scale: 4
 	};
 
-	subpages["/banners"] = {};
+	// subpages["/banners"] = {};
 	subpages["/banners6x10"] = {
 		title: "Banners 6x10",
 		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM",
@@ -43,6 +43,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1OR8SnYpxaAuhT1j7Cgm_hqYIxw6ry6nr5c6rtJWklNQ",
 		width: 11, 
 		height: 16,
+		scale: 10,
 	}
 
 	subpages["/srdstandees"] = {
@@ -50,6 +51,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1RyIVJyR-KR4g3PFdld-oy13K-GcXCtufFye5RM0Su9I",
 		width: 3, 
 		height: 6,
+		scale: 20
 	}
 
 

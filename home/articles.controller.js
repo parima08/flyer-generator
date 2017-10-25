@@ -125,10 +125,11 @@ function ArticlesController($scope, $rootScope, $location,
 	$http, $sce, articleDetailsService, pageDetails, $routeParams, subpageDetails){
 	console.log("Articles Controller"); 
 	$scope.title = "Articles Page";
-	//var spreadsheetId = pageDetails['articles'].spreadsheetId;
-	//var spreadsheetId = pageDetails[$location.path()].spreadsheetId; 
+
 	//hard coded because it is not a part of the homepage controller
-	var spreadsheetId = "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
+	//var spreadsheetId = "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
+	
+	var spreadsheetId = "1h0jROmLgXgsBg-9kKkLDSNldXnHQEnPlodQP_X2Ul74"
 	console.log("SpreadsheetId: " + spreadsheetId); 
 	console.log("LOCATION PATH"); 
 	
@@ -144,20 +145,47 @@ function ArticlesController($scope, $rootScope, $location,
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
 			console.log($scope.articleDetails.articleSpreadsheetId);
-			articleDetailsService.loadArticleText($scope.articleDetails.articleSpreadsheetId).then(function(){
-					$scope.articleText = articleDetailsService.getArticleText(); 
-					var url = "https://drive.google.com/uc?id=0B8Yv5CEFlJZtV2c0bUNQN3FRSzg"
-					PDFJS.getDocument(url).then(function(pdf){
-						console.log("GET HERE!!!");
-					});
+			var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
+			PDFJS.getDocument(url).then(function(pdf){
+				getPage();
+			    function getPage() {
+			        pdf.getPage(currentPage).then(function(page) {
+			            console.log("Printing " + currentPage);
+			            var viewport = page.getViewport(scale);
+			            var canvas = document.createElement('canvas') , ctx = canvas.getContext('2d');
+			            var renderContext = { canvasContext: ctx, viewport: viewport };
+			            canvas.height = viewport.height;
+			            canvas.width = viewport.width;
+			            page.render(renderContext).then(function() {
+			                pages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+			                heights.push(height);
+			                height += canvas.height;
+			                if (width < canvas.width) width = canvas.width;
+			                if (currentPage < pdf.numPages) {
+			                    currentPage++;
+			                    getPage();
+			                }
+			                else {
+			                    draw();
+			                }
+			            });
+			        });
+			    }
+			});
 
-					// var pdf = new Image(); 
-			  //   	console.log("ADDED SRMD LOGO"); 
-			  //   	srmdLogo.onload = function(){
-			  //   	ctx.drawImage(pdf, x, y, 235, 270);
-			  //   	pdf.src = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=pdf"; 
-		    	//}; 
-			})
+
+			// articleDetailsService.loadArticleText($scope.articleDetails.articleSpreadsheetId).then(function(){
+			// 		$scope.articleText = articleDetailsService.getArticleText(); 
+			// 		var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
+			// 		//var url = "https://drive.google.com/uc?id=0B8Yv5CEFlJZtV2c0bUNQN3FRSzg"
+
+			// 		// var pdf = new Image(); 
+			//   //   	console.log("ADDED SRMD LOGO"); 
+			//   //   	srmdLogo.onload = function(){
+			//   //   	ctx.drawImage(pdf, x, y, 235, 270);
+			//   //   	pdf.src = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=pdf"; 
+		 //    	//}; 
+			// })
 			//getArticleText($scope.articleDetails.articleSpreadsheetId); 
 		}); 
 	}
