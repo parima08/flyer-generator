@@ -121,69 +121,66 @@ objectDetailsService, subpageDetails, $q){
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
 		ctx.scale($scope.pageDetails.scale, $scope.pageDetails.scale);
-		
-		
-		for(var i = 0; i <  $scope.formInfo.length; i++) {
-			console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
-			field = $scope.formInfo[i]; 
-			console.log("THE SCALE FACTOR IS: "); 
-			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
-			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
-			positionX = field.positionX; //* $scope.pageDetails.scale; 
-			positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
-			//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
-			//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
-			console.log("fieldId: " + field.id); 
-			if(field.id == "srmd_logo"){
-				addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
-				continue; 
-			}
-			if(field.id == "upload_logo"){
-				//console.log("upload_logo: " + field.value); 
-				src = $("img.upload_logo").attr('src');
-				addLogoToCanvas(ctx, src , positionX, positionY); 
-				continue; 
-			}
-			// if(field.id == "swamivatsalya"){
-			// 	$('input[name=""]').value(); 
-			// }
+		console.log("*******************"); 
+		console.log($scope.formInfo); 
+			for(var i = 0; i <  $scope.formInfo.length; i++) {
+				console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
+				field = $scope.formInfo[i]; 
+				console.log("THE SCALE FACTOR IS: "); 
+				console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
+				console.log(canvas.height/ $scope.pageDetails.canvasHeight);
+				positionX = field.positionX; //* $scope.pageDetails.scale; 
+				positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
+				//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
+				//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
+				console.log("fieldId: " + field.id); 
+				if(field.id == "srmd_logo"){
+					addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
+					continue; 
+				}
+				if(field.id == "upload_logo"){
+					//console.log("upload_logo: " + field.value); 
+					src = $("img.upload_logo").attr('src');
+					addLogoToCanvas(ctx, src , positionX, positionY); 
+					continue; 
+				}
+				// if(field.id == "swamivatsalya"){
+				// 	console.log("This is working");
+				// }
+				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
+				var fontWeight = field.fontWeight; 
+				console.log(fontSize); 
+				ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 
-			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
-			
+				ctx.fillStyle = field.fontColor; 
+				ctx.textAlign = field.textAlign; 
+				ctx.lineHeight = ctx.font; 
+				ctx.letterSpacing = field.letterSpacing + "px";
+				console.log("letterspacing: " + field.letterSpacing); 
+				//console.log(field.fieldName); 
+				//console.log(values[field.fieldName]);
 
-			var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
-			var fontWeight = field.fontWeight; 
-			console.log(fontSize); 
-			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
-
-			ctx.fillStyle = field.fontColor; 
-			ctx.textAlign = field.textAlign; 
-			ctx.lineHeight = ctx.font; 
-			ctx.letterSpacing = field.letterSpacing + "px";
-			console.log("letterspacing: " + field.letterSpacing); 
-			console.log(field.fieldName); 
-			console.log(values[field.fieldName]);
-
-			if(field.endPositionX){
-				var endPositionX = field.endPositionX; 
-				if(values[field.fieldName]){
-					ctx.fillText(values[field.fieldName], positionX, positionY, endPositionX);
+				if(field.endPositionX){
+					var endPositionX = field.endPositionX; 
+					if(values[field.fieldName]){
+						ctx.fillText(values[field.fieldName], positionX, positionY, endPositionX);
+					}
+					else{
+						ctx.fillText(field.placeholderText, positionX, positionY, endPositionX);
+					}
 				}
 				else{
-					ctx.fillText(field.placeholderText, positionX, positionY, endPositionX);
+					if(values[field.fieldName]){
+						ctx.fillText(values[field.fieldName], positionX, positionY);
+					}
+					else{
+						ctx.fillText(field.placeholderText, positionX, positionY);
+					}
 				}
-			}
-			else{
-				if(values[field.fieldName]){
-					ctx.fillText(values[field.fieldName], positionX, positionY);
-				}
-				else{
-					ctx.fillText(field.placeholderText, positionX, positionY);
-				}
+
+				
 			}
 
-			
-		}
 	}
 
 	var resizeCanvas = function(canvas){
@@ -348,19 +345,6 @@ objectDetailsService, subpageDetails, $q){
     	logo.src = src; 
     }
 
-  //   var loadFont = function(font){
-  //   	var deffered = $q.defer(); 
-  //   	console.log("THE FONT IS: " + font); 
-		// var loadFont = function(font) {
-		//   WebFont.load({
-		//     google: {
-		//       families: [font]
-		//     }
-		//   });
-		// };
-  //   	deffered.resolve(); 
-  //   	return deffered.promise; 
-  //   }
 
     function loadFonts(fonts){
 	 console.log("FONTS ARE: " + fonts); 

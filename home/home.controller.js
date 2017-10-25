@@ -252,6 +252,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
 				formFieldInfo.id = formFieldInfo.fieldName.toLowerCase().replace(/ /g,"_").toString();
+				console.log("FieldName is: " + formFieldInfo.id);
 				if(data.feed.entry[i].gsx$letterspacing){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t; 
 				}
@@ -265,6 +266,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				// if(data.feed.entry[i].gsx$additionalrequiredtext){
 				// 	formFieldInfo.additionalRequiredText = data.feed.entry[i].gsx$additionalrequiredtext.$t
 				// }
+				console.log("***********************");
+				console.log(formFieldInfo.toString());
 				formInfo.push(formFieldInfo);
 			}
 			deffered.resolve();
