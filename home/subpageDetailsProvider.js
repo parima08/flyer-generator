@@ -61,6 +61,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
 		width: 11, 
 		height: 16,
+		scale: 10
 	}
 
 	subpages["/srlcbanners"] = {
@@ -68,6 +69,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
 		width: 3, 
 		height: 6,
+		scale: 10
 	}
 
 	subpages["/srlcstandees"] = {
@@ -75,6 +77,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1PiKOAkctDOLLXIueqfUt4dOYpilpEtuTerMDZXxj6zw",
 		width: 3, 
 		height: 6,
+		scale: 10
 	}
 
 	this.subpages = subpages; 

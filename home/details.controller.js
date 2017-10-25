@@ -28,7 +28,8 @@ objectDetailsService, subpageDetails, $q){
 	$scope.pageDetails.name = name; 
 	//if the page is loading Logos on the page, we can pull supported countries
 	//from ehre
-	$scope.supportedLogoCountries = ["General", "USA", "Canada", "UK"]
+	$scope.supportedLogoCountries = ["General", "USA", "Canada", "UK", 
+					"Hong Kong", "Australia", "Singapore"]
 	
 	
 
@@ -148,6 +149,7 @@ objectDetailsService, subpageDetails, $q){
 				}
 				if(field.id == "swamivatsalya"){
 					values[field.fieldName] = $('input[name="swamivatsalya"]:checked').val()
+					
 				}
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
 				var fontWeight = field.fontWeight; 

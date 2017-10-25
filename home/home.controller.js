@@ -231,6 +231,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var loadFormInfoAsync = function(spreadsheetId, worksheetIndex){
   		var deffered = $q.defer();
   		formInfo = []; 
+  		if(!worksheetIndex){
+  			worksheetIndex = 2; 
+  		}
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/"+ worksheetIndex +
   						"/public/values?alt=json-in-script"
   		$http.jsonp(url)
