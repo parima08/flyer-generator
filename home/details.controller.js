@@ -66,18 +66,7 @@ objectDetailsService, subpageDetails, $q){
 				loadTransliteration(); 
 			}
 			canvasSetup(); 
-
-			// var second_canvas = $('#second_canvas')[0];
-			// var second_ctx = second_canvas.getContext('2d');
 			$('.canvas-container').height($scope.pageDetails.canvasHeight); 
-			// second_ctx.width = $scope.pageDetails.canvasWidth; 
-			// second_ctx.height = $scope.pageDetails.canvasHeight; 
-			// second_ctx.scale(2, 2); 
-			// second_ctx.fillText("HELLO", 100, 100);
-			//second_ctx.setTransform(2, 0, 0, 2, 0, 0);
-			//var second_canvas = document.getElementById('second_canvas');
-			
-
 		});
 	});
 
@@ -114,8 +103,6 @@ objectDetailsService, subpageDetails, $q){
    	var canvasSetup = function(){
    		var canvas = $("#canvas")[0];
 		console.log(canvas); 
-		//var context = canvas.getContext('2d');
-		//context.imageSmoothingEnabled = false;
 		$.each($('#myForm').serializeArray(), function(i, field) {
 		    values[field.name] = field.value;
 		});
@@ -132,72 +119,71 @@ objectDetailsService, subpageDetails, $q){
 	var drawImageScaled = function(values, img, canvas) { 
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
-		var image_width = img.width; 
-		var image_height = img.height; 
-		//ctx.setTransform(2, 0, 0, 2, 0, 0);
-		ctx.drawImage(img, 0,0, image_width, image_height, 0, 0, canvas.width, canvas.height); 
-		ctx.scale($scope.pageDetails.scale, $scope.pageDetails.scale); 
+		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
+		ctx.scale($scope.pageDetails.scale, $scope.pageDetails.scale);
 		
-		loadFont($scope.formInfo[0].font).then(function(){
-			for(var i = 0; i <  $scope.formInfo.length; i++) {
-				console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
-				field = $scope.formInfo[i]; 
-				console.log("THE SCALE FACTOR IS: "); 
-				console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
-				console.log(canvas.height/ $scope.pageDetails.canvasHeight);
-				positionX = field.positionX; //* $scope.pageDetails.scale; 
-				positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
-				//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
-				//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
-				console.log("fieldId: " + field.id); 
-				if(field.id == "srmd_logo"){
-					addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
-					continue; 
-				}
-				if(field.id == "upload_logo"){
-					//console.log("upload_logo: " + field.value); 
-					src = $("img.upload_logo").attr('src');
-					addLogoToCanvas(ctx, src , positionX, positionY); 
-					continue; 
-				}
+		
+		for(var i = 0; i <  $scope.formInfo.length; i++) {
+			console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
+			field = $scope.formInfo[i]; 
+			console.log("THE SCALE FACTOR IS: "); 
+			console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
+			console.log(canvas.height/ $scope.pageDetails.canvasHeight);
+			positionX = field.positionX; //* $scope.pageDetails.scale; 
+			positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
+			//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
+			//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
+			console.log("fieldId: " + field.id); 
+			if(field.id == "srmd_logo"){
+				addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
+				continue; 
+			}
+			if(field.id == "upload_logo"){
+				//console.log("upload_logo: " + field.value); 
+				src = $("img.upload_logo").attr('src');
+				addLogoToCanvas(ctx, src , positionX, positionY); 
+				continue; 
+			}
+			// if(field.id == "swamivatsalya"){
+			// 	$('input[name=""]').value(); 
+			// }
 
-				//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
-				
+			//TBD: LOAD FONTS DYNAMICALLY - FROM GOOGLE FONTS 
+			
 
-				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
-				var fontWeight = field.fontWeight; 
-				console.log(fontSize); 
-				ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
+			var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
+			var fontWeight = field.fontWeight; 
+			console.log(fontSize); 
+			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 
-				ctx.fillStyle = field.fontColor; 
-				ctx.textAlign = field.textAlign; 
-				ctx.lineHeight = ctx.font; 
-				ctx.letterSpacing = field.letterSpacing + "px";
-				console.log("letterspacing: " + field.letterSpacing); 
-				console.log(field.fieldName); 
-				console.log(values[field.fieldName]); 
+			ctx.fillStyle = field.fontColor; 
+			ctx.textAlign = field.textAlign; 
+			ctx.lineHeight = ctx.font; 
+			ctx.letterSpacing = field.letterSpacing + "px";
+			console.log("letterspacing: " + field.letterSpacing); 
+			console.log(field.fieldName); 
+			console.log(values[field.fieldName]);
 
-
-				//if the field name is COUNTRY/RADIO remove it from the list
-				//and add it to the end. 
-				//or maybe we can do the country by the type of file? - if it's a flyer
-
-
+			if(field.endPositionX){
+				var endPositionX = field.endPositionX; 
 				if(values[field.fieldName]){
-					var text; 
-					// if(field.ad ditionalRequiredText){
-					// 	text = field.additionalRequiredText + values[field.fieldName]
-					// }
-					// else{
-					// 	text = values[field.fieldName]
-					// }
-					ctx.fillText(values[field.fieldName], positionX, positionY)
+					ctx.fillText(values[field.fieldName], positionX, positionY, endPositionX);
 				}
 				else{
-					ctx.fillText(field.placeholderText, positionX, positionY)
+					ctx.fillText(field.placeholderText, positionX, positionY, endPositionX);
 				}
 			}
-		});
+			else{
+				if(values[field.fieldName]){
+					ctx.fillText(values[field.fieldName], positionX, positionY);
+				}
+				else{
+					ctx.fillText(field.placeholderText, positionX, positionY);
+				}
+			}
+
+			
+		}
 	}
 
 	var resizeCanvas = function(canvas){
@@ -210,12 +196,7 @@ objectDetailsService, subpageDetails, $q){
 	   	scaled_width = canvas_width_shld_be * (scale_ratio); 
 	   	scaled_height = canvas_height_shld_be * (scale_ratio); 
 	   	canvas.width = scaled_width ; 
-	   	canvas.height = scaled_height;
-	   	ctx = canvas.getContext('2d')
-	   	//ctx.scale(6, 6); 
-	   	//scaleFactor = dpi / 96;
-	   	//ctx.scale((1/6), (1/6));
-	   	//ctx.scale(scale_ratio, scale_ratio);  
+	   	canvas.height = scaled_height;  
 	}
 
 	var downloadCanvas = function(){
@@ -280,20 +261,21 @@ objectDetailsService, subpageDetails, $q){
 
 	var loadTransliteration = function(){
 		if($scope.language !== "english"){
+			console.log("LOADING ANOTHER LANGUAGE")
 			google.load("elements", "1", {
 	    		packages: "transliteration",
-	    		callback: onLoad
+	    		callback: onLoadLanguage
 			});
 		}
 	}
 
-	var onLoad = function() {
+	var onLoadLanguage = function() {
         console.log("Onload"); 
         var destinationLanguage; 
-        if($scope.language ==="Gujarati"){
+        if($scope.language == "gujarati"){
         	destinationLanguage = google.elements.transliteration.LanguageCode.GUJARATI;
         }
-        else if ($scope.language === "Hindi"){
+        else if ($scope.language ==  "hindi"){
         	destinationLanguage = google.elements.transliteration.LanguageCode.HINDI; 
         }
         else{
@@ -366,19 +348,19 @@ objectDetailsService, subpageDetails, $q){
     	logo.src = src; 
     }
 
-    var loadFont = function(font){
-    	var deffered = $q.defer(); 
-    	console.log("THE FONT IS: " + font); 
-		var loadFont = function(font) {
-		  WebFont.load({
-		    google: {
-		      families: [font]
-		    }
-		  });
-		};
-    	deffered.resolve(); 
-    	return deffered.promise; 
-    }
+  //   var loadFont = function(font){
+  //   	var deffered = $q.defer(); 
+  //   	console.log("THE FONT IS: " + font); 
+		// var loadFont = function(font) {
+		//   WebFont.load({
+		//     google: {
+		//       families: [font]
+		//     }
+		//   });
+		// };
+  //   	deffered.resolve(); 
+  //   	return deffered.promise; 
+  //   }
 
     function loadFonts(fonts){
 	 console.log("FONTS ARE: " + fonts); 

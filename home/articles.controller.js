@@ -125,7 +125,8 @@ function ArticlesController($scope, $rootScope, $location,
 	$http, $sce, articleDetailsService, pageDetails, $routeParams, subpageDetails){
 	console.log("Articles Controller"); 
 	$scope.title = "Articles Page";
-
+	var pages = [], heights = [], width = 0, height = 0, currentPage = 1;
+	var scale = .9;
 	//hard coded because it is not a part of the homepage controller
 	//var spreadsheetId = "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"
 	
@@ -152,7 +153,9 @@ function ArticlesController($scope, $rootScope, $location,
 			        pdf.getPage(currentPage).then(function(page) {
 			            console.log("Printing " + currentPage);
 			            var viewport = page.getViewport(scale);
-			            var canvas = document.createElement('canvas') , ctx = canvas.getContext('2d');
+			            // var canvas = document.createElement('canvas'); 
+			            var canvas = $("#articleCanvas")[0];
+			            var ctx = canvas.getContext('2d');
 			            var renderContext = { canvasContext: ctx, viewport: viewport };
 			            canvas.height = viewport.height;
 			            canvas.width = viewport.width;
@@ -161,32 +164,17 @@ function ArticlesController($scope, $rootScope, $location,
 			                heights.push(height);
 			                height += canvas.height;
 			                if (width < canvas.width) width = canvas.width;
-			                if (currentPage < pdf.numPages) {
-			                    currentPage++;
-			                    getPage();
-			                }
+				                if (currentPage < pdf.numPages) {
+				                    currentPage++;
+				                    getPage();
+				                }
 			                else {
-			                    draw();
+			                    draw(canvas, ctx);
 			                }
 			            });
 			        });
 			    }
-			});
-
-
-			// articleDetailsService.loadArticleText($scope.articleDetails.articleSpreadsheetId).then(function(){
-			// 		$scope.articleText = articleDetailsService.getArticleText(); 
-			// 		var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
-			// 		//var url = "https://drive.google.com/uc?id=0B8Yv5CEFlJZtV2c0bUNQN3FRSzg"
-
-			// 		// var pdf = new Image(); 
-			//   //   	console.log("ADDED SRMD LOGO"); 
-			//   //   	srmdLogo.onload = function(){
-			//   //   	ctx.drawImage(pdf, x, y, 235, 270);
-			//   //   	pdf.src = "https://docs.google.com/document/d/1ViQmsD0Dl2Z1RcCNlPLS2rpW2ZHcsU2arEDmx9u3yLM/export?format=pdf"; 
-		 //    	//}; 
-			// })
-			//getArticleText($scope.articleDetails.articleSpreadsheetId); 
+			}); 
 		}); 
 	}
 	
@@ -284,6 +272,15 @@ function ArticlesController($scope, $rootScope, $location,
 		      }
 		    } 
   		}
+	}
+
+	function draw(canvas, ctx) {
+	    //var canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+	    canvas.width = width;
+	    canvas.height = height;
+	    for(var i = 0; i < pages.length; i++)
+	        ctx.putImageData(pages[i], 0, heights[i]);
+	    //document.body.appendChild(canvas);
 	}
 
 	$scope.removeFilter = function(){

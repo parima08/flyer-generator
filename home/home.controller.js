@@ -255,6 +255,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				if(data.feed.entry[i].gsx$letterspacing){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t; 
 				}
+				if(data.feed.entry[i].gsx$endpositionx){
+					formFieldInfo.endPositionX = data.feed.entry[i].gsx$endpositionx.$t; 
+				}
 				console.log(data.feed.entry[i].gsx$letterspacing.$t);
 				if( data.feed.entry[i].gsx$instructions){
 					formFieldInfo.instructions = data.feed.entry[i].gsx$instructions.$t
