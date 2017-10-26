@@ -62,13 +62,23 @@ app.provider('subpageDetails', function(){
 		scale: 10
 	}
 
-	subpages["/srlcbanners"] = {
+	subpages["/srlcbanners3x5"] = {
+		title: "SRLC Banners (3x5)",
+		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
+		width: 5, 
+		height: 3,
+		scale: 10
+	}
+
+	subpages["/srlcbanners4x6"] = {
 		title: "SRLC Banners (4x6)",
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
 		width: 6, 
 		height: 4,
 		scale: 10
 	}
+
+	subpages[/]
 
 	subpages["/srlcstandees"] = {
 		title: "SRLC Standee",
