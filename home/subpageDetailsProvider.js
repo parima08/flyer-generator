@@ -23,7 +23,7 @@ app.provider('subpageDetails', function(){
 	// subpages["/banners"] = {};
 	subpages["/banners6x10"] = {
 		title: "Banners 6x10",
-		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM",
+		spreadsheetId: "1jL69EN-uNUtvmG1rAtKFjLZ7feqblrW-j8rhbu1VhOE",
 		width: 10, 
 		height: 6,
 		scale: 20
