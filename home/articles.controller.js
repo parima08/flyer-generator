@@ -71,6 +71,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.language = article.gsx$language.$t ? article.gsx$language.$t : ""; 
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
 		articleInfo.articleDetailsLink = articleInfo.name.replace(/ /g,"_"); 
+		articleInfo.documentLink = article.gsx$documentlink.$t ?  article.gsx$documentlink.$t : articleInfo.articleLink; 
 		// if(articleInfo.articleLink){
 		// 	var id = articleInfo.articleLink.split("id=")[1]; 
 		// 	articleInfo.articleSpreadsheetId = id; 

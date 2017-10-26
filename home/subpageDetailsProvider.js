@@ -91,8 +91,8 @@ app.provider('subpageDetails', function(){
 	subpages['/backdrop2by3'] = {
 		title: "Backdrops 2 by 3", 
 		spreadsheetId: "1ipPqO-Bul4qhH7-S3crLHwVl2Uk_Xh3SanOt5n9Etoc", 
-		width: 2, 
-		height: 3,
+		width: 3, 
+		height: 2,
 		scale: 10
 	}
 
@@ -100,23 +100,23 @@ app.provider('subpageDetails', function(){
 		title: "Backdrops 1 by 2", 
 		spreadsheetId: "1nt9SoYA3YpxoX6y0nLfWYWdiI1sJqqKD06mNXz6VakI", 
 		width: 2, 
-		height: 3,
+		height: 1,
 		scale: 10
 	}
 
 	subpages['/backdrop2by5'] = {
 		title: "Backdrops 2x5", 
 		spreadsheetId: "1rnuAR38k8wuMRwU2r6Ozz4XSVlawlnKKyxC4ZSpTLT0", 
-		width: 2, 
-		height: 5,
+		width: 5, 
+		height: 2,
 		scale: 10
 	}
 
 	subpages['/backdrop4by7'] = {
 		title: "Backdrops 4x7", 
 		spreadsheetId: "1d8LX8EPgf-EDgZrp1afA3fu3MmrjKvy9zhKi1ugC-2Q", 
-		width: 4, 
-		height: 7,
+		width: 7, 
+		height: 4,
 		scale: 10
 	}
 
