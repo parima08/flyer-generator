@@ -55,7 +55,7 @@ app.provider('subpageDetails', function(){
 
 //SRLC -----------------------------------------
 	subpages["/srlcposters"] = {
-		title: "SRLC Posters",
+		title: "SRLC Posters (A3)",
 		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
 		width: 11, 
 		height: 16,
@@ -63,7 +63,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages["/srlcbanners"] = {
-		title: "SRLC Banners",
+		title: "SRLC Banners (4x6)",
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
 		width: 6, 
 		height: 4,
@@ -75,6 +75,40 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1PiKOAkctDOLLXIueqfUt4dOYpilpEtuTerMDZXxj6zw",
 		width: 3, 
 		height: 6,
+		scale: 10
+	}
+
+	//BACKDROPS ------------------
+
+	subpages['/backdrop2by3'] = {
+		title: "Backdrops 2 by 3", 
+		spreadsheetId: "1ipPqO-Bul4qhH7-S3crLHwVl2Uk_Xh3SanOt5n9Etoc", 
+		width: 2, 
+		height: 3,
+		scale: 10
+	}
+
+	subpages['/backdrop1by2'] = {
+		title: "Backdrops 1 by 2", 
+		spreadsheetId: "1nt9SoYA3YpxoX6y0nLfWYWdiI1sJqqKD06mNXz6VakI", 
+		width: 2, 
+		height: 3,
+		scale: 10
+	}
+
+	subpages['/backdrop2by5'] = {
+		title: "Backdrops 2x5", 
+		spreadsheetId: "1rnuAR38k8wuMRwU2r6Ozz4XSVlawlnKKyxC4ZSpTLT0", 
+		width: 2, 
+		height: 5,
+		scale: 10
+	}
+
+	subpages['/backdrop4by7'] = {
+		title: "Backdrops 4x7", 
+		spreadsheetId: "1d8LX8EPgf-EDgZrp1afA3fu3MmrjKvy9zhKi1ugC-2Q", 
+		width: 4, 
+		height: 7,
 		scale: 10
 	}
 
