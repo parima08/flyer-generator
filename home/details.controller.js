@@ -88,7 +88,7 @@ objectDetailsService, subpageDetails, $q){
 		.then(function(){
 			$scope.formInfo = objectDetailsService.getFormInfo(); 
 			$scope.font = $scope.formInfo; 
-			var fonts = $scope.formInfo.map(function(d) { return d['font']; });
+			var fonts = $scope.formInfo.map(function(d) { return d['font'].trim(); });
 			$scope.fonts = fonts.filter(onlyUnique); 
 			loadFonts($scope.fonts);
 			console.log("FORM INFO" + $scope.formInfo.length); 
@@ -355,9 +355,7 @@ objectDetailsService, subpageDetails, $q){
     		}
     		else{
     			ctx.drawImage(srmdLogo, x, y, 69, 80);
-    		}
-    		
-    		
+    		}		
     	};
     	var src = ""
     	if($scope.language == "hindi"){
@@ -409,7 +407,7 @@ objectDetailsService, subpageDetails, $q){
     	console.log("Adding Logo to the Canvas");
     	//CHANGE THE DIMENSIONS OF THE UPLOADED LOGO
     	logo.onload = function(){
-    		ctx.drawImage(logo, x, y, 235, 270);
+    		ctx.drawImage(logo, x, y, 60, 60);
     	};
     	logo.src = src; 
     }
