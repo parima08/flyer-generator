@@ -236,7 +236,7 @@ objectDetailsService, subpageDetails, $q){
 		if($scope.convertInvitationPDF == true){
 			var imgData = canvas.toDataURL("image/jpeg");
 			console.log("I get here");
-			var pdf = new jsPDF({format: [996, 680]});
+			var pdf = new jsPDF({format: [1000, 633]});
 			pdf.internal.scaleFactor = 4;
 			var canvasScale = $scope.pageDetails.scale/2
 			pdf.addImage(imgData, 'PNG', 0, 0, 
@@ -244,7 +244,7 @@ objectDetailsService, subpageDetails, $q){
 			 	$scope.pageDetails.canvasHeight * canvasScale);
 			pdf.addPage(); 
 			pdf.addImage(imgData, 'PNG', (
-				$scope.pageDetails.canvasWidth * -.5) - 30, 0, 
+				$scope.pageDetails.canvasWidth * -1) - 110, 0, 
 				$scope.pageDetails.canvasWidth * canvasScale,
 			 	$scope.pageDetails.canvasHeight * canvasScale);
 			pdf.save($scope.pageDetails.name + ".pdf")
