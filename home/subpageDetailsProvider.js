@@ -72,13 +72,11 @@ app.provider('subpageDetails', function(){
 
 	subpages["/srlcbanners4x6"] = {
 		title: "SRLC Banners (4x6)",
-		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
+		spreadsheetId: "1Se37l2vabhnvRrRwL_lNtOnG8gcdwvmgpKL-NXUBoWc",
 		width: 6, 
 		height: 4,
 		scale: 10
 	}
-
-	subpages[/]
 
 	subpages["/srlcstandees"] = {
 		title: "SRLC Standee",
