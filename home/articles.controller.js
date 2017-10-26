@@ -71,11 +71,11 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.language = article.gsx$language.$t ? article.gsx$language.$t : ""; 
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
 		articleInfo.articleDetailsLink = articleInfo.name.replace(/ /g,"_"); 
-		if(articleInfo.articleLink){
-			var id = articleInfo.articleLink.split("id=")[1]; 
-			articleInfo.articleSpreadsheetId = id; 
-			articleInfo.iframeLink = "https://drive.google.com/file/d/" + id + "/preview"; 
-		}
+		// if(articleInfo.articleLink){
+		// 	var id = articleInfo.articleLink.split("id=")[1]; 
+		// 	articleInfo.articleSpreadsheetId = id; 
+		// 	articleInfo.iframeLink = "https://drive.google.com/file/d/" + id + "/preview"; 
+		// }
 		return articleInfo; 
   	}
 
@@ -146,7 +146,8 @@ function ArticlesController($scope, $rootScope, $location,
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
 			console.log($scope.articleDetails.articleSpreadsheetId);
-			var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
+			var url  = $scope.articleDetails.articleLink
+			//var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
 			PDFJS.getDocument(url).then(function(pdf){
 				getPage();
 			    function getPage() {

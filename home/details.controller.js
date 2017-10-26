@@ -28,8 +28,37 @@ objectDetailsService, subpageDetails, $q){
 	$scope.pageDetails.name = name; 
 	//if the page is loading Logos on the page, we can pull supported countries
 	//from ehre
-	$scope.supportedLogoCountries = ["General", "USA", "Canada", "UK", 
-					"Hong Kong", "Australia", "Singapore"]
+	// $scope.supportedLogoCountries = [
+	// 			{"country": "General", "vertical": , "horizontal":}, 
+	// 			{"country": "USA", "vertical": , "horizontal":}, 
+	// 			{"country": "UK", "vertical": , "horizontal":}, 
+	// 			{"country": "Canada", "vertical": , "horizontal":}, 
+	// 			{"country": "General", "vertical": , "horizontal":}, 
+	// 			{"country": "General", "vertical": , "horizontal":}, 
+	// 			{"USA", "Canada", "UK", 
+	// 				"Hong Kong", "Australia", "Singapore"]
+	
+	$scope.supportedLogos = {
+		"Australia" : 	{"vertical": "srmd_australia.png", 
+						"horizontal":"australiaHorizontalLogo.png" },
+		"Canada" :  	{"vertical": "srmd_canada.png", 
+						"horizontal":"canadaHorizontalLogo.png" },
+		"Hong Kong" : 	{"vertical": "srmd_hongKong.png", 
+						"horizontal":"hongKongHorizontalLogo.png" },
+		"Singapore" : 	{"vertical": "srmd_singapore.png", 
+						"horizontal": "singaporeHorizontalLogo.png" },
+		"USA" : 		{"vertical": "srmd_usa.png", 
+						"horizontal": "usaHorizontalLogo.png" },
+		"UK" : 			{"vertical": "srmd_uk.png", 
+						"horizontal": "ukHorizontalLogo.png" },
+		"General" : {"vertical": "srmd_general_eng.png",  
+					"gujaratiVertical":"srmd_general_guj.png", 
+					"hindiVertical": "srmd_general_hindi.png",
+					"horizontal":"generalHorizontalLogo.png",
+					"gujaratiHorizontal": "gujaratiHorizontalLogo.png", 
+					"hindiHorizontal": "hindiHorizontalLogo.png"},
+	};
+	$scope.supportedLogoCountries = Object.keys($scope.supportedLogos);
 	
 	
 
@@ -135,8 +164,8 @@ objectDetailsService, subpageDetails, $q){
 				//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
 				//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
 				console.log("fieldId: " + field.id); 
-				if(field.id == "srmd_logo"){
-					addSrmdLogoToCanvas(ctx, field.id, positionX, positionY); 
+				if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
+					addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
 					continue; 
 				}
 				if(field.id == "upload_logo"){
@@ -313,28 +342,64 @@ objectDetailsService, subpageDetails, $q){
   		control.makeTransliteratable(arrayOfIds);
     }
 
-    var addSrmdLogoToCanvas = function(ctx, fieldId, x, y){
+    var addSrmdLogoToCanvas = function(ctx, field, x, y){
     	//RESIZE THE IMAGE
     	var srmdLogo = new Image(); 
     	console.log("ADDED SRMD LOGO"); 
+    	console.log("THIS CHANGED"); 
+    	console.log(field.id + " placeholder: " + field.placeholderText)
     	srmdLogo.onload = function(){
-    		ctx.drawImage(srmdLogo, x, y, 69, 80);
-    	}; 
-    	switch($("input[name='srmd_logo']:checked").val()){
-    		case $scope.supportedLogoCountries[1]:
-    			srmdLogo.src = "../img/logos/srmd_general_eng.png"
-    			break; 
-    		case $scope.supportedLogoCountries[2]:
-    			srmdLogo.src = "../img/logos/srmd_canada.png"
-    			break; 
-    		case $scope.supportedLogoCountries[3]: 
-    			srmdLogo.src = "../img/logos/srmd_uk.png"
-    			break; 
-    		case $scope.supportedLogoCountries[0]: 
-    		default: 
-    			srmdLogo.src = "../img/logos/srmd_usa.png"
-    			break; 
+    		if(field.placeholderText == "horizontal"){
+				ctx.drawImage(srmdLogo, x, y, 207, 60);
+
+    		}
+    		else{
+    			ctx.drawImage(srmdLogo, x, y, 69, 80);
+    		}
+    		
+    		
+    	};
+    	var src = ""
+    	if($scope.language == "hindi"){
+    		src =  (field.placeholderText == "horizontal")? $scope.supportedLogos["General"].hindiHorizontal : $scope.supportedLogos["General"].hindiVertical;		
     	}
+    	else if($scope.language == "gujarati"){
+    		src = (field.placeholderText == "horizontal")? $scope.supportedLogos["General"].gujaratiHorizontal : $scope.supportedLogos["General"].gujaratiVertical;
+    	}
+    	else{
+    		console.log(field.id);
+    		var country = $("input[name='"+ field.id +"']:checked").val(); 
+    		if(country){
+    			var srcs = $scope.supportedLogos[country]; 		
+    			src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
+    		}
+    		else{
+    			srcs = $scope.supportedLogos["General"];
+    			src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
+    		}
+    	}
+    	srmdLogo.src = "../img/logos/" + src
+    	// switch($("input[name='srmd_logo']:checked").val()){
+    	// 	case $scope.supportedLogoCountries[1]:
+    	// 		srmdLogo.src = "../img/logos/srmd_general_eng.png"
+    	// 		break; 
+    	// 	case $scope.supportedLogoCountries[2]:
+    	// 		srmdLogo.src = "../img/logos/srmd_canada.png"
+    	// 		break; 
+    	// 	case $scope.supportedLogoCountries[3]: 
+    	// 		srmdLogo.src = "../img/logos/srmd_uk.png"
+    	// 		break; 
+    	// 	case $scope.supportedLogoCountries[4]:
+    	// 		break;  
+    	// 	case $scope.supportedLogoCountries[5]:
+    	// 		break;
+    	// 	case $scope.supportedLogoCountries[6]:
+    	// 		break; 
+    	// 	case $scope.supportedLogoCountries[0]: 
+    	// 	default: 
+    	// 		srmdLogo.src = "../img/logos/srmd_usa.png"
+    	// 		break; 
+    	// }
     	console.log(srmdLogo.src); 
     	console.log("End of drawing the logo!"); 
     }
