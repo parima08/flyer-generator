@@ -62,10 +62,10 @@ app.provider('subpageDetails', function(){
 		scale: 10
 	}
 
-	subpages["/srlcbanners3x5"] = {
-		title: "SRLC Banners (3x5)",
+	subpages["/srlcbanners3x6"] = {
+		title: "SRLC Banners (3x6)",
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
-		width: 5, 
+		width: 6, 
 		height: 3,
 		scale: 10
 	}
