@@ -19,8 +19,6 @@ app.provider('subpageDetails', function(){
 		height: 4, 
 		scale: 4
 	};
-
-	// subpages["/banners"] = {};
 	subpages["/banners6x10"] = {
 		title: "Banners 6x10",
 		spreadsheetId: "1jL69EN-uNUtvmG1rAtKFjLZ7feqblrW-j8rhbu1VhOE",
@@ -67,8 +65,8 @@ app.provider('subpageDetails', function(){
 	subpages["/srlcbanners"] = {
 		title: "SRLC Banners",
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
-		width: 3, 
-		height: 6,
+		width: 6, 
+		height: 4,
 		scale: 10
 	}
 
