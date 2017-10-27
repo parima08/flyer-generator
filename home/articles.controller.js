@@ -198,8 +198,8 @@ function ArticlesController($scope, $rootScope, $location,
 
 	$scope.requestArticle = function(formInfo){
 		var form = $('#myForm')[0]; 
-		var centerName = encodeURIComponent($('#centerEmail').val()); 
-		var centerEmail = encodeURIComponent($('#centerName').val()); 
+		var centerName = encodeURIComponent($('#centerName').val()); 
+		var centerEmail = encodeURIComponent($('#centerEmail').val()); 
 		var requestReason = encodeURIComponent($('#requestReason').val()); 
 
 		var articleName = encodeURIComponent($('#articleName').val()); 
@@ -212,7 +212,7 @@ function ArticlesController($scope, $rootScope, $location,
 		var articleLinkID = "entry.1734546770"; 
 		var articleNameID = "entry.1745447166"; 
 		var centerNameID = "entry.2114019815"; 
-		var centerEmailID = "entry.550354372"; 
+		var centerEmailID = "entry.550354372";
 		var requestReasonID = "entry.2009048180";
 
 		var submitURL = baseURL + articleLinkID + "=" + articleLink + "&" + 
@@ -221,7 +221,6 @@ function ArticlesController($scope, $rootScope, $location,
 								   centerEmailID + "=" + centerEmail + "&" +
 								   requestReasonID + "=" + requestReason + "&" +
 								   submitRef; 
-
 		console.log(submitURL);
 		console.log(form); 
         form.action=submitURL;

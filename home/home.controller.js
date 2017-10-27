@@ -197,16 +197,16 @@ app.service("objectDetailsService", function($http, $q, $sce){
 
   	var grabObjectInfo = function(jsonElement, thumbnailWidth, thumbnailHeight){
   		var mObject = {}
-  		mObject.name = jsonElement.gsx$name.$t; 
+  		mObject.name = jsonElement.gsx$name.$t.trim(); 
   		var secondaryLinkPath = ""
   		//var linkId = jsonElement.gsx$linkid.$t; 
-  		var awsLinkPath = jsonElement.gsx$awslinkpath.$t; 
+  		var awsLinkPath = jsonElement.gsx$awslinkpath.$t.trim(); 
   		if(jsonElement.gsx$secondaryawslinkpath){
-  			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t;
+  			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t.trim();
   		}
   		if(awsLinkPath != ""){
 			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
-			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath; 
+			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath.trim(); 
 			//mObject.imageLink = "https://srmd-flyer-generator.s3.amazonaws.com/" + filePath; 
 			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + thumbnailWidth +  "x" + thumbnailHeight + "/" + awsLinkPath; 
 
@@ -215,8 +215,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		if(secondaryLinkPath){
 			mObject.twoOptions = true; 
 			mObject.secondaryImageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + secondaryLinkPath; 
-			mObject.secondaryButtonDescription = jsonElement.gsx$secondarybuttondescription.$t; 
-			mObject.secondaryWorksheetIndex = jsonElement.gsx$secondaryworksheetindex.$t;
+			mObject.secondaryButtonDescription = jsonElement.gsx$secondarybuttondescription.$t.trim(); 
+			mObject.secondaryWorksheetIndex = jsonElement.gsx$secondaryworksheetindex.$t.trim();
 		}
 		else{
 			console.log("The second option does not empty"); 
