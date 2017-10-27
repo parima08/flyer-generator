@@ -10,7 +10,7 @@ objectDetailsService, subpageDetails, $q){
 	$scope.convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
 	console.log(name);
-	if(name.includes("1")){
+	if(name.slice(-1) == "1"){
 		option2 = true; 
 		name = name.replace("1", "").trim();  
 	}
