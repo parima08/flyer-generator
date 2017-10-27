@@ -260,7 +260,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t; 
 				}
 
-				if(data.feed.entry[i].gsx$endpositionx.$t){
+				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
 					//alert(data.feed.entry[i].gsx$endpositionx.$t); 
 					formFieldInfo.endPositionX = data.feed.entry[i].gsx$endpositionx.$t; 
 				}
