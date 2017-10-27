@@ -90,10 +90,9 @@ objectDetailsService, subpageDetails, $q){
 												$scope.pageDetails.thumbnailWidth, 
 												$scope.pageDetails.thumbnailHeight) 
 	.then(function(){
-		console.log("loaded"); 				
+		console.log("*************The Object Details are: "); 				
 		console.log(objectDetailsService.getData()); 
 		$scope.object = objectDetailsService.getObject(); 
-		console.log("object"); 
 		console.log($scope.object); 
 		if(option2 == true){
 			$scope.object.imageLink = $scope.object.secondaryImageLink; 
@@ -109,7 +108,7 @@ objectDetailsService, subpageDetails, $q){
 			$scope.fonts = fonts.filter(onlyUnique); 
 			loadFonts($scope.fonts);
 			console.log("FORM INFO" + $scope.formInfo.length); 
-			if($scope.language != ""){
+			if($scope.language != "" && $scope.language != "english"){
 				loadTransliteration(); 
 			}
 			canvasSetup(); 
@@ -321,13 +320,11 @@ objectDetailsService, subpageDetails, $q){
 	}
 
 	var loadTransliteration = function(){
-		if($scope.language !== "english"){
-			console.log("LOADING ANOTHER LANGUAGE")
-			google.load("elements", "1", {
-	    		packages: "transliteration",
-	    		callback: onLoadLanguage
-			});
-		}
+		console.log("LOADING ANOTHER LANGUAGE")
+		google.load("elements", "1", {
+    		packages: "transliteration",
+    		callback: onLoadLanguage
+		});
 	}
 
 	var onLoadLanguage = function() {
