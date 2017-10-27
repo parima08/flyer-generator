@@ -245,28 +245,28 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			console.log(status); 
 			for(var i = 0; i < data.feed.entry.length; i++){
 				var formFieldInfo = {}
-				formFieldInfo.fieldName = data.feed.entry[i].gsx$fieldname.$t; 
-				formFieldInfo.placeholderText = data.feed.entry[i].gsx$placeholdertext.$t;
-				formFieldInfo.fontColor = data.feed.entry[i].gsx$fontcolor.$t; 
-				formFieldInfo.fontSize = data.feed.entry[i].gsx$fontsize.$t
-				formFieldInfo.fontWeight = data.feed.entry[i].gsx$fontweight.$t
-				formFieldInfo.font = data.feed.entry[i].gsx$font.$t
-				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t
-				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t; 
-				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t; 
+				formFieldInfo.fieldName = data.feed.entry[i].gsx$fieldname.$t.trim(); 
+				formFieldInfo.placeholderText = data.feed.entry[i].gsx$placeholdertext.$t.trim();
+				formFieldInfo.fontColor = data.feed.entry[i].gsx$fontcolor.$t.trim(); 
+				formFieldInfo.fontSize = data.feed.entry[i].gsx$fontsize.$t.trim();
+				formFieldInfo.fontWeight = data.feed.entry[i].gsx$fontweight.$t.trim();
+				formFieldInfo.font = data.feed.entry[i].gsx$font.$t.trim();
+				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t.trim();
+				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t.trim(); 
+				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t.trim(); 
 				formFieldInfo.id = formFieldInfo.fieldName.toLowerCase().replace(/ /g,"_").toString();
 				console.log("FieldName is: " + formFieldInfo.id);
 				if(data.feed.entry[i].gsx$letterspacing){
-					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t; 
+					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t.trim(); 
 				}
 
 				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
 					//alert(data.feed.entry[i].gsx$endpositionx.$t); 
-					formFieldInfo.endPositionX = data.feed.entry[i].gsx$endpositionx.$t; 
+					formFieldInfo.endPositionX = data.feed.entry[i].gsx$endpositionx.$t.trim(); 
 				}
 				//console.log(data.feed.entry[i].gsx$letterspacing.$t);
 				if( data.feed.entry[i].gsx$instructions){
-					formFieldInfo.instructions = data.feed.entry[i].gsx$instructions.$t
+					formFieldInfo.instructions = data.feed.entry[i].gsx$instructions.$t.trim();
 				}
 				// if(data.feed.entry[i].gsx$additionalrequiredtext){
 				// 	formFieldInfo.additionalRequiredText = data.feed.entry[i].gsx$additionalrequiredtext.$t
