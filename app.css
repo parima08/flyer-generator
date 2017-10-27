@@ -87,6 +87,8 @@ h1, h2, h3, h4{
 canvas{
 	background-color: black;
 	margin: 0 auto; 
+	text-rendering: optimizeLegibility;
+	font-kerning : normal;
 }
 
 #canvas{
