@@ -177,8 +177,10 @@ objectDetailsService, subpageDetails, $q){
 					}
 				}
 				if(field.id == "swamivatsalya"){
-					values[field.fieldName] = $('input[name="swamivatsalya"]:checked').val()
-					
+					var beginningText = $('input[name="swamivatsalya"]:checked').val();
+					var startTime = $('#swamivatsalya_startTiming').val() || "12pm";
+					var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
+					values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
 				}
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
 				var fontWeight = field.fontWeight; 
