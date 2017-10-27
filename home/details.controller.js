@@ -196,12 +196,14 @@ objectDetailsService, subpageDetails, $q){
 				//console.log(values[field.fieldName]);
 
 				if(field.endPositionX){
+					console.log("it has an endPositionX"); 
 					var endPositionX = field.endPositionX; 
+					var width = Math.abs(positionX - endPositionX); 
 					if(values[field.fieldName]){
-						ctx.fillText(values[field.fieldName], positionX, positionY, endPositionX);
+						ctx.fillText(values[field.fieldName], positionX, positionY, width);
 					}
 					else{
-						ctx.fillText(field.placeholderText, positionX, positionY, endPositionX);
+						ctx.fillText(field.placeholderText, positionX, positionY, width);
 					}
 				}
 				else{
