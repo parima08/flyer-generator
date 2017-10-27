@@ -60,6 +60,22 @@ objectDetailsService, subpageDetails, $q){
 	};
 	$scope.supportedLogoCountries = Object.keys($scope.supportedLogos);
 	
+	$scope.swamivatsalyaTextLanguage = {
+		"gujarati": {
+			"Lunch": "પ્રવચન પછી સ્વામિવાત્સલ્યનો લાભ લેવા વિનંતી",
+			"Dinner": "પ્રવચન પહેલા સ્વામિવાત્સલ્યનો લાભ લેવા વિનંતી",
+		},
+		"hindi": {
+			"Lunch": "प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा",
+			"Dinner": "प्रवचन के पूर्व कृपया स्वामीवात्सल्य का लाभ लिजिएगा",
+		},
+		"english": {
+			"Lunch": "Swamivatsalya (Lunch) has been arranged from", 
+			"Dinner":"Swamivatsalya (Dinner) has been arranged from",
+		}
+	}
+
+	
 	
 
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
@@ -84,6 +100,7 @@ objectDetailsService, subpageDetails, $q){
 			$scope.object.worksheetIndex = $scope.object.secondaryWorksheetIndex; 
 		}
 		$scope.language = $scope.object.language; 
+		//$scope.swamivatsalyaText = $scope.swamivatsalyaTextLanguage[$scope.language];
 		objectDetailsService.loadFormInfoAsync(spreadsheetId, $scope.object.worksheetIndex)
 		.then(function(){
 			$scope.formInfo = objectDetailsService.getFormInfo(); 
@@ -177,10 +194,20 @@ objectDetailsService, subpageDetails, $q){
 					}
 				}
 				if(field.id == "swamivatsalya"){
-					var beginningText = $('input[name="swamivatsalya"]:checked').val();
-					var startTime = $('#swamivatsalya_startTiming').val() || "12pm";
-					var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
-					values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
+					//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
+					var key = $('input[name="swamivatsalya"]:checked').val()
+					var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language][key];
+					if(swamiText && ($scope.language === "english")){
+						var startTime = $('#swamivatsalya_startTiming_' + key).val() || "12pm";; 
+						var endTime = $('#swamivatsalya_endTiming_' + key).val() || "2pm";; 
+						swamiText = swamiText + " " + startTime + " to " +  endTime; 	
+					}
+					//var startTime = 
+					//var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
+					values[field.fieldName] = swamiText;
+					//"प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा"
+					//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
+					//values['blah'] = blah; 
 				}
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
 				var fontWeight = field.fontWeight; 
@@ -352,9 +379,23 @@ objectDetailsService, subpageDetails, $q){
     	console.log("ADDED SRMD LOGO"); 
     	console.log("THIS CHANGED"); 
     	console.log(field.id + " placeholder: " + field.placeholderText)
+    	var width, height; 
+    	if($scope.language == "hindi"){
+    		width = 120; 
+    		height = 70; 
+    	}
+    	else if ($scope.langauge == "gujarati"){
+    		width = 100; 
+    		height = 60;
+    	}
+    	else{
+    		width = 207; 
+    		height = 60; 
+    	}
+
     	srmdLogo.onload = function(){
     		if(field.placeholderText == "horizontal"){
-				ctx.drawImage(srmdLogo, x, y, 207, 60);
+				ctx.drawImage(srmdLogo, x, y, width, height);
 
     		}
     		else{

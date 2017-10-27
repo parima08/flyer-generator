@@ -31,14 +31,21 @@
           <div ng-if= "field.id == 'swamivatsalya'">
             <h4><b>Swamivatsalya</h4></b>
             <p class = "intructions">{{field.instructions}}</p>
+
+            <div class="radio-button" ng-repeat = "(key, item) in swamivatsalyaTextLanguage[language]">
+              <div class = "radio-button">
+                 <input name = "{{field.id}}"
+                 type = "radio" value = "{{key}}" checked />{{item}}</input> 
+                 <div ng-if="language==='english'">
+                   from
+                    <input type="text" id = "swamivatsalya_startTiming_{{key}}" /> </input> to 
+                    <input type="text" id ="swamivatsalya_endTiming_{{key}}" ></input>
+                 </div>
+                 <br/>
+              </div>
+            </div>
             <div class = "radio-button">
-               <input name = "{{field.id}}"
-               type = "radio" value = "Swamivatsalya (Lunch) has been arranged from" checked />Swamivatsalya (Lunch) has been arranged from </input> <input type="text" id = "swamivatsalya_startTiming" /> to </input> <input type="text" id ="swamivatsalya_endTiming" ></input>
-               <br/>
-               <input name = "{{field.id}}"
-               type = "radio" value = "Swamivatsalya (Dinner) has been arranged from" />Swamivatsalya (Dinner) has been arranged from</input><br/><input type="text" id = "swamivatsalya_startTiming" /> to </input> <input type="text" id ="swamivatsalya_endTiming" ></input>
-               <br/>
-                <input name = "{{field.id}}"
+              <input name = "{{field.id}}"
                type = "radio" value = "" />No Swamivatsalya</input><br/>
             </div>
           </div>

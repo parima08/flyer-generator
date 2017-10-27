@@ -141,7 +141,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				data = data.data
 				for(var i = 0; i < data.feed.entry.length; i++){
 					var mObject = grabObjectInfo(data.feed.entry[i], thumbnailWidth, thumbnailHeight)
-					switch(mObject.language.toLowerCase()){
+					switch(mObject.language.toLowerCase().trim()){
 						case 'hindi':
 							hindi.push(mObject);
 							break;
@@ -205,12 +205,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
   			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t.trim();
   		}
   		if(awsLinkPath != ""){
-			//mObject.imageLink = "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + filePath; 
 			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath.trim(); 
-			//mObject.imageLink = "https://srmd-flyer-generator.s3.amazonaws.com/" + filePath; 
 			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + thumbnailWidth +  "x" + thumbnailHeight + "/" + awsLinkPath; 
-
-			//mObject.imageLink = "https://drive.google.com/uc?export=view&id=" + linkId;  //0B05JMUbC2KVqQ0FZajhKOU0zU2c
 		}
 		if(secondaryLinkPath){
 			mObject.twoOptions = true; 
@@ -247,10 +243,10 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				var formFieldInfo = {}
 				formFieldInfo.fieldName = data.feed.entry[i].gsx$fieldname.$t.trim(); 
 				formFieldInfo.placeholderText = data.feed.entry[i].gsx$placeholdertext.$t.trim();
-				formFieldInfo.fontColor = data.feed.entry[i].gsx$fontcolor.$t.trim(); 
-				formFieldInfo.fontSize = data.feed.entry[i].gsx$fontsize.$t.trim();
-				formFieldInfo.fontWeight = data.feed.entry[i].gsx$fontweight.$t.trim();
-				formFieldInfo.font = data.feed.entry[i].gsx$font.$t.trim();
+				formFieldInfo.fontColor = (data.feed.entry[i].gsx$fontcolor.$t).trim(); 
+				formFieldInfo.fontSize = (data.feed.entry[i].gsx$fontsize.$t).trim();
+				formFieldInfo.fontWeight = (data.feed.entry[i].gsx$fontweight.$t).trim();
+				formFieldInfo.font = (data.feed.entry[i].gsx$font.$t).trim();
 				formFieldInfo.textAlign = data.feed.entry[i].gsx$textalign.$t.trim();
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t.trim(); 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t.trim(); 
