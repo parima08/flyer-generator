@@ -120,6 +120,14 @@ app.provider('subpageDetails', function(){
 		scale: 10
 	}
 
+	subpages['/dharmayatraStandees'] = {
+		title: "Dharmayatra Standees", 
+		spreadsheetId: "1jn8MDRV4qWMx5MYnQe1O9X7-JEf20AD2HkHD5Ajl9x8", 
+		width: 3, 
+		height: 6, 
+		scale: 10
+	}
+
 	this.subpages = subpages; 
 	this.$get = function() {
         return subpages; 
