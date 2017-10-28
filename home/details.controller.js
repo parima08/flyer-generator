@@ -149,6 +149,7 @@ objectDetailsService, subpageDetails, $q){
 }
 
    	var canvasSetup = function(){
+   		startProgressBar(); 
    		var canvas = $("#canvas")[0];
 		console.log(canvas); 
 		$.each($('#myForm').serializeArray(), function(i, field) {
@@ -247,6 +248,8 @@ objectDetailsService, subpageDetails, $q){
 
 				
 			}
+
+			completeProgressBar();
 
 	}
 
@@ -482,17 +485,11 @@ objectDetailsService, subpageDetails, $q){
         	console.log("Finished loading the object here");
             var blob = new Blob([this.response]);
             thisImg.src = window.URL.createObjectURL(blob);
-        	$('#progress_bar').hide(); 	
         };
         xmlHTTP.onprogress = function(e) {
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
-        	var percentage = thisImg.completedPercentage + "%"
-   			$(".progress-bar").width()
-   //      	$(".progress-bar").animate({
-			//     width: percentage
-			// }, 1);
-        	//$('#progress_bar .progress .progress-bar').attr('aria-valuenow', thisImg.completedPercentage);
-        	$('#progress_bar .progress .progress-bar').width(thisImg.completedPercentage + "%");
+        	var percentage = (thisImg.completedPercentage-10) + "%"
+        	updateProgressBar(percentage);
         	console.log("#######" +  thisImg.completedPercentage);
         };
         xmlHTTP.onloadstart = function() {
@@ -505,6 +502,19 @@ objectDetailsService, subpageDetails, $q){
     };
 
     Image.prototype.completedPercentage = 0;
+
+    function updateProgressBar(percentage){
+    	$('#progress_bar .progress .progress-bar').width(percentage);
+    }
+
+    function completeProgressBar(){
+    	$('#progress_bar .progress .progress-bar').width("100%");
+    	$('#progress_bar').hide(); 
+    }
+
+    function startProgressBar(){
+    	$('#progress_bar').show(); 
+    }
 
  //    function setDPI(canvas, dpi) {
  //    // Set up CSS size.
