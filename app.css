@@ -94,6 +94,21 @@ canvas{
 #canvas{
 	top: 0;
 	left: 0;
+	position: absolute;
+}
+
+#progress_bar{
+	top: 0;
+	left: 0;
+	position: absolute;
+	background-color: green;
+	z-index: 2;
+}
+
+.progress-bar{
+	-webkit-transition: none !important;
+    transition: none !important;
+    overflow: scroll;
 }
 
 #second_canvas{
@@ -153,7 +168,7 @@ canvas{
 	/*background-color: green;*/
 	font-family: "Source Sans Pro", "sans-serif"; 
 }
-
+http://localhost:8000/#/backdrop2by3/Red_Purple_2x3
 .home-title h1, .home-title h4{
 	display: inline;
 }

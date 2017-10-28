@@ -113,6 +113,8 @@ objectDetailsService, subpageDetails, $q){
 			}
 			canvasSetup(); 
 			$('.canvas-container').height($scope.pageDetails.canvasHeight); 
+			$('#progress_bar').height($scope.pageDetails.canvasHeight)
+								.width($scope.pageDetails.canvasWidth);
 		});
 	});
 
@@ -154,12 +156,14 @@ objectDetailsService, subpageDetails, $q){
 		});
 		var img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
-		resizeCanvas(canvas); ; 
+		resizeCanvas(canvas); 
 		img.onload = function(){
-	         drawImageScaled(values, img, canvas)
+			drawImageScaled(values, img, canvas)
+			console.log("Image onload function")
+	         
 	     };
-	    img.src = $scope.object.imageLink;
-	    //img.setAttribute('crossOrigin', 'anonymous');
+	    img.backgroundLoad($scope.object.imageLink);
+	    //img.src = $scope.object.imageLink;
 	}
 
 	var drawImageScaled = function(values, img, canvas) { 
@@ -381,9 +385,10 @@ objectDetailsService, subpageDetails, $q){
     		width = 120; 
     		height = 70; 
     	}
-    	else if ($scope.langauge == "gujarati"){
-    		width = 100; 
-    		height = 60;
+    	else if ($scope.language == "gujarati"){
+    		console.log("GUJARATI: width: " + width + "height: " + height)
+    		width = 120; 
+    		height = 70;
     	}
     	else{
     		width = 207; 
@@ -467,6 +472,39 @@ objectDetailsService, subpageDetails, $q){
     function onlyUnique(value, index, self) { 
 	    return self.indexOf(value) === index;
 	}
+
+	Image.prototype.backgroundLoad = function(url){
+        var thisImg = this;
+        var xmlHTTP = new XMLHttpRequest();
+        xmlHTTP.open('GET', url,true);
+        xmlHTTP.responseType = 'arraybuffer';
+        xmlHTTP.onload = function(e) { 
+        	console.log("Finished loading the object here");
+            var blob = new Blob([this.response]);
+            thisImg.src = window.URL.createObjectURL(blob);
+        	$('#progress_bar').hide(); 	
+        };
+        xmlHTTP.onprogress = function(e) {
+            thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
+        	var percentage = thisImg.completedPercentage + "%"
+   			$(".progress-bar").width()
+   //      	$(".progress-bar").animate({
+			//     width: percentage
+			// }, 1);
+        	//$('#progress_bar .progress .progress-bar').attr('aria-valuenow', thisImg.completedPercentage);
+        	$('#progress_bar .progress .progress-bar').width(thisImg.completedPercentage + "%");
+        	console.log("#######" +  thisImg.completedPercentage);
+        };
+        xmlHTTP.onloadstart = function() {
+            console.log("#######STARTING" );
+            //$('#progress_bar .progress .progress-bar').attr('aria-valuenow', 0);
+            //$('#progress_bar .progress .progress-bar').style.width = "0%";
+            thisImg.completedPercentage = 0;
+        };
+        xmlHTTP.send();
+    };
+
+    Image.prototype.completedPercentage = 0;
 
  //    function setDPI(canvas, dpi) {
  //    // Set up CSS size.
