@@ -370,12 +370,12 @@ objectDetailsService, subpageDetails, $http, $sce){
     	if($scope.convertInvitationPDF){
     		if($scope.language == "hindi"){
     			width = 100; 
-    			height = 58; 
+    			height = 50; 
 	    	}
 	    	else if ($scope.language == "gujarati"){
 	    		console.log("GUJARATI: width: " + width + "height: " + height)
-	    		width = 90; 
-	    		height = 58;
+	    		width = 80; 
+	    		height = 51.5;
 	    	}
 	    	else{
 	    		width = 150; 
