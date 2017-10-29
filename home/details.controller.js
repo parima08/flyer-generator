@@ -163,6 +163,7 @@ objectDetailsService, subpageDetails, $http, $sce){
 			console.log("Image onload function")
 	         
 	     };
+	     console.log("IMAGE LINK: " + $scope.object.imageLink);
 	    img.backgroundLoad($scope.object.imageLink);
 	    //img.src = $scope.object.imageLink;
 	}
@@ -171,7 +172,9 @@ objectDetailsService, subpageDetails, $http, $sce){
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
-		ctx.scale($scope.pageDetails.scale, $scope.pageDetails.scale);
+		ctx.setTransform($scope.pageDetails.scale, 0, 0, $scope.pageDetails.scale, 0, 0);
+		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
+		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		console.log("*******************"); 
 		console.log($scope.formInfo); 
 			for(var i = 0; i <  $scope.formInfo.length; i++) {
@@ -186,7 +189,7 @@ objectDetailsService, subpageDetails, $http, $sce){
 				//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
 				console.log("fieldId: " + field.id); 
 				if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
-					addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
+					//addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
 					continue; 
 				}
 				if(field.id == "upload_logo"){
@@ -295,19 +298,20 @@ objectDetailsService, subpageDetails, $http, $sce){
 		}
 		else{
 			var download = $('#download');
-			
+			var ctx = canvas.getContext('2d');
+			ctx.setTransform($scope.pageDetails.scale*2, 0, 0, $scope.pageDetails.scale*2, 0, 0);
 			canvas.toBlob(function(blob) {
 				var url = URL.createObjectURL(blob);
 				addFileToGoogleDrive(blob);
 				var link = document.createElement("a");
 				link.href = url; 
 				console.log("the URL HAS BEEN CREATED: " + url); 
-				//download.attr("href", url);
-				//download.attr("download", "flyer.jpeg");
+				download.attr("href", url);
+				download.attr("download", "flyer.jpeg");
 		// Set to whatever file name you want
 				console.log("DOWNLOADING"); 
-			    //link.setAttribute("download", $scope.pageDetails.name);
-			    //link.click(); 
+			    link.setAttribute("download", $scope.pageDetails.name);
+			    link.click(); 
 			}, 'image/jpeg');
 
 		}
@@ -370,12 +374,12 @@ objectDetailsService, subpageDetails, $http, $sce){
     	if($scope.convertInvitationPDF){
     		if($scope.language == "hindi"){
     			width = 100; 
-    			height = 58; 
+    			height = 50; 
 	    	}
 	    	else if ($scope.language == "gujarati"){
-	    		console.log("GUJARATI: width: " + width + "height: " + height)
-	    		width = 90; 
-	    		height = 58;
+	    		//console.log("GUJARATI: width: " + width + "height: " + height)
+	    		width = 80; 
+	    		height = 51.5;
 	    	}
 	    	else{
 	    		width = 150; 
@@ -467,11 +471,11 @@ objectDetailsService, subpageDetails, $http, $sce){
         xmlHTTP.responseType = 'arraybuffer';
         xmlHTTP.onload = function(e) { 
         	console.log("Finished loading the object here");
+            //thisImg.src = this.response; 
             var blob = new Blob([this.response]);
             thisImg.src = window.URL.createObjectURL(blob);
         };
-        xmlHTTP.onprogress = function(e) {
-            
+        xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
         	var percentage = (thisImg.completedPercentage-10) + "%"
         	updateProgressBar(percentage);

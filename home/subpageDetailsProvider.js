@@ -24,14 +24,14 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1jL69EN-uNUtvmG1rAtKFjLZ7feqblrW-j8rhbu1VhOE",
 		width: 10, 
 		height: 6,
-		scale: 20
+		scale: 15
 	};
 	subpages["/banners4x6"] = {
 		title: "Banners 4x6",
 		spreadsheetId: "1mJoJ0Rb8FtZeEhHpt6wByFFMTFLd5KF8Nl1nEWnksZM",
 		width: 6, 
 		height: 4,
-		scale: 20
+		scale: 18
 	}
 
 //SRD -----------------------------------------
