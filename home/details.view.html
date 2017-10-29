@@ -15,14 +15,14 @@
   <div class = "form-container2">
       <form id="myForm">
         <div class= "field" ng-repeat="field in formInfo">
-          <div ng-if="field.id == 'srmd_logo'">
+          <div ng-if="field.id == 'srmd_logo' && language == 'english'">
             <h4><b>SRMD Logo Country</h4></b>
             <div class="radio-button" ng-repeat = "country in supportedLogoCountries">
               <input name = "{{field.id}}" id = "{{field.id}}_{{country.key}}"
                type = "radio" value = "{{country}}" ng-checked="{{country=='General'}}"/>{{country}}</input><br/>
             </div>
           </div>
-          <div ng-if= "field.id == 'upload_logo' && language === 'english'">
+          <div ng-if= "field.id == 'upload_logo'">
             <h4><b>Upload Your Logo</h4></b>
             <p class = "intructions">{{field.instructions}}</p>
             <input class="{{field.id}}" type="file" accept="image/*" image="image"/>

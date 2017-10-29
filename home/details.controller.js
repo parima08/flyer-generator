@@ -108,7 +108,7 @@ objectDetailsService, subpageDetails, $http, $sce){
 			$scope.fonts = fonts.filter(onlyUnique); 
 			loadFonts($scope.fonts);
 			console.log("FORM INFO" + $scope.formInfo.length); 
-			if($scope.language != "" && $scope.language != "english"){
+			if($scope.language && $scope.language !== "english"){
 				loadTransliteration(); 
 			}
 			canvasSetup(); 
@@ -306,8 +306,8 @@ objectDetailsService, subpageDetails, $http, $sce){
 				//download.attr("download", "flyer.jpeg");
 		// Set to whatever file name you want
 				console.log("DOWNLOADING"); 
-			    link.setAttribute("download", $scope.pageDetails.name);
-			    link.click(); 
+			    //link.setAttribute("download", $scope.pageDetails.name);
+			    //link.click(); 
 			}, 'image/jpeg');
 
 		}
@@ -350,8 +350,8 @@ objectDetailsService, subpageDetails, $http, $sce){
  		
  		var arrayOfIds = []; 
  		for(var i = 0; i < $scope.formInfo.length; i++){
- 			if($scope.formInfo[i].id != "email" || $scope.formInfo[i].id != "srmd_logo"
- 				|| $scope.formInfo[i].id != "upload_logo") {
+ 			if($scope.formInfo[i].id !== "email" && $scope.formInfo[i].id !== "srmd_logo"
+ 				&& $scope.formInfo[i].id !== "upload_logo") {
  				arrayOfIds.push($scope.formInfo[i].id);; 
  			}
  		}
@@ -526,8 +526,9 @@ objectDetailsService, subpageDetails, $http, $sce){
     // }
 
     function addFileToGoogleDrive(file){
-   		//var dataURL = $('#canvas')[0].toDataURL();
-   		//sendFileToGoogleDrive(dataURL);
+		//sendFileToGoogleDrive(file);
+   		// var dataURL = $('#canvas')[0].toDataURL();
+   		// sendFileToGoogleDrive(dataURL);
       var reader = new FileReader(); 
       reader.onload = function(evt) {
 	    console.log("1. About to send the file");
@@ -544,14 +545,18 @@ objectDetailsService, subpageDetails, $http, $sce){
             fileName: $scope.pageDetails.name,
             file: file
         });
+     // var data = new FormData();
+     // data.append('fileName', $scope.pageDetails.name);
+     // data.append('file', file);
+     //console.log(data.get('fileName'));
         //file: file
         //'Content-Type': 'application/x-www-form-urlencoded;'
             var config = {
-                headers : {
-                    
-                	'Content-Type': 'application/x-www-form-urlencoded;'
+                headers : {   
+                	'Content-Type': 'application/x-www-form-urlencoded;' 
                 }
             }
+            //'application/x-www-form-urlencoded;'
             console.log("3. About to send the request")
             $http.post(url, data, config)
             .then(function(){
