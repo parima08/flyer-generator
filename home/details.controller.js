@@ -350,8 +350,10 @@ objectDetailsService, subpageDetails, $http, $sce){
  		
  		var arrayOfIds = []; 
  		for(var i = 0; i < $scope.formInfo.length; i++){
- 			//arrayOfIds.push($scope.formInfo[i].fieldName.toLowerCase().replace(/ /g,"_").toString());
- 			arrayOfIds.push($scope.formInfo[i].id);; 
+ 			if($scope.formInfo[i].id != "email" || $scope.formInfo[i].id != "srmd_logo"
+ 				|| $scope.formInfo[i].id != "upload_logo") {
+ 				arrayOfIds.push($scope.formInfo[i].id);; 
+ 			}
  		}
  		console.log("arrayOfIds: " + arrayOfIds.toString()); 
  		console.log(arrayOfIds); 
@@ -524,28 +526,30 @@ objectDetailsService, subpageDetails, $http, $sce){
     // }
 
     function addFileToGoogleDrive(file){
-   		var dataURL = $('#canvas')[0].toDataURL();
-   		sendFileToGoogleDrive(dataURL);
-   //    var reader = new FileReader(); 
-   //    reader.onload = function(evt) {
-	  //   console.log("1. About to send the file");
-	  //   sendFileToGoogleDrive(evt.target.result);
-	  // };
-	  // reader.readAsDataURL(file);
+   		//var dataURL = $('#canvas')[0].toDataURL();
+   		//sendFileToGoogleDrive(dataURL);
+      var reader = new FileReader(); 
+      reader.onload = function(evt) {
+	    console.log("1. About to send the file");
+	    sendFileToGoogleDrive(evt.target.result);
+	  };
+	  reader.readAsDataURL(file);
     }
     
     function sendFileToGoogleDrive(file){
     	console.log("2. addFileToGoogleDrive 1");
     	var url = "https://script.google.com/a/shrimadrajchandramission.com/macros/s/AKfycbxrRdFQUlYGaWbtC20EmDWUezCb6xyI0LRUZtOov2WFgqZx1peO/exec"
-    	//console.log(file);
+    	//console.log(file.toString());
     	var data = $.param({
             fileName: $scope.pageDetails.name,
             file: file
         });
         //file: file
+        //'Content-Type': 'application/x-www-form-urlencoded;'
             var config = {
                 headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;'
+                    
+                	'Content-Type': 'application/x-www-form-urlencoded;'
                 }
             }
             console.log("3. About to send the request")

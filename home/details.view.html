@@ -22,7 +22,7 @@
                type = "radio" value = "{{country}}" ng-checked="{{country=='General'}}"/>{{country}}</input><br/>
             </div>
           </div>
-          <div ng-if= "field.id == 'upload_logo' && language === 'english">
+          <div ng-if= "field.id == 'upload_logo' && language === 'english'">
             <h4><b>Upload Your Logo</h4></b>
             <p class = "intructions">{{field.instructions}}</p>
             <input class="{{field.id}}" type="file" accept="image/*" image="image"/>
