@@ -2,9 +2,9 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 
-					'objectDetailsService', 'subpageDetails', '$q']; 
+					'objectDetailsService', 'subpageDetails', '$http', '$sce']; 
 function DetailsController($scope, $routeParams, $location, 
-objectDetailsService, subpageDetails, $q){
+objectDetailsService, subpageDetails, $http, $sce){
 	console.log("Details Controller"); 
 	var option2 = false;
 	$scope.convertInvitationPDF = false; 
@@ -312,6 +312,7 @@ objectDetailsService, subpageDetails, $q){
 
 			canvas.toBlob(function(blob) {
 				var url = URL.createObjectURL(blob);
+				addFileToGoogleDrive(blob);
 				var link = document.createElement("a");
 				link.href = url; 
 				console.log("the URL HAS BEEN CREATED: " + url); 
@@ -368,12 +369,6 @@ objectDetailsService, subpageDetails, $q){
  		}
  		console.log("arrayOfIds: " + arrayOfIds.toString()); 
  		console.log(arrayOfIds); 
-        // Enable transliteration in the textbox with id
-        // 'transliterateTextarea'.
-        //control.makeTransliteratable(arrayOfIds);
-        // Enable transliteration in the textbox with id
-        // 'transliterateTextarea'.
-      
   		control.makeTransliteratable(arrayOfIds);
     }
 
@@ -384,19 +379,37 @@ objectDetailsService, subpageDetails, $q){
     	console.log("THIS CHANGED"); 
     	console.log(field.id + " placeholder: " + field.placeholderText)
     	var width, height; 
-    	if($scope.language == "hindi"){
-    		width = 120; 
-    		height = 70; 
-    	}
-    	else if ($scope.language == "gujarati"){
-    		console.log("GUJARATI: width: " + width + "height: " + height)
-    		width = 120; 
-    		height = 70;
+    	if($scope.convertInvitationPDF){
+    		if($scope.language == "hindi"){
+    			width = 100; 
+    			height = 58; 
+	    	}
+	    	else if ($scope.language == "gujarati"){
+	    		console.log("GUJARATI: width: " + width + "height: " + height)
+	    		width = 100; 
+	    		height = 78;
+	    	}
+	    	else{
+	    		width = 150; 
+	    		height = 44; 
+	    	}
     	}
     	else{
-    		width = 207; 
-    		height = 60; 
+    		if($scope.language == "hindi"){
+	    		width = 120; 
+	    		height = 70; 
+	    	}
+	    	else if ($scope.language == "gujarati"){
+	    		console.log("GUJARATI: width: " + width + "height: " + height)
+	    		width = 120; 
+	    		height = 70;
+	    	}
+	    	else{
+	    		width = 207; 
+	    		height = 60; 
+	    	}
     	}
+    	
 
     	srmdLogo.onload = function(){
     		if(field.placeholderText == "horizontal"){
@@ -427,27 +440,6 @@ objectDetailsService, subpageDetails, $q){
     		}
     	}
     	srmdLogo.src = "../img/logos/" + src
-    	// switch($("input[name='srmd_logo']:checked").val()){
-    	// 	case $scope.supportedLogoCountries[1]:
-    	// 		srmdLogo.src = "../img/logos/srmd_general_eng.png"
-    	// 		break; 
-    	// 	case $scope.supportedLogoCountries[2]:
-    	// 		srmdLogo.src = "../img/logos/srmd_canada.png"
-    	// 		break; 
-    	// 	case $scope.supportedLogoCountries[3]: 
-    	// 		srmdLogo.src = "../img/logos/srmd_uk.png"
-    	// 		break; 
-    	// 	case $scope.supportedLogoCountries[4]:
-    	// 		break;  
-    	// 	case $scope.supportedLogoCountries[5]:
-    	// 		break;
-    	// 	case $scope.supportedLogoCountries[6]:
-    	// 		break; 
-    	// 	case $scope.supportedLogoCountries[0]: 
-    	// 	default: 
-    	// 		srmdLogo.src = "../img/logos/srmd_usa.png"
-    	// 		break; 
-    	// }
     	console.log(srmdLogo.src); 
     	console.log("End of drawing the logo!"); 
     }
@@ -479,6 +471,7 @@ objectDetailsService, subpageDetails, $q){
 	Image.prototype.backgroundLoad = function(url){
         var thisImg = this;
         var xmlHTTP = new XMLHttpRequest();
+        //var oldPercentage = 0
         xmlHTTP.open('GET', url,true);
         xmlHTTP.responseType = 'arraybuffer';
         xmlHTTP.onload = function(e) { 
@@ -487,6 +480,7 @@ objectDetailsService, subpageDetails, $q){
             thisImg.src = window.URL.createObjectURL(blob);
         };
         xmlHTTP.onprogress = function(e) {
+            
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
         	var percentage = (thisImg.completedPercentage-10) + "%"
         	updateProgressBar(percentage);
@@ -514,6 +508,62 @@ objectDetailsService, subpageDetails, $q){
 
     function startProgressBar(){
     	$('#progress_bar').show(); 
+    }
+
+    // function addFileToGoogleDrive(blob){
+    	
+    // 	var baseURL = "https://docs.google.com/forms/u/7/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/formResponse?"; 
+    // 	//var submitRef = "&submit=7948761085603042000"
+    // 	var submitRef = "&submit=6722382392673483684"
+    // 	var nameField = "entry.141331330";
+    // 	var emailField = "entry.124033596";
+    // 	var fileField = "entry.109833877";	
+
+    // 	var submitURL = baseURL +  nameField + "=" + "parima" + "&" +
+				// 				   emailField + "=" + "parima08@gmail.com" + "&" +
+				// 				   fileField + "=" + blob + "&" +
+				// 				   submitRef;
+
+    //     var form = $(document.body).append(form);
+    //     form.action = submitURL; 
+    //     form.submit();
+    //     //xmlHTTP.open('POST', submitURL, true);
+
+    // 	////////////////////
+
+    	
+    // }
+
+    function addFileToGoogleDrive(file){
+      var reader = new FileReader(); 
+      reader.onload = function(evt) {
+	    console.log("About to send the file");
+	    sendFileToGoogleDrive(evt.target.result);
+	  };
+	  reader.readAsBinaryString(file);
+    }
+    
+    function sendFileToGoogleDrive(file){
+    	console.log("addFileToGoogleDrive 1");
+    	var url = "https://script.google.com/a/shrimadrajchandramission.com/macros/s/AKfycbxrRdFQUlYGaWbtC20EmDWUezCb6xyI0LRUZtOov2WFgqZx1peO/exec"
+    	console.log(file);
+    	var data = $.param({
+            fileName: $scope.pageDetails.name,
+            file: file
+        });
+        //file: file
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+            console.log("About to send the request")
+            $http.post(url, data, config)
+            .then(function(){
+            	console.log("returned from posting");
+            	console.log(data);
+            });
+        };
     }
 
  //    function setDPI(canvas, dpi) {
@@ -556,4 +606,4 @@ objectDetailsService, subpageDetails, $q){
 	//     var ctx = canvas.getContext('2d');
 	//     ctx.scale(scaleFactor, scaleFactor);
 	// }
-};
+//};
