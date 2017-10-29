@@ -400,7 +400,6 @@ objectDetailsService, subpageDetails, $http, $sce){
     	srmdLogo.onload = function(){
     		if(field.placeholderText == "horizontal"){
 				ctx.drawImage(srmdLogo, x, y, width, height);
-
     		}
     		else{
     			if($scope.convertInvitationPDF){
@@ -525,14 +524,14 @@ objectDetailsService, subpageDetails, $http, $sce){
     // }
 
     function addFileToGoogleDrive(file){
-   		//var dataURL = $('#canvas')[0].toDataURL();
-   		//sendFileToGoogleDrive(dataURL);
-      var reader = new FileReader(); 
-      reader.onload = function(evt) {
-	    console.log("1. About to send the file");
-	    sendFileToGoogleDrive(evt.target.result);
-	  };
-	  reader.readAsDataURL(file);
+   		var dataURL = $('#canvas')[0].toDataURL();
+   		sendFileToGoogleDrive(dataURL);
+   //    var reader = new FileReader(); 
+   //    reader.onload = function(evt) {
+	  //   console.log("1. About to send the file");
+	  //   sendFileToGoogleDrive(evt.target.result);
+	  // };
+	  // reader.readAsDataURL(file);
     }
     
     function sendFileToGoogleDrive(file){
@@ -546,7 +545,7 @@ objectDetailsService, subpageDetails, $http, $sce){
         //file: file
             var config = {
                 headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    'Content-Type': 'application/x-www-form-urlencoded;'
                 }
             }
             console.log("3. About to send the request")
@@ -557,45 +556,3 @@ objectDetailsService, subpageDetails, $http, $sce){
             });
         };
     }
-
- //    function setDPI(canvas, dpi) {
- //    // Set up CSS size.
-	//     canvas.style.width = canvas.style.width || canvas.width + 'px';
-	//     canvas.style.height = canvas.style.height || canvas.height + 'px';
-
-	//     // Get size information.
-	//     var scaleFactor = dpi / 96;
-	//     var width = parseFloat(canvas.style.width);
-	//     var height = parseFloat(canvas.style.height);
-
-	//     // Backup the canvas contents.
-	//     var oldScale = canvas.width / width;
-	//     var backupScale = scaleFactor / oldScale;
-	//     var backup = canvas.cloneNode(false);
-	//     backup.getContext('2d').drawImage(canvas, 0, 0);
-
-	//     // Resize the canvas.
-	//     var ctx = canvas.getContext('2d');
-	//     canvas.width = Math.ceil(width * scaleFactor);
-	//     canvas.height = Math.ceil(height * scaleFactor);
-
-	//     // Redraw the canvas image and scale future draws.
-	//     ctx.setTransform(backupScale, 0, 0, backupScale, 0, 0);
-	//     ctx.drawImage(backup, 0, 0);
-	//     ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
-	// }
-
-
-	// var changeResolution = function(canvas, scaleFactor) {
-	//     // Set up CSS size if it's not set up already
-	//     if (!canvas.style.width)
-	//         canvas.style.width = canvas.width + 'px';
-	//     if (!canvas.style.height)
-	//         canvas.style.height = canvas.height + 'px';
-
-	//     canvas.width = Math.ceil(canvas.width * scaleFactor);
-	//     canvas.height = Math.ceil(canvas.height * scaleFactor);
-	//     var ctx = canvas.getContext('2d');
-	//     ctx.scale(scaleFactor, scaleFactor);
-	// }
-//};
