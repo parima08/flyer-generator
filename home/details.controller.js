@@ -2,9 +2,9 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 
-					'objectDetailsService', 'subpageDetails', '$http', '$sce']; 
+					'objectDetailsService', 'subpageDetails', '$http', '$sce', '$q']; 
 function DetailsController($scope, $routeParams, $location, 
-objectDetailsService, subpageDetails, $http, $sce){
+objectDetailsService, subpageDetails, $http, $sce, $q){
 	console.log("Details Controller"); 
 	var option2 = false;
 	$scope.convertInvitationPDF = false; 
@@ -166,27 +166,22 @@ objectDetailsService, subpageDetails, $http, $sce){
 	}
 
 	var drawImageScaled = function(values, img, canvas, scale) { 
+	   	var deferred = $q.defer();
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
 		ctx.setTransform(scale, 0, 0, scale, 0, 0);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
-		console.log("*******************"); 
+		console.log("******************* WORKSHEET OBJECT"); 
 		console.log($scope.formInfo); 
 			for(var i = 0; i <  $scope.formInfo.length; i++) {
-				console.log("fieldNumber: " + i + "/" + $scope.formInfo.length); 
 				field = $scope.formInfo[i]; 
-				console.log("THE SCALE FACTOR IS: "); 
-				console.log(canvas.width / $scope.pageDetails.canvasWidth ); 
-				console.log(canvas.height/ $scope.pageDetails.canvasHeight);
 				positionX = field.positionX; //* $scope.pageDetails.scale; 
 				positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
-				//positionX = field.positionX * (canvas.width / $scope.pageDetails.canvasWidth ); 
-				//positionY = field.positionY * (canvas.height/ $scope.pageDetails.canvasHeight ); 
-				console.log("fieldId: " + field.id); 
+
 				if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
-					//addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
+					addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
 					continue; 
 				}
 				if(field.id == "upload_logo"){
@@ -214,20 +209,14 @@ objectDetailsService, subpageDetails, $http, $sce){
 					//values['blah'] = blah; 
 				}
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
-				var fontWeight = field.fontWeight; 
-				console.log(fontSize); 
+				var fontWeight = field.fontWeight;  
 				ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 
 				ctx.fillStyle = field.fontColor; 
 				ctx.textAlign = field.textAlign; 
 				ctx.lineHeight = ctx.font; 
 				ctx.letterSpacing = field.letterSpacing + "px";
-				console.log("letterspacing: " + field.letterSpacing); 
-				//console.log(field.fieldName); 
-				//console.log(values[field.fieldName]);
-
 				if(field.endPositionX){
-					console.log("it has an endPositionX"); 
 					var endPositionX = field.endPositionX; 
 					var width = Math.abs(positionX - endPositionX); 
 					if(values[field.fieldName]){
@@ -250,6 +239,8 @@ objectDetailsService, subpageDetails, $http, $sce){
 			}
 
 			completeProgressBar();
+			deferred.resolve(); 
+			return deferred.promise;
 
 	}
 
@@ -292,10 +283,8 @@ objectDetailsService, subpageDetails, $http, $sce){
 				addFileToGoogleDrive(blob);
 				var link = document.createElement("a");
 				link.href = url; 
-				console.log("the URL HAS BEEN CREATED: " + url); 
 				download.attr("href", url);
 				download.attr("download", "flyer.jpeg");
-		// Set to whatever file name you want
 				console.log("DOWNLOADING"); 
 			    link.setAttribute("download", $scope.pageDetails.name);
 			    link.click(); 
@@ -305,7 +294,6 @@ objectDetailsService, subpageDetails, $http, $sce){
 	}
 
 	var loadTransliteration = function(){
-		console.log("LOADING ANOTHER LANGUAGE")
 		google.load("elements", "1", {
     		packages: "transliteration",
     		callback: onLoadLanguage
@@ -313,7 +301,6 @@ objectDetailsService, subpageDetails, $http, $sce){
 	}
 
 	var onLoadLanguage = function() {
-        console.log("Onload"); 
         var destinationLanguage; 
         if($scope.language == "gujarati"){
         	destinationLanguage = google.elements.transliteration.LanguageCode.GUJARATI;
@@ -346,16 +333,13 @@ objectDetailsService, subpageDetails, $http, $sce){
  				arrayOfIds.push($scope.formInfo[i].id);; 
  			}
  		}
- 		console.log("arrayOfIds: " + arrayOfIds.toString()); 
- 		console.log(arrayOfIds); 
   		control.makeTransliteratable(arrayOfIds);
     }
 
     var addSrmdLogoToCanvas = function(ctx, field, x, y){
     	//RESIZE THE IMAGE
     	var srmdLogo = new Image(); 
-    	console.log("ADDED SRMD LOGO"); 
-    	console.log("THIS CHANGED"); 
+    	console.log("Adding SRMD Logo..."); 
     	console.log(field.id + " placeholder: " + field.placeholderText)
     	var width, height; 
     	if($scope.convertInvitationPDF){
@@ -410,7 +394,6 @@ objectDetailsService, subpageDetails, $http, $sce){
     		src = (field.placeholderText == "horizontal")? $scope.supportedLogos["General"].gujaratiHorizontal : $scope.supportedLogos["General"].gujaratiVertical;
     	}
     	else{
-    		console.log(field.id);
     		var country = $("input[name='"+ field.id +"']:checked").val(); 
     		if(country){
     			var srcs = $scope.supportedLogos[country]; 		
@@ -422,13 +405,12 @@ objectDetailsService, subpageDetails, $http, $sce){
     		}
     	}
     	srmdLogo.src = "../img/logos/" + src
-    	console.log(srmdLogo.src); 
     	console.log("End of drawing the logo!"); 
     }
 
     var addLogoToCanvas = function(ctx, src, x, y){
     	logo = new Image(); 
-    	console.log("Adding Logo to the Canvas");
+    	console.log("Adding Sponsor Logo to the Canvas");
     	//CHANGE THE DIMENSIONS OF THE UPLOADED LOGO
     	logo.onload = function(){
     		ctx.drawImage(logo, x, y, 60, 60);
@@ -438,7 +420,7 @@ objectDetailsService, subpageDetails, $http, $sce){
 
 
     function loadFonts(fonts){
-	 console.log("FONTS ARE: " + fonts); 
+	 console.log("Fonts loading are: " + fonts); 
 	 WebFont.load({
 	    google: { 
 	      families: fonts 
@@ -457,11 +439,11 @@ objectDetailsService, subpageDetails, $http, $sce){
         xmlHTTP.open('GET', url,true);
         xmlHTTP.responseType = 'arraybuffer';
         xmlHTTP.onload = function(e) { 
-        	console.log("Finished loading the object here");
+        	console.log("Finished loading the image - about to render");
             //thisImg.src = this.response; 
             var blob = new Blob([this.response]);
             thisImg.src = window.URL.createObjectURL(blob);
-        	$scope.imgSrc a= thisImg.src; 
+        	$scope.imgSrc = thisImg.src; 
         };
         xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
@@ -501,23 +483,22 @@ objectDetailsService, subpageDetails, $http, $sce){
     	var img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
     	img.onload = function(){
-			drawImageScaled(values, img, newCanvas, newScale)
+			drawImageScaled(values, img, newCanvas, newScale).then(function(){
+				newCanvas.toBlob(function(blob) {
+				var url = URL.createObjectURL(blob);
+				//addFileToGoogleDrive(blob);
+				var link = document.createElement("a");
+				link.href = url; 
+				console.log("DOWNLOADING new canvas"); 
+			    link.setAttribute("download", $scope.pageDetails.name);
+			    link.click(); 
+				}, 'image/jpeg');
+
+			});
 			console.log("Image onload function")  
 	    };
 	    img.backgroundLoad($scope.object.imageLink);
-    	newCanvas.toBlob(function(blob) {
-			var url = URL.createObjectURL(blob);
-			addFileToGoogleDrive(blob);
-			var link = document.createElement("a");
-			link.href = url; 
-			console.log("the URL HAS BEEN CREATED: " + url); 
-			// download.attr("href", url);
-			// download.attr("download", "flyer.jpeg");
-	// Set to whatever file name you want
-			console.log("DOWNLOADING"); 
-		    link.setAttribute("download", $scope.pageDetails.name);
-		    link.click(); 
-		}, 'image/jpeg');
+    	
     }
 
     // function addFileToGoogleDrive(blob){
