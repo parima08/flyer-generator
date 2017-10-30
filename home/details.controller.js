@@ -461,7 +461,7 @@ objectDetailsService, subpageDetails, $http, $sce){
             //thisImg.src = this.response; 
             var blob = new Blob([this.response]);
             thisImg.src = window.URL.createObjectURL(blob);
-        	$scope.imgSrc = thisImg.src; 
+        	$scope.imgSrc a= thisImg.src; 
         };
         xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
