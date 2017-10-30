@@ -63,7 +63,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages["/srlcbanners3x6"] = {
-		title: "SRLC Banners (3x6)",
+		title: "SRLC Blood Donation Banners (3x6)",
 		spreadsheetId: "1kUQJxsgSHdNY3z0-iU8JrMwA544RnbPM3R67bo4JMuc",
 		width: 6, 
 		height: 3,
@@ -71,7 +71,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages["/srlcbanners4x6"] = {
-		title: "SRLC Banners (4x6)",
+		title: "SRLC Other Banners (4x6)",
 		spreadsheetId: "1Se37l2vabhnvRrRwL_lNtOnG8gcdwvmgpKL-NXUBoWc",
 		width: 6, 
 		height: 4,

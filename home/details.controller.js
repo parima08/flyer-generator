@@ -6,6 +6,8 @@ DetailsController.$inject = ['$scope', '$routeParams','$location',
 function DetailsController($scope, $routeParams, $location, 
 objectDetailsService, subpageDetails, $http, $sce, $q){
 	console.log("Details Controller"); 
+	console.log("WORKING")
+	
 	var option2 = false;
 	$scope.convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
@@ -171,6 +173,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
 		ctx.setTransform(scale, 0, 0, scale, 0, 0);
+		$('.sidebar-form').height($('body').height() - 112 - 50);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		console.log("******************* WORKSHEET OBJECT"); 
@@ -275,20 +278,21 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
 		    a.setAttribute("download", $scope.pageDetails.name);
 		}
 		else{
-			var download = $('#download');
-			var ctx = canvas.getContext('2d');
-			ctx.setTransform($scope.pageDetails.scale*2, 0, 0, $scope.pageDetails.scale*2, 0, 0);
-			canvas.toBlob(function(blob) {
-				var url = URL.createObjectURL(blob);
-				addFileToGoogleDrive(blob);
-				var link = document.createElement("a");
-				link.href = url; 
-				download.attr("href", url);
-				download.attr("download", "flyer.jpeg");
-				console.log("DOWNLOADING"); 
-			    link.setAttribute("download", $scope.pageDetails.name);
-			    link.click(); 
-			}, 'image/jpeg');
+			createHighResCanvas(); 
+			// var download = $('#download');
+			// var ctx = canvas.getContext('2d');
+			// ctx.setTransform($scope.pageDetails.scale*2, 0, 0, $scope.pageDetails.scale*2, 0, 0);
+			// canvas.toBlob(function(blob) {
+			// 	var url = URL.createObjectURL(blob);
+			// 	addFileToGoogleDrive(blob);
+			// 	var link = document.createElement("a");
+			// 	link.href = url; 
+			// 	download.attr("href", url);
+			// 	download.attr("download", "flyer.jpeg");
+			// 	console.log("DOWNLOADING"); 
+			//     link.setAttribute("download", $scope.pageDetails.name);
+			//     link.click(); 
+			// }, 'image/jpeg');
 
 		}
 	}
@@ -447,8 +451,10 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
         };
         xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
-        	var percentage = (thisImg.completedPercentage-10) + "%"
-        	updateProgressBar(percentage);
+        	if(thisImg.completedPercentage >= 90){
+        		this.completedPercentage = 90;
+        	}
+        	updateProgressBar(this.completedPercentage);
         	console.log("#######" +  thisImg.completedPercentage);
         };
         xmlHTTP.onloadstart = function() {
@@ -475,7 +481,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
     	$('#progress_bar').show(); 
     }
 
-    $scope.createHighResCanvas = function(){
+    var createHighResCanvas = function(){
     	console.log("Create HighRes Canvas")
     	var newScale = $scope.pageDetails.scale * 2;
     	var newCanvas = document.createElement('canvas'); 

@@ -410,8 +410,8 @@ button.viewAllArticles{
 	z-index: 100;
 	visibility: hidden;
 	width: 400px;
-	min-height: calc(100% - 112px);
-	max-height: 100%;
+	/*min-height: calc(100% - 112px);
+	max-height: 100%;*/
 	overflow: scroll;
 	/*background: #9D9D9D;*/
 	color: #5A5E65;
@@ -562,18 +562,10 @@ button.viewAllArticles{
 }
 
 .footer {
-  background-color: #bcc1c7;
+  background-color: #5A5E65;
   text-align: center;
   padding: 10px;
   line-height: 30px;
   font-size: 15px;
 }
 
-
-
-
-
-/*background: #304352;  
-background: -webkit-linear-gradient(to right, #d7d2cc, #304352);   
-background: linear-gradient(to right, #d7d2cc, #304352); 
-*/
