@@ -75,9 +75,6 @@ objectDetailsService, subpageDetails, $http, $sce){
 		}
 	}
 
-	
-	
-
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
 	var dimensions = objectDetailsService.calculateAssetSize($scope.pageDetails['width'], $scope.pageDetails['height']); 
 	$scope.pageDetails['thumbnailHeight'] = dimensions.thumbnailHeight;
@@ -157,9 +154,9 @@ objectDetailsService, subpageDetails, $http, $sce){
 		});
 		var img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
-		resizeCanvas(canvas); 
+		resizeCanvas(canvas, $scope.pageDetails.scale); 
 		img.onload = function(){
-			drawImageScaled(values, img, canvas)
+			drawImageScaled(values, img, canvas, $scope.pageDetails.scale)
 			console.log("Image onload function")
 	         
 	     };
@@ -168,11 +165,11 @@ objectDetailsService, subpageDetails, $http, $sce){
 	    //img.src = $scope.object.imageLink;
 	}
 
-	var drawImageScaled = function(values, img, canvas) { 
+	var drawImageScaled = function(values, img, canvas, scale) { 
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
-		ctx.setTransform($scope.pageDetails.scale, 0, 0, $scope.pageDetails.scale, 0, 0);
+		ctx.setTransform(scale, 0, 0, scale, 0, 0);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		console.log("*******************"); 
@@ -256,17 +253,11 @@ objectDetailsService, subpageDetails, $http, $sce){
 
 	}
 
-	var resizeCanvas = function(canvas){
-		canvas_width_shld_be= $scope.pageDetails.canvasWidth; 
-		canvas_height_shld_be = $scope.pageDetails.canvasHeight;
-		scale_ratio =  $scope.pageDetails.scale || 10;  
-		//canvas_height_shld_be = image_ratio * canvas_width_shld_be; 
-	   	canvas.style.width = canvas_width_shld_be + "px"; 
-	   	canvas.style.height = canvas_height_shld_be + "px"; 
-	   	scaled_width = canvas_width_shld_be * (scale_ratio); 
-	   	scaled_height = canvas_height_shld_be * (scale_ratio); 
-	   	canvas.width = scaled_width ; 
-	   	canvas.height = scaled_height;  
+	var resizeCanvas = function(canvas, scale_ratio){
+	   	canvas.style.width = $scope.pageDetails.canvasWidth + "px"; 
+	   	canvas.style.height = $scope.pageDetails.canvasHeight + "px"; 
+	   	canvas.width  = $scope.pageDetails.canvasWidth * (scale_ratio); 
+	   	canvas.height = $scope.pageDetails.canvasHeight * (scale_ratio); 
 	}
 
 	var downloadCanvas = function(){
@@ -275,7 +266,6 @@ objectDetailsService, subpageDetails, $http, $sce){
 		var download = $('#download'); 
 		if($scope.convertInvitationPDF == true){
 			var imgData = canvas.toDataURL("image/jpeg");
-			console.log("I get here");
 			var pdf = new jsPDF({format: [1000, 633]});
 			pdf.internal.scaleFactor = 4;
 			var canvasScale = $scope.pageDetails.scale/2
@@ -292,9 +282,6 @@ objectDetailsService, subpageDetails, $http, $sce){
 			a.target = "_blank";
 		    a.href = pdf.output('datauri');
 		    a.setAttribute("download", $scope.pageDetails.name);
-		    //a.click();
-
-			//download.attr("href", pdf.output('datauri'));
 		}
 		else{
 			var download = $('#download');
@@ -474,6 +461,7 @@ objectDetailsService, subpageDetails, $http, $sce){
             //thisImg.src = this.response; 
             var blob = new Blob([this.response]);
             thisImg.src = window.URL.createObjectURL(blob);
+        	$scope.imgSrc = thisImg.src; 
         };
         xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
@@ -503,6 +491,33 @@ objectDetailsService, subpageDetails, $http, $sce){
 
     function startProgressBar(){
     	$('#progress_bar').show(); 
+    }
+
+    $scope.createHighResCanvas = function(){
+    	console.log("Create HighRes Canvas")
+    	var newScale = $scope.pageDetails.scale * 2;
+    	var newCanvas = document.createElement('canvas'); 
+    	resizeCanvas(newCanvas, newScale); 
+    	var img = new Image();
+		img.setAttribute('crossOrigin', 'anonymous');
+    	img.onload = function(){
+			drawImageScaled(values, img, newCanvas, newScale)
+			console.log("Image onload function")  
+	    };
+	    img.backgroundLoad($scope.object.imageLink);
+    	newCanvas.toBlob(function(blob) {
+			var url = URL.createObjectURL(blob);
+			addFileToGoogleDrive(blob);
+			var link = document.createElement("a");
+			link.href = url; 
+			console.log("the URL HAS BEEN CREATED: " + url); 
+			// download.attr("href", url);
+			// download.attr("download", "flyer.jpeg");
+	// Set to whatever file name you want
+			console.log("DOWNLOADING"); 
+		    link.setAttribute("download", $scope.pageDetails.name);
+		    link.click(); 
+		}, 'image/jpeg');
     }
 
     // function addFileToGoogleDrive(blob){
@@ -568,4 +583,5 @@ objectDetailsService, subpageDetails, $http, $sce){
             	console.log(data);
             });
         };
+
     }
