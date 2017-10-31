@@ -452,9 +452,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
         xmlHTTP.onprogress = function(e) {  
             thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
         	if(thisImg.completedPercentage >= 90){
-        		this.completedPercentage = 90;
+        		thisImg.completedPercentage = 90;
         	}
-        	updateProgressBar(this.completedPercentage);
+        	updateProgressBar(thisImg.completedPercentage);
         	console.log("#######" +  thisImg.completedPercentage);
         };
         xmlHTTP.onloadstart = function() {
@@ -469,7 +469,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
     Image.prototype.completedPercentage = 0;
 
     function updateProgressBar(percentage){
-    	$('#progress_bar .progress .progress-bar').width(percentage);
+    	var percentageString = percentage.toString() + "%";
+    	console.log("percentageString: " +  percentageString);
+    	$('#progress_bar .progress .progress-bar').css("width", percentageString);
     }
 
     function completeProgressBar(){
