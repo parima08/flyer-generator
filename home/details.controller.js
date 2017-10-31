@@ -173,7 +173,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
 		ctx.setTransform(scale, 0, 0, scale, 0, 0);
-		$('.sidebar-form').height($('body').height() - 112 - 50);
+		$('.sidebar-form').height($('body').height() - 112 - 50 - 15);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		console.log("******************* WORKSHEET OBJECT"); 
@@ -333,8 +333,11 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
  		var arrayOfIds = []; 
  		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya"]
  		for(var i = 0; i < $scope.formInfo.length; i++){
- 			if(!$scope.formInfo[i].id.includes(idsToExclude)) {
+ 			if(!idsToExclude.incudes(!$scope.formInfo[i].id)) {
  				arrayOfIds.push($scope.formInfo[i].id);; 
+ 			}
+ 			else{
+ 				alert(formInfo[i].id);
  			}
  		}
   		control.makeTransliteratable(arrayOfIds);

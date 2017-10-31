@@ -18,7 +18,7 @@
         <div class= "field" ng-repeat="field in formInfo">
           <div ng-if="field.id == 'srmd_logo' && language == 'english'">
             <h4><b>SRMD Logo Country</h4></b>
-            <div class="radio" ng-repeat = "country in supportedLogoCountries">
+            <div ng-repeat = "country in supportedLogoCountries">
               <input name = "{{field.id}}" id = "{{field.id}}_{{country.key}}"
                type = "radio" value = "{{country}}" ng-checked="{{country=='General'}}"/><label class = "radio-label">{{country}}</label></input><br/>
             </div>
@@ -33,7 +33,7 @@
             <h4><b>Swamivatsalya</h4></b>
             <p class = "intructions">{{field.instructions}}</p>
 
-            <div class="radio" ng-repeat = "(key, item) in swamivatsalyaTextLanguage[language]">
+            <div ng-repeat = "(key, item) in swamivatsalyaTextLanguage[language]">
               <div class = "radio-button">
                  <input name = "{{field.id}}"
                  type = "radio" value = "{{key}}" checked /><label class = "radio-label">{{item}}</label></input> 
