@@ -105,7 +105,7 @@ canvas{
 #canvas{
 	top: 0;
 	left: 0;
-	position: absolute;
+	/*position: absolute;*/
 	background-color: black;
 }
 
@@ -294,7 +294,8 @@ button.viewAllArticles{
 	margin: 10px auto;
 	background-color: white;
 	border-radius: 5px;
-	box-shadow: 0 2px 1px rgba(0,0,0,.08); 
+	/*box-shadow: 0 2px 1px rgba(0,0,0,.08); */
+	box-shadow: 0 30px 50px -20px #464646;
 	position: relative;
 	
 	/*padding: 10px;*/
@@ -622,7 +623,7 @@ color: white;
   font-size: 15px;
 }
 
-.pusher .container{
+/*.pusher .container{
 	overflow-x: scroll;
 }
-
+*/
