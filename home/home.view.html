@@ -14,7 +14,7 @@
   <uib-tabset active="active">
       <uib-tab index="$index" ng-repeat="language in flyers" heading="{{tabTitles[$index]}}" disable="tab.disabled">
         <div class = "row">
-          <div class = "material-container col-md-4" ng-repeat-start="flyer in language">
+          <div class = "material-container col-md-4 col-sm-6 col-xs-12" ng-repeat-start="flyer in language">
             <div ng-if="flyer.twoOptions != true">
               <a class = "material-link" ng-click="saveMaterial(flyer, 0)">
                 <div class = "material-element">

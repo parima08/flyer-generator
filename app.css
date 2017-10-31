@@ -3,7 +3,13 @@
 
 body{
 	font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-	background: #EBECED;
+	/*background: #EBECED;*/
+	background: rgb(244, 244, 244);
+	min-height: 100vh;
+}
+
+a{
+	cursor: pointer;
 }
 
 h1, h2, h3, h4{
@@ -90,7 +96,7 @@ h1, h2, h3, h4{
 }
 
 canvas{
-	background-color: black;
+	background: transparent;
 	margin: 0 auto; 
 	text-rendering: optimizeLegibility;
 	font-kerning : normal;
@@ -100,6 +106,7 @@ canvas{
 	top: 0;
 	left: 0;
 	position: absolute;
+	background-color: black;
 }
 
 #progress_bar{
@@ -147,14 +154,14 @@ canvas{
 	position: absolute;
 	right: 7em;
 	padding: 25px;
-	top: 100px;
+	top: 273px;
 	min-width: 400px;
 	width: 40%;
 	min-height: 600px;
 }
 
 .article-form-container{
-	top: 225px;
+	top: 273px;
 }
 
 .background-container{
@@ -284,7 +291,7 @@ button.viewAllArticles{
 
 .object-container{
 	width: 90%;
-	margin: 10px;
+	margin: 10px auto;
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 0 2px 1px rgba(0,0,0,.08); 
@@ -529,6 +536,10 @@ color: white;
 	text-align: center;
 }
 
+.jumbotron h2{
+	color: rgb(195, 197, 201);
+}
+
 .jumbotron h1{
 	color: rgb(195, 197, 201);
 	text-transform: uppercase;
@@ -537,6 +548,7 @@ color: white;
 	font-size: 4em;
 	letter-spacing: .15em;
 }
+
 
 .nav-tabs>li>a, .nav-tabs>li>a:focus{
 	text-transform: uppercase;
@@ -608,5 +620,9 @@ color: white;
   padding: 10px;
   line-height: 30px;
   font-size: 15px;
+}
+
+.pusher .container{
+	overflow-x: scroll;
 }
 
