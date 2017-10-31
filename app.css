@@ -299,7 +299,7 @@ button.viewAllArticles{
 }
 
 .hover-overlay{
-	background: rgba(0,0,0,0.4);
+	background: rgba(0,0,0,0.8);
     position: absolute;
     width: 0px;
     height: 0px;
@@ -350,7 +350,8 @@ button.viewAllArticles{
 }
 
 .overlay-buttons .overlay-button:hover{
-	background-color: black;
+	background-color: white;
+	color: black;
 }
 
 .object-container:before {
@@ -517,9 +518,36 @@ button.viewAllArticles{
 }
 
 .jumbotron{
-	background: linear-gradient(to left, #403b4a, #e7e9bb);
-	margin-top: -30px;
+	/*background: linear-gradient(to left, #403b4a, #e7e9bb);*/
+	background: #003973;  /* fallback for old browsers */
+/*background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  
+background: linear-gradient(to right, #E5E5BE, #003973); */
+background: rgb(59, 59, 62);
+color: white;
+
+	margin-top: -25px;
 	text-align: center;
+}
+
+.jumbotron h1{
+	color: rgb(195, 197, 201);
+	text-transform: uppercase;
+	font-family: 'Roboto';
+	font-weight: 600;
+	font-size: 4em;
+	letter-spacing: .15em;
+}
+
+.nav-tabs>li>a, .nav-tabs>li>a:focus{
+	text-transform: uppercase;
+    font-size: 1.2em;
+    padding: .5em 2em;
+    margin-bottom: 1.7em;
+}
+
+.name-container h4{
+	font-weight: 400;
+    font-size: 1.2em;
 }
 
 .no-selectable-text{
