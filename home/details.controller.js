@@ -332,12 +332,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
  		
  		var arrayOfIds = []; 
  		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya"]
- 		for(var i = 0; i < $scope.formInfo.length; i++){
- 			if(!idsToExclude.incudes(!$scope.formInfo[i].id)) {
+		for(var i = 0; i < $scope.formInfo.length; i++){
+ 			if(!idsToExclude.includes($scope.formInfo[i].id)) {
  				arrayOfIds.push($scope.formInfo[i].id);; 
- 			}
- 			else{
- 				alert(formInfo[i].id);
  			}
  		}
   		control.makeTransliteratable(arrayOfIds);

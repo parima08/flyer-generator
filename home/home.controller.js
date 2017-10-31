@@ -306,10 +306,7 @@ function HomeController($scope, $rootScope, $location,
 	$http, $sce, objectDetailsService, userPersistenceService, subpageDetails){
 	$scope.isHomePage = false;
 	$scope.tabTitles = ["English", "Hindi", "Gujarati"]; 
-	$scope.numInRow = 3;
-	$scope.getNumInRow = function(num) {
-	    return new Array(numInRow);   
-	} 
+
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  
@@ -351,7 +348,6 @@ function HomeController($scope, $rootScope, $location,
 	//TODO: Refactor the switch statement on the route URL
 	//[a,b,c,d,e].indexOf(x) with the location path. 
 	//
-	console.log("I get here!"); 
 	if($location.path() === "/" || $location.path() === '/home' ){
 			$scope.isHomePage = true; 
 			console.log("Home Page"); 
