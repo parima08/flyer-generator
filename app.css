@@ -10,6 +10,11 @@ h1, h2, h3, h4{
 	font-weight: 600;
 }
 
+.detail-controls h4{
+	color: #BCC1C7;
+	font-size: 18px;
+}
+
 
 
 
@@ -160,7 +165,7 @@ canvas{
 .home-background{
 	background-size: cover;
 	width: 100%;
-	margin-top: -20px;
+	margin-top: -25px;
 	max-height: 600px;
 	position: relative;
 }
@@ -324,6 +329,14 @@ button.viewAllArticles{
     transform: translateX(-50%) translateY(-50%);
 }
 
+.detail-title{
+	float: left;
+}
+
+.detail-buttons{
+	float: right;
+}
+
 .object-container:hover .overlay-buttons{
 	opacity: 1;
 }
@@ -405,7 +418,7 @@ button.viewAllArticles{
 
 .sidebar-form{
 	position: absolute;
-	top: 112px;
+	top: 127px;
 	left: 0;
 	z-index: 100;
 	visibility: hidden;

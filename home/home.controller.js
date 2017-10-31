@@ -306,6 +306,10 @@ function HomeController($scope, $rootScope, $location,
 	$http, $sce, objectDetailsService, userPersistenceService, subpageDetails){
 	$scope.isHomePage = false;
 	$scope.tabTitles = ["English", "Hindi", "Gujarati"]; 
+	$scope.numInRow = 3;
+	$scope.getNumInRow = function(num) {
+	    return new Array(numInRow);   
+	} 
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());  

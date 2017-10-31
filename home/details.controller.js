@@ -331,9 +331,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
             new google.elements.transliteration.TransliterationControl(options);
  		
  		var arrayOfIds = []; 
+ 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya"]
  		for(var i = 0; i < $scope.formInfo.length; i++){
- 			if($scope.formInfo[i].id !== "email" && $scope.formInfo[i].id !== "srmd_logo"
- 				&& $scope.formInfo[i].id !== "upload_logo") {
+ 			if(!$scope.formInfo[i].id.includes(idsToExclude)) {
  				arrayOfIds.push($scope.formInfo[i].id);; 
  			}
  		}
