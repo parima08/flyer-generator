@@ -32,6 +32,13 @@ app.provider('subpageDetails', function(){
 		width: 6, 
 		height: 4,
 		scale: 10
+	};
+	subpages["/sessionflyers"] = {
+		title: "Session Flyers",
+		spreadsheetId: "1YWCuxVHwYFdwqRcOq53909-fex9XGqqyRGCuhMEuDF4", 
+		width: 11, 
+		height: 16,
+		scale: 10
 	}
 
 //SRD -----------------------------------------

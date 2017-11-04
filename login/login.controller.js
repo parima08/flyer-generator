@@ -2,12 +2,14 @@
 
 var app = angular.module('myApp'); 
 
+
 app.controller('LoginController', LoginController); 
 
 LoginController.$inject = ['$scope','googleService', 
                       '$rootScope', '$location', 
                       'userPersistenceService', '$window']; 
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
+  var whiteListEmails = ["parima08@gmail.com", "centres.mgmt@sradharampur.org"]
   $window.init = function(){
       console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
@@ -42,10 +44,16 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
         };
 
         function validateUser(email){
-          if(email === "parima08@gmail.com"){
-              alert("THE USER IS NOT VALIDATED");
-              //$$scope.signOut(); 
-            }
+          // if(email === "parima08@gmail.com"){
+          //     alert("THE USER IS NOT VALIDATED");
+          //     //$$scope.signOut(); 
+          // }
+          // if(email.indexOf("shrimadrajchandramission.org") == -1 || !whiteListEmails.include(email)){
+          //   $scope.signOut(); 
+          //   $location.path('/login').replace()
+          //   $scope.flash = "You need a shrimadrajchandramission.org email address to login"
+          //   $scope.apply(); 
+          // }
         }
         
         $scope.signOut = function(){
