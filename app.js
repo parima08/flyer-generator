@@ -12,11 +12,13 @@ angular.module('myApp', [
 ]).config(config)
 .run(run); 
 
-config.$inject = ['$routeProvider', '$locationProvider', '$sceDelegateProvider', 'subpageDetailsProvider'];
-function config($routeProvider, $locationProvider, $sceDelegateProvider, subpageDetailsProvider){
+config.$inject = ['$routeProvider', '$locationProvider', 
+'$sceDelegateProvider', 'subpageDetailsProvider', '$qProvider'];
+function config($routeProvider, $locationProvider, 
+  $sceDelegateProvider, subpageDetailsProvider, $qProvider){
 	$locationProvider.hashPrefix('');
   $sceDelegateProvider.resourceUrlWhitelist(['**']);
-
+  $qProvider.errorOnUnhandledRejections(false);
 	$routeProvider
         .when('/', {
             controller: 'HomeController',

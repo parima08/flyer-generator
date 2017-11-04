@@ -28,15 +28,25 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
 
             $rootScope.loggedInUser = profile; 
             console.log(profile); 
-            $rootScope.loggedInUser.fullName = profile.w3.U3; 
-            $rootScope.loggedInUser.email = profile.w3.ig; 
+            $rootScope.loggedInUser.fullName = profile.w3.ig ; 
+            $rootScope.loggedInUser.email = profile.w3.U3; 
             
-            userPersistenceService.setCookieData(profile.w3.U3, profile.w3.ig); 
+            alert($rootScope.loggedInUser.email);
+            validateUser($rootScope.loggedInUser.email);
+
+            userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3); 
             $location.path('/home').replace(); 
             $scope.$apply(); 
             //googleService.getUser
           });
         };
+
+        function validateUser(email){
+          if(email === "parima08@gmail.com"){
+              alert("THE USER IS NOT VALIDATED");
+              //$$scope.signOut(); 
+            }
+        }
         
         $scope.signOut = function(){
           googleService.signOut().then(function(){

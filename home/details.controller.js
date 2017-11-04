@@ -2,12 +2,10 @@ var app = angular.module('myApp');
 app.controller('DetailsController', DetailsController);
 
 DetailsController.$inject = ['$scope', '$routeParams','$location', 
-					'objectDetailsService', 'subpageDetails', '$http', '$sce', '$q']; 
+					'objectDetailsService', 'subpageDetails', '$http', '$sce', '$q', '$rootScope']; 
 function DetailsController($scope, $routeParams, $location, 
-objectDetailsService, subpageDetails, $http, $sce, $q){
+objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	console.log("Details Controller"); 
-	console.log("WORKING")
-	
 	var option2 = false;
 	$scope.convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
@@ -494,49 +492,32 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
 			drawImageScaled(values, img, newCanvas, newScale).then(function(){
 				newCanvas.toBlob(function(blob) {
 				var url = URL.createObjectURL(blob);
-				//addFileToGoogleDrive(blob);
 				var link = document.createElement("a");
 				link.href = url; 
 				console.log("DOWNLOADING new canvas"); 
 			    link.setAttribute("download", $scope.pageDetails.name);
 			    link.click(); 
 				}, 'image/jpeg');
-
 			});
+			uploadFile();
+			//addFileToGoogleDrive();
 			console.log("Image onload function")  
 	    };
 	    img.backgroundLoad($scope.object.imageLink);
     	
     }
 
-    // function addFileToGoogleDrive(blob){
-    	
-    // 	var baseURL = "https://docs.google.com/forms/u/7/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/formResponse?"; 
-    // 	//var submitRef = "&submit=7948761085603042000"
-    // 	var submitRef = "&submit=6722382392673483684"
-    // 	var nameField = "entry.141331330";
-    // 	var emailField = "entry.124033596";
-    // 	var fileField = "entry.109833877";	
+    function uploadFile(){
+    	console.log("0. Upload File")
+    	var canvas = $('#canvas')[0];
+    	canvas.toBlob(function(blob) {
+			var url = URL.createObjectURL(blob);
+			addFileToGoogleDrive(blob); 
+		}, 'image/jpeg');
 
-    // 	var submitURL = baseURL +  nameField + "=" + "parima" + "&" +
-				// 				   emailField + "=" + "parima08@gmail.com" + "&" +
-				// 				   fileField + "=" + blob + "&" +
-				// 				   submitRef;
-
-    //     var form = $(document.body).append(form);
-    //     form.action = submitURL; 
-    //     form.submit();
-    //     //xmlHTTP.open('POST', submitURL, true);
-
-    // 	////////////////////
-
-    	
-    // }
+    }
 
     function addFileToGoogleDrive(file){
-		//sendFileToGoogleDrive(file);
-   		// var dataURL = $('#canvas')[0].toDataURL();
-   		// sendFileToGoogleDrive(dataURL);
       var reader = new FileReader(); 
       reader.onload = function(evt) {
 	    console.log("1. About to send the file");
@@ -548,29 +529,29 @@ objectDetailsService, subpageDetails, $http, $sce, $q){
     function sendFileToGoogleDrive(file){
     	console.log("2. addFileToGoogleDrive 1");
     	var url = "https://script.google.com/a/shrimadrajchandramission.com/macros/s/AKfycbxrRdFQUlYGaWbtC20EmDWUezCb6xyI0LRUZtOov2WFgqZx1peO/exec"
+    	console.log("Username: " + $rootScope.loggedInUser.fullName);
+    	console.log("Email: " + $rootScope.loggedInUser.email);
     	//console.log(file.toString());
     	var data = $.param({
             fileName: $scope.pageDetails.name,
+            uploader: $rootScope.loggedInUser.email,
+            userEmail: $rootScope.loggedInUser.fullName,
             file: file
         });
-     // var data = new FormData();
-     // data.append('fileName', $scope.pageDetails.name);
-     // data.append('file', file);
-     //console.log(data.get('fileName'));
-        //file: file
-        //'Content-Type': 'application/x-www-form-urlencoded;'
-            var config = {
-                headers : {   
-                	'Content-Type': 'application/x-www-form-urlencoded;' 
-                }
+        // console.log(data);
+        var config = {
+            headers : {   
+            	'Content-Type': 'application/x-www-form-urlencoded;' 
             }
-            //'application/x-www-form-urlencoded;'
-            console.log("3. About to send the request")
-            $http.post(url, data, config)
-            .then(function(){
-            	console.log("4. returned from posting");
-            	console.log(data);
-            });
-        };
+        }
+        //'application/x-www-form-urlencoded;'
+        console.log("3. About to send the request")
+        $http.post(url, data, config).then(function(){
+        	console.log("4. returned from posting");
+        	console.log(data);
+        }).then(function(result){
+        	console.log(result); 
+        });
+    };
 
-    }
+}//end file

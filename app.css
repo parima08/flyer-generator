@@ -78,16 +78,21 @@ h1, h2, h3, h4{
 	position: relative;
 }
 
+.login-page{
+	height: 100vh;
+	background-color: #eee;
+}
+
 .login-box{
 	background-color: #DCDCDC;
 	padding: 20px;
 	margin: auto;
 	width: 400px;
-	height: 200px;
 	position: absolute;
   	top: 50%;
   	left: 50%;
   	transform: translate(-50%, -50%);
+  	box-shadow: 0 30px 50px -20px #464646;
 }
 
 .canvas-container{
@@ -166,7 +171,7 @@ canvas{
 
 .background-container{
 	width: 100%;
-	background-color: red;
+	background-color: black;
 }
 
 .home-background{
@@ -203,6 +208,7 @@ http://localhost:8000/#/backdrop2by3/Red_Purple_2x3
 	font-weight: 300;
 	position: absolute;
 	top: 0;
+	right: -20px;
 }
 
 #myForm h4{
@@ -621,6 +627,14 @@ color: white;
   padding: 10px;
   line-height: 30px;
   font-size: 15px;
+}
+
+.home-title h1, .home-title h4{
+	color: #f3f3f3!important;
+}
+
+.footer a{
+	color: #f4f4f4;
 }
 
 /*.pusher .container{
