@@ -629,6 +629,25 @@ color: white;
   font-size: 15px;
 }
 
+.login-logo-box{
+	width: 112%;
+	background: #373a3e;
+	margin: -20px;
+	padding: 15px;
+	padding-bottom: 25px;
+	margin-bottom: 30px;
+}
+
+.login-logo{
+	margin: auto;
+	width: 200px;
+}
+
+.login-logo img{
+	width: 100%;
+	margin: auto;
+}
+
 .home-title h1, .home-title h4{
 	color: #f3f3f3!important;
 }

@@ -9,7 +9,8 @@ LoginController.$inject = ['$scope','googleService',
                       '$rootScope', '$location', 
                       'userPersistenceService', '$window']; 
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
-  var whiteListEmails = ["parima08@gmail.com", "centres.mgmt@sradharampur.org"]
+  var whiteListEmails = [ "centres.mgmt@sradharampur.org"];
+  
   $window.init = function(){
       console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
@@ -18,6 +19,22 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       else{
         $scope.isSignedIn = false; 
       }
+
+
+    function validateUser(userEmail){
+      if( (userEmail.indexOf("shrimadrajchandramission.org") == -1) && (whiteListEmails.indexOf(userEmail) == -1)){
+        console.log("This email should not be allowed to sign in");
+        $scope.signOut(); 
+        alert("You are not a valid user. You must have a shrimadrajchandramission.org email address!");
+        return false;
+      }
+      else{
+        console.log("This email is allowed"); 
+        console.log("apply the cookie")
+        return true; 
+      }
+    }
+        
       //$scope.isSignedIn = false;
       googleService.load().then(function(){
         $scope.signIn = function(){
@@ -32,30 +49,15 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
             console.log(profile); 
             $rootScope.loggedInUser.fullName = profile.w3.ig ; 
             $rootScope.loggedInUser.email = profile.w3.U3; 
-            
-            alert($rootScope.loggedInUser.email);
-            validateUser($rootScope.loggedInUser.email);
-
-            userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3); 
-            $location.path('/home').replace(); 
-            $scope.$apply(); 
-            //googleService.getUser
+            var redirect = validateUser($rootScope.loggedInUser.email, $rootScope.loggedInUser.fullName); 
+            if(redirect){
+              userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3); 
+              console.log("Redirecting"); 
+              $location.path('/home').replace(); 
+            }
           });
         };
 
-        function validateUser(email){
-          // if(email === "parima08@gmail.com"){
-          //     alert("THE USER IS NOT VALIDATED");
-          //     //$$scope.signOut(); 
-          // }
-          // if(email.indexOf("shrimadrajchandramission.org") == -1 || !whiteListEmails.include(email)){
-          //   $scope.signOut(); 
-          //   $location.path('/login').replace()
-          //   $scope.flash = "You need a shrimadrajchandramission.org email address to login"
-          //   $scope.apply(); 
-          // }
-        }
-        
         $scope.signOut = function(){
           googleService.signOut().then(function(){
             $scope.isSignedIn = googleService.isSignedIn();
