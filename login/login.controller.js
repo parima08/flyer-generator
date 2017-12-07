@@ -11,7 +11,8 @@ LoginController.$inject = ['$scope','googleService',
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
   
   var whiteListEmails = [ "parima08@gmail.com", "centres.mgmt@sradharampur.org", "aniruddh.mehta90@gmail.com", 
-                    "jhalakprdept@gmail.com", "supersup1388@gmail.com", "s170496@gmail.com", "anitashah92@gmail.com"];
+                    "jhalakprdept@gmail.com", "supersup1388@gmail.com", "s170496@gmail.com", "anitashah92@gmail.com", 
+                    "anushka96mehta@gmail.com" ];
   $window.init = function(){
       console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
