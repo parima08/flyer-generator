@@ -12,7 +12,9 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
   
   var whiteListEmails = [ "parima08@gmail.com", "centres.mgmt@sradharampur.org", "aniruddh.mehta90@gmail.com", 
                     "jhalakprdept@gmail.com", "supersup1388@gmail.com", "s170496@gmail.com", "anitashah92@gmail.com", 
-                    "anushka96mehta@gmail.com" ];
+                    "anushka96mehta@gmail.com"];
+
+  //var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"]; 
   $window.init = function(){
       console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
