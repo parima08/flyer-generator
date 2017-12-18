@@ -14,7 +14,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
                     "jhalakprdept@gmail.com", "supersup1388@gmail.com", "s170496@gmail.com", "anitashah92@gmail.com", 
                     "anushka96mehta@gmail.com"];
 
-  //var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"]; 
+  var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"]; 
   $window.init = function(){
       console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
@@ -24,9 +24,23 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
         $scope.isSignedIn = false; 
       }
 
-
+    function checkRestrictDomainName(userEmail){
+      console.log("checkRestrictDomainName"); 
+      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) == -1}); 
+      if(domainName === ""){
+        $rootScope.validUser = false; 
+      }
+      else{
+        $rootScope.validUser = true; 
+        if( domainName == "srdivinetouch.org"){
+          $rootScope.srdUser = true; 
+        }
+      }
+    }
     function validateUser(userEmail){
-      if( (userEmail.indexOf("shrimadrajchandramission.org") == -1) && (whiteListEmails.indexOf(userEmail) == -1)){
+      checkRestrictDomainName(userEmail); 
+      //userEmail.indexOf("shrimadrajchandramission.org") == -1)
+      if( !$rootScope.validUser && (whiteListEmails.indexOf(userEmail) == -1)){
         console.log("This email should not be allowed to sign in");
         $scope.signOut(); 
         alert("You are not a valid user. You must have a shrimadrajchandramission.org email address!");
@@ -132,7 +146,7 @@ app.factory("userPersistenceService", [
         console.log("Clearing Cookie Data")
         $cookies.remove("userName");
         $cookies.remove("userEmail"); 
-      }
+      },
     }
   }
 ]);
