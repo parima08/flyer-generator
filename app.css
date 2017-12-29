@@ -172,14 +172,39 @@ canvas{
 .background-container{
 	width: 100%;
 	background-color: black;
-}
-
-.home-background{
+	background-image: url('../img/ashram_background.jpg'),
+	 radial-gradient(48% 80%, rgba(255, 255, 255, 1) 41%, rgba(0, 0, 0, 1) 91%);
 	background-size: cover;
+	background-position: center center;
 	width: 100%;
 	margin-top: -25px;
-	max-height: 600px;
+	height: 550px;
 	position: relative;
+}
+
+.chitrapat{
+	background-image: url('../img/chitrapat.png');
+	background-size: contain;
+	background-position: center; 
+	background-repeat: no-repeat;
+/*	background-color: red;*/
+	height: 250px;
+}
+
+.steps-container{
+	min-height: 300px;
+	z-index: 2;
+	position: relative;
+}
+
+.steps-box{
+	background-color: #242424;
+	width: 80%;
+	height: 300px;
+	margin: auto;
+	margin-top: -70px;
+	z-index: 2;
+	box-shadow: 0 11px 26px 9px rgba(0,0,0,0.50);
 }
 
 .home-title{
@@ -190,17 +215,21 @@ canvas{
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #ffffff;
+	text-align: center;
 	/*background-color: green;*/
 	font-family: "Source Sans Pro", "sans-serif"; 
 }
-http://localhost:8000/#/backdrop2by3/Red_Purple_2x3
+
 .home-title h1, .home-title h4{
 	display: inline;
 }
 
 .home-title h1{
-	font-size: 70px;
+	font-size: 3.8em;
+	letter-spacing: .2em;
 	font-weight: 600;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
 }
 
 .home-title h4{
@@ -268,6 +297,24 @@ input.detail-field{
 
 .viewAllArticles{
 	display: none;
+}
+
+.one-third{
+	width: 33%;
+	display: inline-block;
+	box-sizing: border-box;
+	/*border: 1px solid green;*/
+	padding: 20px;
+	height: 100%;
+	text-align: center;
+	vertical-align: top;
+}
+
+.number{
+	font-size: 5em;
+	color: white;
+	font-weight: 600;
+	margin: 0 auto;
 }
 
 button{
@@ -654,6 +701,37 @@ color: white;
 
 .footer a{
 	color: #f4f4f4;
+}
+
+.step-break{
+	width: 40%;
+	margin: 0 auto;
+}
+
+.step-instruction{
+	width: 60%;
+	margin: 20px auto;
+	font-size: 1.2em;
+	color: white;
+	height: 40%;
+}
+
+.quote{
+	width: 70%;
+	margin: 0 auto;
+	height: 200px;
+	font-size: 3em;
+	text-align: center;
+	margin-top: 50px;
+	font-weight: 700;
+
+}
+.mission-logo{
+	width: 100px;
+	height: 100px;
+	background-image: url("../img/logos/srmd_general_eng.png");
+	background-size: cover;
+	margin: 0 auto;
 }
 
 /*.pusher .container{
