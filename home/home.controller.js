@@ -355,7 +355,7 @@ function HomeController($scope, $rootScope, $location,
 	}
 	else{
 		var sectionDetails = subpageDetails[$location.path()];
-		if(sectionDetails == "Articles"){
+		if(sectionDetails.title == "Articles"){
 			//deal with articles
 		}
 		else if(sectionDetails.width){

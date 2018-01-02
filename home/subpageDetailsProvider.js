@@ -33,13 +33,16 @@ app.provider('subpageDetails', function(){
 		height: 4,
 		scale: 10
 	};
-	subpages["/sessionflyers"] = {
-		title: "Session Flyers",
-		spreadsheetId: "1YWCuxVHwYFdwqRcOq53909-fex9XGqqyRGCuhMEuDF4", 
-		width: 11, 
-		height: 16,
-		scale: 10
-	}
+	// subpages["/sessionflyers"] = {
+	// 	title: "Session Flyers",
+	// 	spreadsheetId: "1YWCuxVHwYFdwqRcOq53909-fex9XGqqyRGCuhMEuDF4", 
+	// 	width: 11, 
+	// 	height: 16,
+	// 	scale: 10, 
+	// 	toBeDone: true; 
+	// }
+
+	subpages["/sessionflyers"] = {}; 
 
 //SRD -----------------------------------------
 
@@ -58,6 +61,11 @@ app.provider('subpageDetails', function(){
 		height: 6,
 		scale: 20
 	}
+
+	subpages["/postcard-flyers"] = {
+		title: "Post Card Flyers",
+		spreadsheetId: ""
+	}; 
 
 
 //SRLC -----------------------------------------
