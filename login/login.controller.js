@@ -26,25 +26,33 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
 
     function checkRestrictDomainName(userEmail){
       console.log("checkRestrictDomainName"); 
-      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) == -1}); 
-      if(domainName === ""){
-        $rootScope.validUser = false; 
-      }
-      else{
-        $rootScope.validUser = true; 
+      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
+      console.log("Domain Name: " + domainName); 
+      if(domainName){
+         $rootScope.validUser = true; 
         if( domainName == "srdivinetouch.org"){
           $rootScope.srdUser = true; 
         }
       }
+      else{
+        $rootScope.validUser = false; 
+      }
+      console.log("Valid User? " + $rootScope.validUser.toString() );
     }
     function validateUser(userEmail){
       checkRestrictDomainName(userEmail); 
       //userEmail.indexOf("shrimadrajchandramission.org") == -1)
-      if( !$rootScope.validUser && (whiteListEmails.indexOf(userEmail) == -1)){
-        console.log("This email should not be allowed to sign in");
-        $scope.signOut(); 
-        alert("You are not a valid user. You must have a shrimadrajchandramission.org email address!");
-        return false;
+      console.log("Is it in whitelisted emails? : " + (whiteListEmails.indexOf(userEmail) == -1).toString() )
+      if(!$rootScope.validUser){
+        if((whiteListEmails.indexOf(userEmail) == -1)){
+          console.log("This email should not be allowed to sign in");
+          $scope.signOut(); 
+          alert("You are not a valid user. You must have a shrimadrajchandramission.org email address!");
+          return false;
+        }
+        else{
+          return true; 
+        }
       }
       else{
         console.log("This email is allowed"); 
