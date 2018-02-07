@@ -204,18 +204,21 @@ function ArticlesController($scope, $rootScope, $location,
 
 		var articleName = encodeURIComponent($('#articleName').val()); 
 		var articleLink = encodeURIComponent($('#articleLink').val()); 
+		var pdfLink = encodeURIComponent($('#pdfLink').val())
 		console.log(centerName); 
 
 
 		var baseURL = "https://docs.google.com/forms/u/7/d/e/1FAIpQLSdd8CruVCXXMDiq-WxI0LWfba46D_AxcDcIv1A1uWKBmbR_bg/formResponse?"; 
 		var submitRef = "&submit=-2838550462772200653";
 		var articleLinkID = "entry.1734546770"; 
+		var pdfLinkID = "entry.2055262418";
 		var articleNameID = "entry.1745447166"; 
 		var centerNameID = "entry.2114019815"; 
 		var centerEmailID = "entry.550354372";
 		var requestReasonID = "entry.2009048180";
 
-		var submitURL = baseURL + articleLinkID + "=" + articleLink + "&" + 
+		var submitURL = baseURL +  articleLinkID + "=" + articleLink + "&" + 
+								   pdfLinkID + "=" + pdfLink + "&" + 
 								   articleNameID + "=" + articleName + "&" +
 								   centerNameID + "=" + centerName + "&" +
 								   centerEmailID + "=" + centerEmail + "&" +

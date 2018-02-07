@@ -303,6 +303,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	}
 
 	var onLoadLanguage = function() {
+		console.log("onLoadLanguage");
         var destinationLanguage; 
         if($scope.language == "gujarati"){
         	destinationLanguage = google.elements.transliteration.LanguageCode.GUJARATI;
@@ -313,6 +314,8 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
         else{
         	destinationLanguage = google.elements.transliteration.LanguageCode.ENGLISH; 
         }
+
+        alert(destinationLanguage);
 
         var options = {
             sourceLanguage:
@@ -336,6 +339,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
  			}
  		}
   		control.makeTransliteratable(arrayOfIds);
+  		control.enableTransliteration();
     }
 
     var addSrmdLogoToCanvas = function(ctx, field, x, y){
@@ -422,7 +426,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 
     function loadFonts(fonts){
-	 console.log("Fonts loading are: " + fonts); 
 	 WebFont.load({
 	    google: { 
 	      families: fonts 
