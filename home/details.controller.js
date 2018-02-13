@@ -73,7 +73,42 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			"Lunch": "Swamivatsalya (Lunch) has been arranged from", 
 			"Dinner":"Swamivatsalya (Dinner) has been arranged from",
 		}
-	}
+	}; 
+		$scope.swadhyaykarInfo = [
+		{
+			name: "Atmarpit Kinjalji", 
+			image: "Atmarpit_Kinjalji.png"
+		}, 
+		{
+			name: "Atmarpit Rajuji",
+			image: "Atmarpit_Rajuji.png"
+		},
+		{
+			name: "Atmarpit Shivaniji",
+			image: "Atmarpit_Shivaniji.png"
+		},
+		{
+			name: "Atmarpit Smrutiji",
+			image: "Atmarpit_Smrutiji.png"
+		},
+		{
+			name: "Bhavnaben Shah",
+			image: "Bhavnaben_Shah.png"
+		},
+		{
+			name: "Dilipbhai Jasani",
+			image: "Dilipbhai_Jasani.png"
+		}, 
+		{
+			name: "Dilipbhai_Pasad",
+			image: "Dilipbhai_Pasad.png"
+		},
+		{
+			name: "Piyushbhai_Shah",
+			image: "Piyushbhai_Shah.png"
+		}
+	]
+
 
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
 	var dimensions = objectDetailsService.calculateAssetSize($scope.pageDetails['width'], $scope.pageDetails['height']); 
@@ -189,7 +224,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 					//console.log("upload_logo: " + field.value); 
 					src = $("img.upload_logo").attr('src');
 					if(src){
-						addLogoToCanvas(ctx, src , positionX, positionY); 
+						addImageToCanvas(ctx, src , positionX, positionY, 60, 60); 
 						continue; 
 					}
 				}
@@ -209,6 +244,16 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 					//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
 					//values['blah'] = blah; 
 				}
+				if(field.id == "swadhyaykar"){
+					//alert("Swadhyaykar");
+					let srcInput = $('input[name="swadhyaykar"]:checked').val(); 
+					let src = "../img/swadhyaykars/" + srcInput; 
+					console.log("Swadhyaykar: " + src); 
+					if(src){
+						addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85); 
+					}
+				}
+
 				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
 				var fontWeight = field.fontWeight;  
 				ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
@@ -414,16 +459,15 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	console.log("End of drawing the logo!"); 
     }
 
-    var addLogoToCanvas = function(ctx, src, x, y){
+    var addImageToCanvas = function(ctx, src, x, y, width, height){
     	logo = new Image(); 
     	console.log("Adding Sponsor Logo to the Canvas");
     	//CHANGE THE DIMENSIONS OF THE UPLOADED LOGO
     	logo.onload = function(){
-    		ctx.drawImage(logo, x, y, 60, 60);
+    		ctx.drawImage(logo, x, y, width, height);
     	};
     	logo.src = src; 
     }
-
 
     function loadFonts(fonts){
 	 WebFont.load({
