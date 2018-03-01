@@ -65,7 +65,14 @@
             <li role="menuitem"> <a href="#/backdrop4by7">Backdrop 4x7</a></li>
           </ul>
         </li>
-        <li><a href="#/invitations">Invitations</a></li>
+        <li  uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle>Invitations<span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="#/invitations">Invitations 4x6</a></li>
+             <li role="menuitem"><a href="#/invitations6x6">Invitations 6x6</a></li>
+          </ul>
+        </li>
+        
          <li><a href="#/articles"> Articles </a>
          
         <!-- <li><a href="#/social-media">Social Media</a></li> -->

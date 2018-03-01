@@ -54,12 +54,6 @@ function config($routeProvider, $locationProvider,
 
       //DETAILS 
       var subpages = Object.keys(subpageDetailsProvider.$get()); 
-      // var subpages = ['/dharmayatra', '/home', '/invitations', 
-      //                 '/banners', '/banners6x10', '/banners4x6', '/special-occasions', 
-      //                 '/general-flyers', '/social-media', '/emailers', 
-      //                 '/backdrops', '/standees',
-      //                 '/srlc-flyers', '/srlc-banners', 
-      //                 '/srd-flyers']; 
       for (var i = 0; i < subpages.length; i++) {
         $routeProvider.when(subpages[i], {
             controller: 'HomeController',

@@ -13,12 +13,21 @@ app.provider('subpageDetails', function(){
 		scale: 10
 	};	
 	subpages["/invitations"] = {
-		title: "Invitations",
+		title: "Invitations 6x4",
 		spreadsheetId: "15bLgpQIlL-o1HaO34WOer5rHO2I7MzA_0-h8mi4togo",
 		width: 6, 
 		height: 4, 
 		scale: 4
 	};
+
+	subpages["/invitations6x6"] = {
+		title: "Invitations 6x6",
+		spreadsheetId: "1yHqqdRRDVDts2oQH8sptDt-9fi60BrTpjULaeNTq_ZM",
+		width: 6, 
+		height: 6, 
+		scale: 4
+	};
+
 	subpages["/banners6x10"] = {
 		title: "Banners 6x10",
 		spreadsheetId: "1jL69EN-uNUtvmG1rAtKFjLZ7feqblrW-j8rhbu1VhOE",
