@@ -40,23 +40,34 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	
 	$scope.supportedLogos = {
 		"Australia" : 	{"vertical": "srmd_australia.png", 
-						"horizontal":"australiaHorizontalLogo.png" },
+						"horizontal":"australiaHorizontalLogo.png", 
+						"black_text": "black_text/black_english_australia.png" },
 		"Canada" :  	{"vertical": "srmd_canada.png", 
-						"horizontal":"canadaHorizontalLogo.png" },
+						"horizontal":"canadaHorizontalLogo.png",
+						"black_text": "black_text/black_english_canada.png" },
 		"Hong Kong" : 	{"vertical": "srmd_hongKong.png", 
-						"horizontal":"hongKongHorizontalLogo.png" },
+						"horizontal":"hongKongHorizontalLogo.png",
+						"black_text": "black_text/black_english_HK.png" },
 		"Singapore" : 	{"vertical": "srmd_singapore.png", 
-						"horizontal": "singaporeHorizontalLogo.png" },
+						"horizontal": "singaporeHorizontalLogo.png",
+						"black_text": "black_text/black_english_singapore.png" },
 		"USA" : 		{"vertical": "srmd_usa.png", 
-						"horizontal": "usaHorizontalLogo.png" },
+						"horizontal": "usaHorizontalLogo.png",
+						"black_text": "black_text/black_english_USA.png" },
 		"UK" : 			{"vertical": "srmd_uk.png", 
-						"horizontal": "ukHorizontalLogo.png" },
+						"horizontal": "ukHorizontalLogo.png",
+						"black_text": "black_text/black_english_UK.png" },
 		"General" : {"vertical": "srmd_general_eng.png",  
 					"gujaratiVertical":"srmd_general_guj.png", 
 					"hindiVertical": "srmd_general_hindi.png",
+					"black_text": "black_text/black_english_general.png",
 					"horizontal":"generalHorizontalLogo.png",
-					"gujaratiHorizontal": "gujaratiHorizontalLogo.png", 
-					"hindiHorizontal": "hindiHorizontalLogo.png"},
+					"black_text": "black_text/black_english_general.png", 
+					"gujaratiHorizontal": "gujaratiHorizontalLogo.png",
+					"hindiHorizontal": "hindiHorizontalLogo.png",
+					"black_text_gujarati": "black_text/black_gujarati.png",
+					"black_text_hindi": "black_text/black_hindi.png"
+				},
 	};
 	$scope.supportedLogoCountries = Object.keys($scope.supportedLogos);
 	
@@ -360,7 +371,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
         	destinationLanguage = google.elements.transliteration.LanguageCode.ENGLISH; 
         }
 
-        alert(destinationLanguage);
+        //alert(destinationLanguage);
 
         var options = {
             sourceLanguage:
@@ -439,20 +450,62 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	};
     	var src = ""
     	if($scope.language == "hindi"){
-    		src =  (field.placeholderText == "horizontal")? $scope.supportedLogos["General"].hindiHorizontal : $scope.supportedLogos["General"].hindiVertical;		
+    		switch(field.placeholderText){
+    			case "horizontal": 
+    				src = $scope.supportedLogos["General"].hindiHorizontal;
+    				break;
+    			case "blackText":
+    			case "Black Text":
+    				src = $scope.supportedLogos["General"].black_text_hindi;
+    				break;
+    			default: 
+    				src = $scope.supportedLogos["General"].hindiVertical;
+    		}
+    			
     	}
     	else if($scope.language == "gujarati"){
-    		src = (field.placeholderText == "horizontal")? $scope.supportedLogos["General"].gujaratiHorizontal : $scope.supportedLogos["General"].gujaratiVertical;
+    		switch(field.placeholderText){
+    			case "horizontal": 
+    				src = $scope.supportedLogos["General"].gujaratiHorizontal;
+    				break;
+    			case "blackText":
+    			case "Black Text":
+    				src = $scope.supportedLogos["General"].black_text_gujarati;
+    				break;
+    			default: 
+    				src = $scope.supportedLogos["General"].gujaratiVertical;
+    		}	
     	}
     	else{
     		var country = $("input[name='"+ field.id +"']:checked").val(); 
     		if(country){
     			var srcs = $scope.supportedLogos[country]; 		
-    			src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
+    			//src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
+    			switch(field.placeholderText){
+	    			case "horizontal": 
+	    				src = srcs.horizontal;
+	    				break;
+	    			case "blackText":
+	    			case "Black Text":
+	    				src = srcs.black_text;
+	    				break;
+	    			default: 
+	    				src =srcs.vertical;
+    			}
     		}
     		else{
     			srcs = $scope.supportedLogos["General"];
-    			src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
+    			switch(field.placeholderText){
+	    			case "horizontal": 
+	    				src = srcs.horizontal;
+	    				break;
+	    			case "blackText":
+	    			case "Black Text":
+	    				src = srcs.black_text;
+	    				break;
+	    			default: 
+	    				src =srcs.vertical;
+    			}
     		}
     	}
     	srmdLogo.src = "../img/logos/" + src
