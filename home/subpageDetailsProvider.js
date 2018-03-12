@@ -24,7 +24,7 @@ app.provider('subpageDetails', function(){
 		title: "Invitations 6x6",
 		spreadsheetId: "1yHqqdRRDVDts2oQH8sptDt-9fi60BrTpjULaeNTq_ZM",
 		width: 13.5, 
-		height: 6, 
+		height: 6.45, 
 		scale: 4
 	};
 
