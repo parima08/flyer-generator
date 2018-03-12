@@ -23,7 +23,7 @@ app.provider('subpageDetails', function(){
 	subpages["/invitations6x6"] = {
 		title: "Invitations 6x6",
 		spreadsheetId: "1yHqqdRRDVDts2oQH8sptDt-9fi60BrTpjULaeNTq_ZM",
-		width: 6, 
+		width: 13.5, 
 		height: 6, 
 		scale: 4
 	};
