@@ -62,7 +62,6 @@ app.provider('subpageDetails', function(){
 		width: 11, 
 		height: 16,
 		scale: 10, 
-		toBeDone: true; 
 	}
 
 	//subpages["/sessionflyers"] = {}; 
