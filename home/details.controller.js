@@ -26,51 +26,25 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
 	$scope.pageDetails.name = name; 
-	//if the page is loading Logos on the page, we can pull supported countries
-	//from ehre
-	// $scope.supportedLogoCountries = [
-	// 			{"country": "General", "vertical": , "horizontal":}, 
-	// 			{"country": "USA", "vertical": , "horizontal":}, 
-	// 			{"country": "UK", "vertical": , "horizontal":}, 
-	// 			{"country": "Canada", "vertical": , "horizontal":}, 
-	// 			{"country": "General", "vertical": , "horizontal":}, 
-	// 			{"country": "General", "vertical": , "horizontal":}, 
-	// 			{"USA", "Canada", "UK", 
-	// 				"Hong Kong", "Australia", "Singapore"]
 	
-	$scope.supportedLogos = {
-		"Australia" : 	{"vertical": "srmd_australia.png", 
-						"horizontal":"australiaHorizontalLogo.png", 
-						"black_text": "black_text/black_english_australia.png" },
-		"Canada" :  	{"vertical": "srmd_canada.png", 
-						"horizontal":"canadaHorizontalLogo.png",
-						"black_text": "black_text/black_english_canada.png" },
-		"Hong Kong" : 	{"vertical": "srmd_hongKong.png", 
-						"horizontal":"hongKongHorizontalLogo.png",
-						"black_text": "black_text/black_english_HK.png" },
-		"Singapore" : 	{"vertical": "srmd_singapore.png", 
-						"horizontal": "singaporeHorizontalLogo.png",
-						"black_text": "black_text/black_english_singapore.png" },
-		"USA" : 		{"vertical": "srmd_usa.png", 
-						"horizontal": "usaHorizontalLogo.png",
-						"black_text": "black_text/black_english_USA.png" },
-		"UK" : 			{"vertical": "srmd_uk.png", 
-						"horizontal": "ukHorizontalLogo.png",
-						"black_text": "black_text/black_english_UK.png" },
-		"General" : {"vertical": "srmd_general_eng.png",  
-					"gujaratiVertical":"srmd_general_guj.png", 
-					"hindiVertical": "srmd_general_hindi.png",
-					"black_text": "black_text/black_english_general.png",
-					"horizontal":"generalHorizontalLogo.png",
-					"black_text": "black_text/black_english_general.png", 
-					"gujaratiHorizontal": "gujaratiHorizontalLogo.png",
-					"hindiHorizontal": "hindiHorizontalLogo.png",
-					"black_text_gujarati": "black_text/black_gujarati.png",
-					"black_text_hindi": "black_text/black_hindi.png"
-				},
-	};
-	$scope.supportedLogoCountries = Object.keys($scope.supportedLogos);
-	
+	$scope.supportedLogoCountries = ["Australia", "Canada", "Hong Kong", 
+				"Singapore", "USA", "UK", "General"];
+
+	let logo_sizes = {
+						"vertical": {"w": 69 , "h": 80, 
+									"pdfw": 60, "pdfh": 70, 
+									'gujw': 60, "gujh": 70,
+									'hindiw': 60, "hindih": 70},
+						"horizontal": {"w": 207 , "h": 60, 
+									"pdfw": 150, "pdfh": 44, 
+									'gujw': 120, "gujh": 70,
+									'hindiw': 120, "hindih": 70},
+						"centered": {"w": 178 , "h": 100, 
+									"pdfw": 178, "pdfh": 100, 
+									'gujw': 178, "gujh": 100,
+									'hindiw': 178, "hindih": 100},
+					}
+
 	$scope.swamivatsalyaTextLanguage = {
 		"gujarati": {
 			"Lunch": "પ્રવચન પછી સ્વામિવાત્સલ્યનો લાભ લેવા વિનંતી",
@@ -403,111 +377,47 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	var srmdLogo = new Image(); 
     	console.log("Adding SRMD Logo..."); 
     	console.log(field.id + " placeholder: " + field.placeholderText)
-    	var width, height; 
-    	if($scope.convertInvitationPDF){
-    		if($scope.language == "hindi"){
-    			width = 100; 
-    			height = 50; 
-	    	}
-	    	else if ($scope.language == "gujarati"){
-	    		//console.log("GUJARATI: width: " + width + "height: " + height)
-	    		width = 80; 
-	    		height = 51.5;
-	    	}
-	    	else{
-	    		width = 150; 
-	    		height = 44; 
-	    	}
-    	}
-    	else{
-    		if($scope.language == "hindi"){
-	    		width = 120; 
-	    		height = 70; 
-	    	}
-	    	else if ($scope.language == "gujarati"){
-	    		console.log("GUJARATI: width: " + width + "height: " + height)
-	    		width = 120; 
-	    		height = 70;
-	    	}
-	    	else{
-	    		width = 207; 
-	    		height = 60; 
-	    	}
+    	let width, height; 
+    	let src = ""
+    	let logo_type = field.placeholderText.split(" "); 
+    	let orientation = (logo_type[0] || "horizontal").toLowerCase(); 
+    	let type = (logo_type[1] || "white_text").toLowerCase(); 
+    	switch($scope.language){
+    		case "hindi":
+    			src = orientation + "/" + type + "/" + "hindi.png";
+    			width = logo_sizes[orientation]["hindiw"];
+    			height = logo_sizes[orientation]["hindih"];
+    			break;
+    		case "gujarati":
+    			src = orientation + "/" + type + "/" + "gujarati.png";
+    			width = logo_sizes[orientation]["gujw"];
+    			height = logo_sizes[orientation]["gujh"];
+    			break;
+    		default:
+    			let country = $("input[name='"+ field.id +"']:checked").val(); 
+    			src = orientation + "/" + type + "/" + country.toLowerCase() + ".png";
+    			width = $scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
+    												logo_sizes[orientation]["w"];
+    			height = $scope.convertInvitationPDF ? logo_sizes[orientation]["pdfh"] :
+    												logo_sizes[orientation]["h"];
+    			break;
     	}
     	
 
     	srmdLogo.onload = function(){
-    		if(field.placeholderText == "horizontal"){
-				ctx.drawImage(srmdLogo, x, y, width, height);
-    		}
-    		else{
-    			if($scope.convertInvitationPDF){
-    				ctx.drawImage(srmdLogo, x, y, 60, 70);
-    			} else{
-    				ctx.drawImage(srmdLogo, x, y, 69, 80);
-    			}
-    		}		
+    		ctx.drawImage(srmdLogo, x, y, width, height);
+    // 		if(field.placeholderText == "horizontal"){
+				// ctx.drawImage(srmdLogo, x, y, width, height);
+    // 		}
+    // 		else{
+    // 			if($scope.convertInvitationPDF){
+    // 				ctx.drawImage(srmdLogo, x, y, 60, 70);
+    // 			} else{
+    // 				ctx.drawImage(srmdLogo, x, y, 69, 80);
+    // 			}
+    // 		}		
     	};
-    	var src = ""
-    	if($scope.language == "hindi"){
-    		switch(field.placeholderText){
-    			case "horizontal": 
-    				src = $scope.supportedLogos["General"].hindiHorizontal;
-    				break;
-    			case "blackText":
-    			case "Black Text":
-    				src = $scope.supportedLogos["General"].black_text_hindi;
-    				break;
-    			default: 
-    				src = $scope.supportedLogos["General"].hindiVertical;
-    		}
-    			
-    	}
-    	else if($scope.language == "gujarati"){
-    		switch(field.placeholderText){
-    			case "horizontal": 
-    				src = $scope.supportedLogos["General"].gujaratiHorizontal;
-    				break;
-    			case "blackText":
-    			case "Black Text":
-    				src = $scope.supportedLogos["General"].black_text_gujarati;
-    				break;
-    			default: 
-    				src = $scope.supportedLogos["General"].gujaratiVertical;
-    		}	
-    	}
-    	else{
-    		var country = $("input[name='"+ field.id +"']:checked").val(); 
-    		if(country){
-    			var srcs = $scope.supportedLogos[country]; 		
-    			//src = (field.placeholderText == "horizontal")? srcs.horizontal : srcs.vertical;
-    			switch(field.placeholderText){
-	    			case "horizontal": 
-	    				src = srcs.horizontal;
-	    				break;
-	    			case "blackText":
-	    			case "Black Text":
-	    				src = srcs.black_text;
-	    				break;
-	    			default: 
-	    				src =srcs.vertical;
-    			}
-    		}
-    		else{
-    			srcs = $scope.supportedLogos["General"];
-    			switch(field.placeholderText){
-	    			case "horizontal": 
-	    				src = srcs.horizontal;
-	    				break;
-	    			case "blackText":
-	    			case "Black Text":
-	    				src = srcs.black_text;
-	    				break;
-	    			default: 
-	    				src =srcs.vertical;
-    			}
-    		}
-    	}
+    	
     	srmdLogo.src = "../img/logos/" + src
     	console.log("End of drawing the logo!"); 
     }

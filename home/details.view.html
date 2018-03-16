@@ -17,7 +17,7 @@
       <form id="myForm">
         <div class= "field" ng-repeat="field in formInfo">
           <div ng-if="field.id == 'srmd_logo' && language == 'english'">
-            <h4><b>SRMD Logo Country</h4></b>
+            <h4><b>SRMD Logo - Trusts</h4></b>
             <div ng-repeat = "country in supportedLogoCountries">
               <input name = "{{field.id}}" id = "{{field.id}}_{{country.key}}"
                type = "radio" value = "{{country}}" ng-checked="{{country=='General'}}"/><label class = "radio-label">{{country}}</label></input><br/>
