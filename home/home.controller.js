@@ -10,31 +10,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 	var lookUpObject = {}; 
 	var formInfo = []; 
 
-
-	var calculateAssetSize = function(width, height){
-		//var ratio = 83.3; 
-		// var canvasHeight = height * ratio; 
-		// var canvasWidth = width *ratio; 
-		var canvasWidth, canvasHeight; 
-		if(width > height){
-			canvasHeight = 500;
-			canvasWidth = Math.round(canvasHeight * (width/height)); 
-		}
-		else{ 
-			canvasWidth = 500; 
-			canvasHeight = Math.round(canvasWidth * (height/width));
-		}
-		var thumbnailWidth = 200;
-		var thumbnailHeight =  Math.round(thumbnailWidth * (canvasHeight/canvasWidth)); 
-		return {
-			"canvasHeight": canvasHeight, 
-			"canvasWidth": canvasWidth, 
-			"thumbnailHeight": thumbnailHeight, 
-			"thumbnailWidth": thumbnailWidth
-		}
-	}
-
-	var loadDataAsync = function(spreadsheetID, thumbnailWidth, thumbnailHeight){
+	var loadDataAsync = function(spreadsheetID, sectionDetails){
 		var deffered = $q.defer();
 		var english = []; 
 		var hindi = []; 
@@ -47,7 +23,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			.then(function(data, status){
 				data = data.data
 				for(var i = 0; i < data.feed.entry.length; i++){
-					var mObject = grabObjectInfo(data.feed.entry[i], thumbnailWidth, thumbnailHeight)
+					var mObject = grabObjectInfo(data.feed.entry[i], sectionDetails);
 					switch(mObject.language.toLowerCase().trim()){
 						case 'hindi':
 							hindi.push(mObject);
@@ -83,7 +59,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		return formInfo; 
 	}
 
-  	var lookupObjectByNameAsync = function(spreadsheetId, name, thumbnailWidth, thumbnailHeight){
+  	var lookupObjectByNameAsync = function(spreadsheetId, name){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url);
@@ -102,7 +78,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		return deffered.promise;
   	}
 
-  	var grabObjectInfo = function(jsonElement, thumbnailWidth, thumbnailHeight){
+  	var grabObjectInfo = function(jsonElement, sectionDetails){
+  		console.log("Grab Object Info");
   		var mObject = {}
   		mObject.name = jsonElement.gsx$name.$t.trim(); 
   		var secondaryLinkPath = ""
@@ -111,9 +88,25 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		if(jsonElement.gsx$secondaryawslinkpath){
   			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t.trim();
   		}
+  		mObject.width = jsonElement.gsx$width ? jsonElement.gsx$width.$t : sectionDetails['width'];
+  		mObject.height = jsonElement.gsx$height ? jsonElement.gsx$height.$t : sectionDetails['height'];
+  		console.log("mObject.width: " + mObject.width + " mObject.height " + mObject.height);
+  		var dimensions = calculateAssetSize(mObject.width, mObject.height); 
+  		mObject.thumbnailHeight = dimensions['thumbnailHeight'];
+  		mObject.thumbnailWidth = dimensions['thumbnailWidth'];
+  		mObject.canvasHeight = dimensions['canvasHeight'];
+  		mObject.canvasWidth = dimensions['canvasWidth'];
+  		console.log("thumbnailWidth: " + mObject.thumbnailWidth 
+  					+ "thumbnailHeight " + mObject.thumbnailHeight);
+  		console.log("canavs: " + mObject.canvasWidth 
+  					+ "canvasheight " + mObject.canvasHeight);
   		if(awsLinkPath != ""){
-			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath.trim(); 
-			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" + thumbnailWidth +  "x" + thumbnailHeight + "/" + awsLinkPath; 
+  			console.log("awsLinkPath " + awsLinkPath);
+			mObject.imageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + awsLinkPath; 
+			mObject.thumbnailLink=  "http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/" 
+									+ mObject.thumbnailWidth +  "x" + mObject.thumbnailHeight 
+									+ "/" + awsLinkPath; 
+			
 		}
 		if(secondaryLinkPath){
 			mObject.twoOptions = true; 
@@ -128,6 +121,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			mObject.language = jsonElement.gsx$language.$t.toLowerCase().trim();
 		}
   		mObject.worksheetIndex = jsonElement.gsx$worksheetindex.$t; 
+  		
   		return mObject
   	}
 
@@ -182,6 +176,27 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		}); 
 		return deffered.promise;
   	}
+
+  	var calculateAssetSize = function(width, height){
+		console.log("Calculating asset size!");
+		var canvasWidth, canvasHeight; 
+		if(width > height){
+			canvasHeight = 500;
+			canvasWidth = Math.round(canvasHeight * (width/height)); 
+		}
+		else{ 
+			canvasWidth = 500; 
+			canvasHeight = Math.round(canvasWidth * (height/width));
+		}
+		var thumbnailWidth = 200;
+		var thumbnailHeight =  Math.round(thumbnailWidth * (canvasHeight/canvasWidth)); 
+		return {
+			"canvasHeight": canvasHeight, 
+			"canvasWidth": canvasWidth, 
+			"thumbnailHeight": thumbnailHeight, 
+			"thumbnailWidth": thumbnailWidth
+		}
+	}
 
   	//TBD
   	// var lookupObjectById = function(spreadsheetId, id){
@@ -244,8 +259,8 @@ function HomeController($scope, $rootScope, $location,
 		else if(sectionDetails.width){
 			$scope.title = sectionDetails.title; 
 			//$scope.title = $location.path().toString().replace(/\//g, '').charAt(0).toUpperCase(); 
-			var dimensions = objectDetailsService.calculateAssetSize(sectionDetails['width'], sectionDetails['height']); 
-			objectDetailsService.loadDataAsync(sectionDetails.spreadsheetId, dimensions.thumbnailWidth, dimensions.thumbnailHeight).then(function(){
+			//var dimensions = objectDetailsService.calculateAssetSize(sectionDetails['width'], sectionDetails['height']); 
+			objectDetailsService.loadDataAsync(sectionDetails.spreadsheetId, sectionDetails).then(function(){
 				console.log("loaded"); 
 				console.log("inside get Data: "); 
 				console.log(objectDetailsService.getData()); 

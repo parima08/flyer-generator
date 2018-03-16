@@ -96,16 +96,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
-	var dimensions = objectDetailsService.calculateAssetSize($scope.pageDetails['width'], $scope.pageDetails['height']); 
-	$scope.pageDetails['thumbnailHeight'] = dimensions.thumbnailHeight;
-	$scope.pageDetails['thumbnailWidth'] = dimensions.thumbnailWidth;
-	$scope.pageDetails['canvasHeight'] = dimensions.canvasHeight; 
-	$scope.pageDetails['canvasWidth'] = dimensions.canvasWidth; 
 	//var radioOptions = pageDetails[section]['radioOptions'];
 	console.log(spreadsheetId); 
-	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, 
-												$scope.pageDetails.thumbnailWidth, 
-												$scope.pageDetails.thumbnailHeight) 
+	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name) 
 	.then(function(){
 		console.log("*************The Object Details are: "); 				
 		console.log(objectDetailsService.getData()); 
@@ -116,6 +109,11 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			$scope.object.worksheetIndex = $scope.object.secondaryWorksheetIndex; 
 		}
 		$scope.language = $scope.object.language; 
+
+		$scope.pageDetails['thumbnailHeight'] = $scope.object.thumbnailWidth;
+		$scope.pageDetails['thumbnailWidth'] = $scope.object.thumbnailHeight;
+		$scope.pageDetails['canvasHeight'] = $scope.object.canvasHeight; 
+		$scope.pageDetails['canvasWidth'] = $scope.object.canvasWidth; 
 		//$scope.swamivatsalyaText = $scope.swamivatsalyaTextLanguage[$scope.language];
 		objectDetailsService.loadFormInfoAsync(spreadsheetId, $scope.object.worksheetIndex)
 		.then(function(){
