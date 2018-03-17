@@ -383,21 +383,21 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	switch($scope.language){
     		case "hindi":
     			src = orientation + "/" + type + "/" + "hindi.png";
-    			width = logo_sizes[orientation]["hindiw"];
-    			height = logo_sizes[orientation]["hindih"];
+    			width = field.width || logo_sizes[orientation]["hindiw"];
+    			height = field.height || logo_sizes[orientation]["hindih"];
     			break;
     		case "gujarati":
     			src = orientation + "/" + type + "/" + "gujarati.png";
-    			width = logo_sizes[orientation]["gujw"];
-    			height = logo_sizes[orientation]["gujh"];
+    			width = field.width || logo_sizes[orientation]["gujw"];
+    			height = field.height || logo_sizes[orientation]["gujh"];
     			break;
     		default:
     			let country = $("input[name='"+ field.id +"']:checked").val(); 
     			src = orientation + "/" + type + "/" + country.toLowerCase() + ".png";
-    			width = $scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
-    												logo_sizes[orientation]["w"];
-    			height = $scope.convertInvitationPDF ? logo_sizes[orientation]["pdfh"] :
-    												logo_sizes[orientation]["h"];
+    			width = field.width || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
+    												logo_sizes[orientation]["w"]);
+    			height = field.height || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfh"] :
+    												logo_sizes[orientation]["h"]);
     			break;
     	}
     	

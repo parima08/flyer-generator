@@ -157,6 +157,10 @@ app.service("objectDetailsService", function($http, $q, $sce){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t.trim(); 
 				}
 
+				formFieldInfo.width = data.feed.entry[i].gsx$width ? data.feed.entry[i].gsx$width.$t.trim() : null ;
+				formFieldInfo.width = data.feed.entry[i].gsx$height ? data.feed.entry[i].gsx$height.$t.trim() : null ;
+
+
 				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
 					//alert(data.feed.entry[i].gsx$endpositionx.$t); 
 					formFieldInfo.endPositionX = data.feed.entry[i].gsx$endpositionx.$t.trim(); 
