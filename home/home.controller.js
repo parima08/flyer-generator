@@ -59,7 +59,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 		return formInfo; 
 	}
 
-  	var lookupObjectByNameAsync = function(spreadsheetId, name){
+  	var lookupObjectByNameAsync = function(spreadsheetId, name, sectionDetails){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url);
@@ -68,7 +68,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				data = data.data		
 				for(var i = 0; i < data.feed.entry.length; i++){
 					if(data.feed.entry[i].gsx$name.$t == name){
-						lookUpObject = grabObjectInfo(data.feed.entry[i]); 
+						lookUpObject = grabObjectInfo(data.feed.entry[i], sectionDetails); 
 						break;
 					} 
 				}
@@ -88,8 +88,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		if(jsonElement.gsx$secondaryawslinkpath){
   			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t.trim();
   		}
-  		mObject.width = jsonElement.gsx$width ? jsonElement.gsx$width.$t : sectionDetails['width'];
-  		mObject.height = jsonElement.gsx$height ? jsonElement.gsx$height.$t : sectionDetails['height'];
+  		mObject.width = jsonElement.gsx$width && jsonElement.gsx$width.$t ?  jsonElement.gsx$width.$t : sectionDetails['width'];
+  		mObject.height = jsonElement.gsx$height  && jsonElement.gsx$height.$t?  jsonElement.gsx$height.$t : sectionDetails['height'];
   		console.log("mObject.width: " + mObject.width + " mObject.height " + mObject.height);
   		var dimensions = calculateAssetSize(mObject.width, mObject.height); 
   		mObject.thumbnailHeight = dimensions['thumbnailHeight'];

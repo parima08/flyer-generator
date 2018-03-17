@@ -98,7 +98,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
 	//var radioOptions = pageDetails[section]['radioOptions'];
 	console.log(spreadsheetId); 
-	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name) 
+	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, $scope.pageDetails) 
 	.then(function(){
 		console.log("*************The Object Details are: "); 				
 		console.log(objectDetailsService.getData()); 
@@ -394,6 +394,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     		default:
     			let country = $("input[name='"+ field.id +"']:checked").val(); 
     			src = orientation + "/" + type + "/" + country.toLowerCase() + ".png";
+    			console.log("orientation: " + orientation);
     			width = field.width || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
     												logo_sizes[orientation]["w"]);
     			height = field.height || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfh"] :
