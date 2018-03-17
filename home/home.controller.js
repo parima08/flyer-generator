@@ -156,9 +156,14 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				if(data.feed.entry[i].gsx$letterspacing){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t.trim(); 
 				}
-
-				formFieldInfo.width = data.feed.entry[i].gsx$width ? data.feed.entry[i].gsx$width.$t.trim() : null ;
-				formFieldInfo.width = data.feed.entry[i].gsx$height ? data.feed.entry[i].gsx$height.$t.trim() : null ;
+				
+				// For Logo Sizes: 
+				formFieldInfo.width = data.feed.entry[i].gsx$width && data.feed.entry[i].gsx$width.$t ? 
+									data.feed.entry[i].gsx$width.$t.trim()  
+									: null ;
+				formFieldInfo.width = data.feed.entry[i].gsx$height && data.feed.entry[i].gsx$width.$t ? 
+									data.feed.entry[i].gsx$height.$t.trim() 
+									: null ;
 
 
 				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
