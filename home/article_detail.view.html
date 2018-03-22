@@ -20,9 +20,28 @@
 		    <h4>Request Reason</h4>
 		    <input class = "detail-field"  id = "requestReason" type="paragraph" placeholder=""/><br/>
 	    </div>
+	    <div class= "field">
+		    <h4>Where will the article be published? (Publisher Name)</h4>
+		    <input class = "detail-field"  id = "publisher" type="paragraph" placeholder=""/><br/>
+	    </div>
+	    <div class= "field">
+	    	 <h4>Do you want the article to be designed?</h4>
+	    	 <div class = "detail-field">
+		    	<input name = "designField" type="radio" placeholder="">Yes</input>
+		    	<br />
+		    	<input  name = "designField" type="radio" checked>No</input> <br/>
+		    </div>
+	    </div>
+
+	    <div class= "field">
+		    <h4>Request Reason</h4>
+		    <input class = "detail-field"  id = "requestReason" type="paragraph" placeholder=""/><br/>
+	    </div>
+
 
 	    <input id = "articleName" name  = "article_name" type = "hidden" value="{{articleDetails.name}}">
 	    <input id = "articleLink" name  = "article_link" type = "hidden" value="{{articleDetails.documentLink}}">
+
 	    <input id = "pdfLink" name = "pdf_link" type = "hidden" value ="{{articleDetails.articleLink}}">
 
         <input type="submit" value="Request Article" ng-click = "requestArticle()">

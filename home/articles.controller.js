@@ -1,5 +1,5 @@
 
-var app = angular.module('myApp'); 
+//var app = angular.module('myApp'); 
 
 app.controller('ArticlesController', ArticlesController);
 
@@ -13,6 +13,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		var deffered = $q.defer();
 		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url)
+  		console.log("Loading Article Info Async");
   		$http.jsonp(url)
 			.then(function(data, status){
 				data = data.data;  
@@ -41,6 +42,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 	}
 
 	var lookupArticleByName = function(spreadsheetId, name){
+		console.log("lookupArticleByName");
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
   		$sce.trustAsResourceUrl(url)
@@ -61,6 +63,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 
   	var grabArticleInfo = function(article){
   		var articleInfo = {}
+
 		articleInfo.name = article.gsx$name.$t ? article.gsx$name.$t : ""; 
 		articleInfo.month = article.gsx$month.$t ? article.gsx$month.$t : ""; 
 		articleInfo.year = article.gsx$year.$t ? article.gsx$year.$t : ""; 
@@ -70,6 +73,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.subcategory =article.gsx$subcategory.$t ? article.gsx$subcategory.$t : ""; 
 		articleInfo.language = article.gsx$language.$t ? article.gsx$language.$t : ""; 
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
+		
 		//articleInfo.articleDetailsLink = articleInfo.name.replace(/ /g,"_"); 
 		articleInfo.documentLink = article.gsx$documentlink.$t ?  article.gsx$documentlink.$t : articleInfo.articleLink; 
 		// if(articleInfo.articleLink){
@@ -143,13 +147,16 @@ function ArticlesController($scope, $rootScope, $location,
 	else{
 		var articleName = $routeParams.name.replace(/_/g, " "); 
 		var canvas = $('.canvas-container'); 
-
+		console.log("SpreadsheetId: " + spreadsheetId);
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
-			console.log($scope.articleDetails.articleSpreadsheetId);
-			var url  = $scope.articleDetails.articleLink
+			//console.log($scope.articleDetails.articleSpreadsheetId);
+			var url  = $scope.articleDetails.articleLink; 
+			console.log(url);
 			//var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
-			PDFJS.getDocument(url).then(function(pdf){
+			PDFJS =  window['pdfjs-dist/build/pdf'];
+			PDFJS.getDocument(url)
+			.then(function(pdf){
 				getPage();
 			    function getPage() {
 			        pdf.getPage(currentPage).then(function(page) {
@@ -176,6 +183,8 @@ function ArticlesController($scope, $rootScope, $location,
 			            });
 			        });
 			    }
+			}).catch(function(error){
+				alert("There was an error in loading the document.");
 			}); 
 		}); 
 	}
@@ -205,6 +214,8 @@ function ArticlesController($scope, $rootScope, $location,
 		var articleName = encodeURIComponent($('#articleName').val()); 
 		var articleLink = encodeURIComponent($('#articleLink').val()); 
 		var pdfLink = encodeURIComponent($('#pdfLink').val())
+		var designed = encodeURIComponent($('input[name=designField]').prop('checked'))
+		var publisher = encodeURIComponent($('#publisher').val()); 
 		console.log(centerName); 
 
 
@@ -216,6 +227,8 @@ function ArticlesController($scope, $rootScope, $location,
 		var centerNameID = "entry.2114019815"; 
 		var centerEmailID = "entry.550354372";
 		var requestReasonID = "entry.2009048180";
+		var designFieldID = "entry.129906415"; 
+		var publisherFieldID = "entry.717206679"
 
 		var submitURL = baseURL +  articleLinkID + "=" + articleLink + "&" + 
 								   pdfLinkID + "=" + pdfLink + "&" + 
@@ -223,6 +236,8 @@ function ArticlesController($scope, $rootScope, $location,
 								   centerNameID + "=" + centerName + "&" +
 								   centerEmailID + "=" + centerEmail + "&" +
 								   requestReasonID + "=" + requestReason + "&" +
+								   designFieldID + "=" + designed + "&" + 
+								   publisherFieldID + "=" + publisher + "&" +
 								   submitRef; 
 		console.log(submitURL);
 		console.log(form); 
