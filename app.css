@@ -727,10 +727,11 @@ color: white;
 
 }
 .mission-logo{
-	width: 100px;
 	height: 100px;
-	background-image: url("../img/logos/srmd_general_eng.png");
-	background-size: cover;
+	background-image: url("../img/logos/centered/black_text/general.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
 	margin: 0 auto;
 }
 
