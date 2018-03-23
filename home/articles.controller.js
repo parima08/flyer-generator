@@ -187,6 +187,8 @@ function ArticlesController($scope, $rootScope, $location,
 				alert("There was an error in loading the document.");
 			}); 
 		}); 
+		$('.article-container').css("height", $('body').height())
+		$(".footer").css("top", $('body').height());
 	}
 	
 

@@ -1,4 +1,5 @@
 <div ng-include src= "'home/navigation.view.html'"></div>
+<div class = "article-container">
 <div class = "jumbotron">
 	<h2> Request for {{articleDetails.name}}</h2>
  </div>
@@ -33,12 +34,6 @@
 		    </div>
 	    </div>
 
-	    <div class= "field">
-		    <h4>Request Reason</h4>
-		    <input class = "detail-field"  id = "requestReason" type="paragraph" placeholder=""/><br/>
-	    </div>
-
-
 	    <input id = "articleName" name  = "article_name" type = "hidden" value="{{articleDetails.name}}">
 	    <input id = "articleLink" name  = "article_link" type = "hidden" value="{{articleDetails.documentLink}}">
 
@@ -49,6 +44,7 @@
     </div>
   </div>
  </div>
+</div>
 
 
 <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
