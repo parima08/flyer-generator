@@ -166,7 +166,32 @@ canvas{
 }
 
 .article-form-container{
-	top: 273px;
+	top: 0;
+	position: relative;
+	right: 0;
+	display: inline-block;
+}
+
+.article-text{
+	white-space: pre-wrap;
+	user-select: none;
+	width: 45%;
+	background-color: white;
+	padding: 20px;
+	box-sizing: border-box;
+	max-height: 600px;
+	overflow-y: scroll;
+	margin: 0 40px;
+	position: relative;
+	display: inline-block;
+	min-height: 500px;
+	top: 0;
+	vertical-align: top;
+}
+
+.article-container{
+	position: relative;
+	min-height: 100%;
 }
 
 .background-container{
@@ -646,16 +671,7 @@ color: white;
   opacity: 1;
 }
 
-.article-text{
-	white-space: pre-wrap;
-	user-select: none;
-	width: 45%;
-	background-color: white;
-	padding: 20px;
-	max-height: 600px;
-	overflow-y: scroll;
-	margin-left: 40px;
-}
+
 
 
 .footer,
