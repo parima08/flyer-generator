@@ -392,8 +392,11 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     			height = field.height || logo_sizes[orientation]["gujh"];
     			break;
     		default:
-    			let country = $("input[name='"+ field.id +"']:checked").val(); 
-    			src = orientation + "/" + type + "/" + country.toLowerCase() + ".png";
+    			var country = $("input[name='"+ field.id +"']:checked")
+    														.val()
+    														.replace(' ', '')
+					    									.toLowerCase();
+    			src = orientation + "/" + type + "/" + country + ".png";
     			console.log("orientation: " + orientation);
     			width = field.width || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
     												logo_sizes[orientation]["w"]);

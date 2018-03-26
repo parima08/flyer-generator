@@ -161,9 +161,11 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.width = data.feed.entry[i].gsx$width && data.feed.entry[i].gsx$width.$t ? 
 									data.feed.entry[i].gsx$width.$t.trim()  
 									: null ;
-				formFieldInfo.width = data.feed.entry[i].gsx$height && data.feed.entry[i].gsx$width.$t ? 
+				formFieldInfo.height = data.feed.entry[i].gsx$height && data.feed.entry[i].gsx$height.$t ? 
 									data.feed.entry[i].gsx$height.$t.trim() 
 									: null ;
+
+				console.log("Width: " + formFieldInfo.width + " Height: " + formFieldInfo.height);
 
 
 				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
