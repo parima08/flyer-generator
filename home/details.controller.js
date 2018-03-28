@@ -20,8 +20,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		.replace(/\//g, ''); 
 	section = camelize(section).replace(/-/g, ""); 
 
-	if(section==="invitations"){
-		$scope.convertInvitationPDF = true; 
+	if(section==="invitations" || section==="invitations6x6"){
+		$scope.convertInvitationPDF = true;
+		$scope.pdf6x6 = false;
+		if(section === "invitations6x6"){
+			$scope.pdf6x6 = true;
+		}
 	}
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
@@ -286,17 +290,33 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		var download = $('#download'); 
 		if($scope.convertInvitationPDF == true){
 			var imgData = canvas.toDataURL("image/jpeg");
-			var pdf = new jsPDF({format: [1000, 633]});
-			pdf.internal.scaleFactor = 4;
-			var canvasScale = $scope.pageDetails.scale/2
-			pdf.addImage(imgData, 'PNG', 0, 0, 
-				$scope.pageDetails.canvasWidth * canvasScale,
-			 	$scope.pageDetails.canvasHeight * canvasScale);
-			pdf.addPage(); 
-			pdf.addImage(imgData, 'PNG', (
-				$scope.pageDetails.canvasWidth * -1) - 110, 0, 
-				$scope.pageDetails.canvasWidth * canvasScale,
-			 	$scope.pageDetails.canvasHeight * canvasScale);
+			var pdf;
+			if($scope.pdf6x6){
+				pdf = new jsPDF({format: [1000, 985]});
+				pdf.internal.scaleFactor = 4;
+				var canvasScale = $scope.pageDetails.scale/2
+				pdf.addImage(imgData, 'PNG', 0, 0, 
+					$scope.pageDetails.canvasWidth * canvasScale,
+				 	$scope.pageDetails.canvasHeight * canvasScale);
+				pdf.addPage(); 
+				pdf.addImage(imgData, 'PNG', (
+					$scope.pageDetails.canvasWidth * -1) - 60, 0, 
+					$scope.pageDetails.canvasWidth * canvasScale,
+				 	$scope.pageDetails.canvasHeight * canvasScale);
+			}
+			else{
+				pdf = new jsPDF({format: [1000, 633]});
+				pdf.internal.scaleFactor = 4;
+				var canvasScale = $scope.pageDetails.scale/2
+				pdf.addImage(imgData, 'PNG', 0, 0, 
+					$scope.pageDetails.canvasWidth * canvasScale,
+				 	$scope.pageDetails.canvasHeight * canvasScale);
+				pdf.addPage(); 
+				pdf.addImage(imgData, 'PNG', (
+					$scope.pageDetails.canvasWidth * -1) - 110, 0, 
+					$scope.pageDetails.canvasWidth * canvasScale,
+				 	$scope.pageDetails.canvasHeight * canvasScale);
+			}
 			pdf.save($scope.pageDetails.name + ".pdf")
 			var a = document.createElement("a");
 			a.target = "_blank";
@@ -503,16 +523,15 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	img.onload = function(){
 			drawImageScaled(values, img, newCanvas, newScale).then(function(){
 				newCanvas.toBlob(function(blob) {
-				var url = URL.createObjectURL(blob);
-				var link = document.createElement("a");
-				link.href = url; 
-				console.log("DOWNLOADING new canvas"); 
-			    link.setAttribute("download", $scope.pageDetails.name);
-			    link.click(); 
+					var url = URL.createObjectURL(blob);
+					var link = document.createElement("a");
+					link.href = url; 
+					console.log("DOWNLOADING new canvas"); 
+				    link.setAttribute("download", $scope.pageDetails.name);
+				    link.click(); 
 				}, 'image/jpeg');
 			});
 			uploadFile();
-			//addFileToGoogleDrive();
 			console.log("Image onload function")  
 	    };
 	    img.backgroundLoad($scope.object.imageLink);
