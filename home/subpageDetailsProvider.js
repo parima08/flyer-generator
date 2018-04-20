@@ -42,20 +42,20 @@ app.provider('subpageDetails', function(){
 		height: 4,
 		scale: 10
 	};
-	subpages["/swadhyaykarflyer"] = {
-		title: "Swadhyaykar Flyer",
-		spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
-		width: 10, 
-		height: 16,
-		scale: 10
-	}
-	subpages["/swadhyaykarbanner"] = {
-		title: "Swadhyaykar Banner",
-		spreadsheetId: "1a9ad1DKUgB4Gbdkdw-YLzIXs53-jz0vL4Psgt4q5O4M",
-		width: 6, 
-		height: 10,
-		scale: 10
-	}
+	// subpages["/swadhyaykarflyer"] = {
+	// 	title: "Swadhyaykar Flyer",
+	// 	spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
+	// 	width: 10, 
+	// 	height: 16,
+	// 	scale: 10
+	// }
+	// subpages["/swadhyaykarbanner"] = {
+	// 	title: "Swadhyaykar Banner",
+	// 	spreadsheetId: "1a9ad1DKUgB4Gbdkdw-YLzIXs53-jz0vL4Psgt4q5O4M",
+	// 	width: 6, 
+	// 	height: 10,
+	// 	scale: 10
+	// }
 	subpages["/sessionflyers"] = {
 		title: "Session Flyers",
 		spreadsheetId: "1YWCuxVHwYFdwqRcOq53909-fex9XGqqyRGCuhMEuDF4", 
