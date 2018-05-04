@@ -85,8 +85,10 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		var secondaryLinkPath = ""
   		//var linkId = jsonElement.gsx$linkid.$t; 
   		var awsLinkPath = jsonElement.gsx$awslinkpath.$t.trim(); 
+  		console.log("2nd path exists? ", jsonElement.gsx$secondaryawslinkpath);
   		if(jsonElement.gsx$secondaryawslinkpath){
   			 secondaryLinkPath = jsonElement.gsx$secondaryawslinkpath.$t.trim();
+  			console.log("2nd: secondaryLinkPath", secondaryLinkPath);
   		}
   		mObject.width = jsonElement.gsx$width && jsonElement.gsx$width.$t ?  jsonElement.gsx$width.$t : sectionDetails['width'];
   		mObject.height = jsonElement.gsx$height  && jsonElement.gsx$height.$t?  jsonElement.gsx$height.$t : sectionDetails['height'];
@@ -109,6 +111,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 			
 		}
 		if(secondaryLinkPath){
+			console.log("2nd:Secondary Link Path is getting set");
 			mObject.twoOptions = true; 
 			mObject.secondaryImageLink = "https://s3.amazonaws.com/srmd-flyer-generator/" + secondaryLinkPath; 
 			mObject.secondaryButtonDescription = jsonElement.gsx$secondarybuttondescription.$t.trim(); 
@@ -136,10 +139,8 @@ app.service("objectDetailsService", function($http, $q, $sce){
   		$http.jsonp(url)
 		.then(function(data, status){
 			data = data.data
-			console.log("Data: "); 	
-			console.log(data); 	
-			console.log("status: "); 	
-			console.log(status); 
+			console.log("Data: ", data); 	
+			//console.log("status: ", status); 
 			for(var i = 0; i < data.feed.entry.length; i++){
 				var formFieldInfo = {}
 				formFieldInfo.fieldName = data.feed.entry[i].gsx$fieldname.$t.trim(); 
@@ -152,7 +153,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				formFieldInfo.positionX = data.feed.entry[i].gsx$positionx.$t.trim(); 
 				formFieldInfo.positionY = data.feed.entry[i].gsx$positiony.$t.trim(); 
 				formFieldInfo.id = formFieldInfo.fieldName.toLowerCase().replace(/ /g,"_").toString();
-				console.log("FieldName is: " + formFieldInfo.id);
+				//console.log("FieldName is: ", formFieldInfo.id);
 				if(data.feed.entry[i].gsx$letterspacing){
 					formFieldInfo.letterSpacing = data.feed.entry[i].gsx$letterspacing.$t.trim(); 
 				}
@@ -165,7 +166,7 @@ app.service("objectDetailsService", function($http, $q, $sce){
 									data.feed.entry[i].gsx$height.$t.trim() 
 									: null ;
 
-				console.log("Width: " + formFieldInfo.width + " Height: " + formFieldInfo.height);
+				//console.log("Width: " + formFieldInfo.width + " Height: " + formFieldInfo.height);
 
 
 				if(data.feed.entry[i].gsx$endpositionx && data.feed.entry[i].gsx$endpositionx.$t){
@@ -179,10 +180,11 @@ app.service("objectDetailsService", function($http, $q, $sce){
 				// if(data.feed.entry[i].gsx$additionalrequiredtext){
 				// 	formFieldInfo.additionalRequiredText = data.feed.entry[i].gsx$additionalrequiredtext.$t
 				// }
-				console.log("***********************");
-				console.log(formFieldInfo.toString());
+				//console.log("***********************");
 				formInfo.push(formFieldInfo);
 			}
+
+			console.log("All the data for the form: ", formInfo);
 			deffered.resolve();
 		}); 
 		return deffered.promise;

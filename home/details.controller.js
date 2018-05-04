@@ -9,12 +9,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	var option2 = false;
 	$scope.convertInvitationPDF = false; 
 	var name = $routeParams.name.replace(/_/g, " "); 
-	console.log(name);
 	if(name.slice(-1) == "1"){
 		option2 = true; 
-		name = name.replace("1", "").trim();  
+		name = name.slice(0, name.lastIndexOf("1")).trim();
+		console.log("DetailsController: Asset Name ", name); 	
 	}
-	console.log(name); 
+	console.log("DetailsController: Asset Name ", name); 
 	var section = $location.path()
 		.replace(/[^/]*$/, " ")
 		.replace(/\//g, ''); 
@@ -101,14 +101,14 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 	var spreadsheetId = $scope.pageDetails.spreadsheetId; 
 	//var radioOptions = pageDetails[section]['radioOptions'];
-	console.log(spreadsheetId); 
+	console.log("SpreadsheetId, name ", spreadsheetId, name); 
 	objectDetailsService.lookupObjectByNameAsync(spreadsheetId, name, $scope.pageDetails) 
 	.then(function(){
-		console.log("*************The Object Details are: "); 				
-		console.log(objectDetailsService.getData()); 
+		console.log("*************RETURNED asset Details are: ", objectDetailsService.getData()); 				
 		$scope.object = objectDetailsService.getObject(); 
 		console.log($scope.object); 
 		if(option2 == true){
+			console.log("2nd: This is a second option");
 			$scope.object.imageLink = $scope.object.secondaryImageLink; 
 			$scope.object.worksheetIndex = $scope.object.secondaryWorksheetIndex; 
 		}
@@ -467,6 +467,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	}
 
 	Image.prototype.backgroundLoad = function(url){
+		console.log("The URL being loaded is: ", url);
         var thisImg = this;
         var xmlHTTP = new XMLHttpRequest();
         //var oldPercentage = 0
@@ -534,6 +535,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			uploadFile();
 			console.log("Image onload function")  
 	    };
+	    console.log("The url being loaded is", $scope.object.imageLink);
 	    img.backgroundLoad($scope.object.imageLink);
     	
     }
