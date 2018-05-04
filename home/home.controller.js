@@ -37,11 +37,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 							break;
 					}
 				}
-				console.log("HINDI:"); 
-				console.log(hindi); 
-				jsonData.push(english); 
-				jsonData.push(hindi); 
-				jsonData.push(gujarati); 
+				jsonData.unshift(gujarati);
+				jsonData.unshift(hindi); 
+				jsonData.unshift(english); 
 				deffered.resolve();
 			}); 
 			return deffered.promise;
@@ -274,12 +272,12 @@ function HomeController($scope, $rootScope, $location,
 			//$scope.title = $location.path().toString().replace(/\//g, '').charAt(0).toUpperCase(); 
 			//var dimensions = objectDetailsService.calculateAssetSize(sectionDetails['width'], sectionDetails['height']); 
 			objectDetailsService.loadDataAsync(sectionDetails.spreadsheetId, sectionDetails).then(function(){
-				console.log("loaded"); 
-				console.log("inside get Data: "); 
-				console.log(objectDetailsService.getData()); 
+				$scope.flyers = null;
+				console.log("Flyers should be null: ", $scope.flyers);
+				console.log("Returned Data from " + sectionDetails.spreadsheetId + 
+							" " + sectionDetails.title + " ", objectDetailsService.getData()); 
 				$scope.flyers = objectDetailsService.getData(); 
-				console.log("flyers: "); 
-				console.log($scope.flyers);
+				console.log("assets: ", $scope.flyers); 
 			}); 
 		}else{
 			$scope.title = "Coming Soon"; 

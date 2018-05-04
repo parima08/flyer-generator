@@ -11,8 +11,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	var name = $routeParams.name.replace(/_/g, " "); 
 	if(name.slice(-1) == "1"){
 		option2 = true; 
-		name = name.slice(0, name.lastIndexOf("1")).trim();
-		console.log("DetailsController: Asset Name ", name); 	
+		name = name.slice(0, name.lastIndexOf("1")).trim();	
 	}
 	console.log("DetailsController: Asset Name ", name); 
 	var section = $location.path()
@@ -412,10 +411,10 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     			height = field.height || logo_sizes[orientation]["gujh"];
     			break;
     		default:
-    			var country = $("input[name='"+ field.id +"']:checked")
-    														.val()
+    			var country = $("input[name='"+ field.id +"']:checked").val() ?
+    							$("input[name='"+ field.id +"']:checked").val()
     														.replace(' ', '')
-					    									.toLowerCase();
+					    									.toLowerCase() : null;
     			src = orientation + "/" + type + "/" + country + ".png";
     			console.log("orientation: " + orientation);
     			width = field.width || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
