@@ -96,15 +96,19 @@ function run($rootScope, $location, googleService, userPersistenceService){
         }
     }
     else{
-      // if($rootScope.previousUrl != null){
-      //   $location.path($rootScope.previousUrl); 
-      // }
+      //if SRD user, restrict access: 
+      if(userPersistenceService.getSrdUserData()){
+        if(next.originalPath.indexOf("srd") == -1 && !(next.originalPath === "/")){
+          alert("You cannot access this page. Restricted for SRD users");
+          $location.path('/');
+        }
+      }
       console.log(userPersistenceService.getUserNameData() ); 
       console.log(userPersistenceService.getUserEmailData() ); 
       $rootScope.loggedInUser = {}; 
       $rootScope.loggedInUser.email = userPersistenceService.getUserEmailData(); 
       $rootScope.loggedInUser.fullName = userPersistenceService.getUserNameData(); 
-      console.log($rootScope.loggedInUser); 
+      console.log("app.js - location: ", $rootScope.loggedInUser); 
     }
   });
 
@@ -134,7 +138,6 @@ function run($rootScope, $location, googleService, userPersistenceService){
             console.log(correctLocation); 
             $location.path(correctLocation); 
           }
-
       }
   });   
 }

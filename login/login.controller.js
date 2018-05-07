@@ -32,10 +32,11 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
     function checkRestrictDomainName(userEmail){
       console.log("checkRestrictDomainName"); 
       var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
-      console.log("Domain Name: " + domainName); 
+      //comment this out!
+      $rootScope.srdUser = true; 
       if(domainName){
          $rootScope.validUser = true; 
-        if( domainName == "srdivinetouch.org"){
+        if( domainName == "srdivinetouch.org" || userEmail.equals("parima08@gmail.com")){
           $rootScope.srdUser = true; 
         }
       }
@@ -82,7 +83,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
             $rootScope.loggedInUser.email = profile.w3.U3; 
             var redirect = validateUser($rootScope.loggedInUser.email, $rootScope.loggedInUser.fullName); 
             if(redirect){
-              userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3); 
+              userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3, $rootScope.srdUser); 
               console.log("Redirecting"); 
               $location.path('/home').replace(); 
             }
@@ -142,19 +143,23 @@ app.service('googleService', ['$q', function ($q) {
 }]);
 
 app.factory("userPersistenceService", [
-  "$cookies", function($cookies) {
+  "$cookies", "$rootScope" , function($cookies, $rootScope) {
 
     return {
-      setCookieData: function(userName, userEmail) {
+      setCookieData: function(userName, userEmail, srdUser) {
         $cookies.put("userName", userName);
         $cookies.put("userEmail", userEmail);
+        $cookies.put("srdUser", srdUser);
       },
       getUserNameData: function() {
         return $cookies.get("userName");
       },
       getUserEmailData: function(){
         return $cookies.get("userEmail");
-      }, 
+      },
+      getSrdUserData: function(){
+        return $cookies.get("srdUser");
+      },
       clearCookieData: function() {
         console.log("Clearing Cookie Data")
         $cookies.remove("userName");
