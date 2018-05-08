@@ -97,8 +97,8 @@ function run($rootScope, $location, googleService, userPersistenceService){
     }
     else{
       //if SRD user, restrict access: 
-      if(userPersistenceService.getSrdUserData()){
-        if(next.originalPath.indexOf("srd") == -1 && !(next.originalPath === "/")){
+      if(userPersistenceService.getSrdUserData() === "true"){
+        if(next.originalPath.indexOf("srd") == -1 && !(next.originalPath === "/") && !(next.originalPath == "/login")){
           alert("You cannot access this page. Restricted for SRD users");
           $location.path('/');
         }

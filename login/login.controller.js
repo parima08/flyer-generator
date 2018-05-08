@@ -33,10 +33,11 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       console.log("checkRestrictDomainName"); 
       var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
       //comment this out!
-      //$rootScope.srdUser = true; 
+      $rootScope.srdUser = false; 
       if(domainName){
          $rootScope.validUser = true; 
-        if( domainName == "srdivinetouch.org" || userEmail.equals("parima08@gmail.com")){
+         alert(domainName);
+        if( domainName === "srdivinetouch.org"){
           $rootScope.srdUser = true; 
         }
       }
