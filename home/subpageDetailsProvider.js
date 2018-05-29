@@ -63,6 +63,20 @@ app.provider('subpageDetails', function(){
 		height: 16,
 		scale: 10, 
 	}
+	subpages["/letterheads"] = {
+		title: "Letterheads",
+		spreadsheetId: "1geyvSxiOsW5IUNSoIQsjk5Zx_66TaTF0zGDuAm9rGJw",
+		width: 6, 
+		height: 4, 
+		scale: 4
+	};
+	subpages["/envelopes"] = {
+		title: "Envelopes",
+		spreadsheetId: "1Y5DnwhsWwtqdgUf19sWlx_b9UgGnAMBXT-y4N2qHm8U",
+		width: 6, 
+		height: 4, 
+		scale: 4
+	};
 
 	//subpages["/sessionflyers"] = {}; 
 
