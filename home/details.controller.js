@@ -187,7 +187,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	}
 
 	var drawImageScaled = function(values, img, canvas, scale) { 
+	   	console.log("IMG:", img);
 	   	var deferred = $q.defer();
+	   	var loadSRMDLogo, loadUploadLogo, loadSwadhyaykar;
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
@@ -197,83 +199,84 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		console.log("******************* WORKSHEET OBJECT"); 
 		console.log($scope.formInfo); 
-			for(var i = 0; i <  $scope.formInfo.length; i++) {
-				field = $scope.formInfo[i]; 
-				positionX = field.positionX; //* $scope.pageDetails.scale; 
-				positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
+		for(var i = 0; i <  $scope.formInfo.length; i++) {
+			field = $scope.formInfo[i]; 
+			positionX = field.positionX; //* $scope.pageDetails.scale; 
+			positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
 
-				if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
-					addSrmdLogoToCanvas(ctx, field, positionX, positionY); 
+			if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
+				loadSRMDLogo = $q.defer(); 
+				console.log("loadSRMDLogo", loadSRMDLogo)
+				loadSRMDLogo = addSrmdLogoToCanvas(ctx, field, positionX, positionY, loadSRMDLogo); 
+			}
+			if(field.id == "upload_logo"){
+				//console.log("upload_logo: " + field.value); 
+				src = $("img.upload_logo").attr('src');
+				if(src){
+					addImageToCanvas(ctx, src , positionX, positionY, 60, 60); 
 					continue; 
 				}
-				if(field.id == "upload_logo"){
-					//console.log("upload_logo: " + field.value); 
-					src = $("img.upload_logo").attr('src');
-					if(src){
-						addImageToCanvas(ctx, src , positionX, positionY, 60, 60); 
-						continue; 
-					}
+			}
+			if(field.id == "swamivatsalya"){
+				//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
+				var key = $('input[name="swamivatsalya"]:checked').val()
+				var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language][key];
+				if(swamiText && ($scope.language === "english")){
+					var startTime = $('#swamivatsalya_startTiming_' + key).val() || "12pm";; 
+					var endTime = $('#swamivatsalya_endTiming_' + key).val() || "2pm";; 
+					swamiText = swamiText + " " + startTime + " to " +  endTime; 	
 				}
-				if(field.id == "swamivatsalya"){
-					//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
-					var key = $('input[name="swamivatsalya"]:checked').val()
-					var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language][key];
-					if(swamiText && ($scope.language === "english")){
-						var startTime = $('#swamivatsalya_startTiming_' + key).val() || "12pm";; 
-						var endTime = $('#swamivatsalya_endTiming_' + key).val() || "2pm";; 
-						swamiText = swamiText + " " + startTime + " to " +  endTime; 	
-					}
-					//var startTime = 
-					//var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
-					values[field.fieldName] = swamiText;
-					//"प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा"
-					//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
-					//values['blah'] = blah; 
+				//var startTime = 
+				//var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
+				values[field.fieldName] = swamiText;
+				//"प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा"
+				//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
+				//values['blah'] = blah; 
+			}
+			if(field.id == "swadhyaykar"){
+				//alert("Swadhyaykar");
+				let srcInput = $('input[name="swadhyaykar"]:checked').val(); 
+				let src = "../img/swadhyaykars/" + srcInput; 
+				console.log("Swadhyaykar: " + src); 
+				if(src){
+					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85); 
 				}
-				if(field.id == "swadhyaykar"){
-					//alert("Swadhyaykar");
-					let srcInput = $('input[name="swadhyaykar"]:checked').val(); 
-					let src = "../img/swadhyaykars/" + srcInput; 
-					console.log("Swadhyaykar: " + src); 
-					if(src){
-						addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85); 
-					}
-				}
-
-				var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
-				var fontWeight = field.fontWeight;  
-				ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
-
-				ctx.fillStyle = field.fontColor; 
-				ctx.textAlign = field.textAlign; 
-				ctx.lineHeight = ctx.font; 
-				ctx.letterSpacing = field.letterSpacing + "px";
-				if(field.endPositionX){
-					var endPositionX = field.endPositionX; 
-					var width = Math.abs(positionX - endPositionX); 
-					if(values[field.fieldName]){
-						ctx.fillText(values[field.fieldName], positionX, positionY, width);
-					}
-					else{
-						ctx.fillText(field.placeholderText, positionX, positionY, width);
-					}
-				}
-				else{
-					if(values[field.fieldName]){
-						ctx.fillText(values[field.fieldName], positionX, positionY);
-					}
-					else{
-						ctx.fillText(field.placeholderText, positionX, positionY);
-					}
-				}
-
-				
 			}
 
-			completeProgressBar();
-			deferred.resolve(); 
-			return deferred.promise;
+			var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
+			var fontWeight = field.fontWeight;  
+			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 
+			ctx.fillStyle = field.fontColor; 
+			ctx.textAlign = field.textAlign; 
+			ctx.lineHeight = ctx.font; 
+			ctx.letterSpacing = field.letterSpacing + "px";
+			if(field.endPositionX){
+				var endPositionX = field.endPositionX; 
+				var width = Math.abs(positionX - endPositionX); 
+				if(values[field.fieldName]){
+					ctx.fillText(values[field.fieldName], positionX, positionY, width);
+				}
+				else{
+					ctx.fillText(field.placeholderText, positionX, positionY, width);
+				}
+			}
+			else{
+				if(values[field.fieldName]){
+					ctx.fillText(values[field.fieldName], positionX, positionY);
+				}
+				else{
+					ctx.fillText(field.placeholderText, positionX, positionY);
+				}
+			}	
+		}
+		console.log("loadSRMDLogo", loadSRMDLogo)
+		// loadSRMDLogo.then(function(){
+		completeProgressBar();
+		deferred.resolve();
+		return deferred.promise;
+		// });
+		
 	}
 
 	var resizeCanvas = function(canvas, scale_ratio){
@@ -323,6 +326,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		    a.setAttribute("download", $scope.pageDetails.name);
 		}
 		else{
+			enableLoader(); 
 			createHighResCanvas(); 
 			// var download = $('#download');
 			// var ctx = canvas.getContext('2d');
@@ -389,7 +393,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
   		control.enableTransliteration();
     }
 
-    var addSrmdLogoToCanvas = function(ctx, field, x, y){
+    var addSrmdLogoToCanvas = function(ctx, field, x, y, loadSRMDLogo){
     	//RESIZE THE IMAGE
     	var srmdLogo = new Image(); 
     	console.log("Adding SRMD Logo..."); 
@@ -436,11 +440,13 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     // 			} else{
     // 				ctx.drawImage(srmdLogo, x, y, 69, 80);
     // 			}
-    // 		}		
+    // 		}
+    		loadSRMDLogo.resolve();		
     	};
     	
     	srmdLogo.src = "../img/logos/" + src
     	console.log("End of drawing the logo!"); 
+    	return loadSRMDLogo.promise;
     }
 
     var addImageToCanvas = function(ctx, src, x, y, width, height){
@@ -500,7 +506,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
     function updateProgressBar(percentage){
     	var percentageString = percentage.toString() + "%";
-    	console.log("percentageString: " +  percentageString);
     	$('#progress_bar .progress .progress-bar').css("width", percentageString);
     }
 
@@ -519,19 +524,21 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     	var newCanvas = document.createElement('canvas'); 
     	resizeCanvas(newCanvas, newScale); 
     	var img = new Image();
-		img.setAttribute('crossOrigin', 'anonymous');
+		img.setAttribute('crossOrigin', 'use-credentials');
     	img.onload = function(){
 			drawImageScaled(values, img, newCanvas, newScale).then(function(){
 				newCanvas.toBlob(function(blob) {
+					console.log("Starting to convert the blob...");
 					var url = URL.createObjectURL(blob);
 					var link = document.createElement("a");
 					link.href = url; 
-					console.log("DOWNLOADING new canvas"); 
 				    link.setAttribute("download", $scope.pageDetails.name);
 				    link.click(); 
+				    //link.remove();
+				    disableLoader();
 				}, 'image/jpeg');
 			});
-			uploadFile();
+			//uploadFile();
 			console.log("Image onload function")  
 	    };
 	    console.log("The url being loaded is", $scope.object.imageLink);
@@ -547,6 +554,14 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			addFileToGoogleDrive(blob); 
 		}, 'image/jpeg');
 
+    }
+
+    function disableLoader(){
+    	$("#loader").css("display", "none");
+    }
+
+    function enableLoader(){
+    	$("#loader").css("display", "block");
     }
 
     function addFileToGoogleDrive(file){

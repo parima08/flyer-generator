@@ -751,6 +751,18 @@ color: white;
 	margin: 0 auto;
 }
 
+#loader{
+	position: absolute;
+	z-index: 100;
+	background-color: rgba(255,255,255, .9);
+	width: 100%;
+	height: 100%;
+	overflow: none;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
 /*.pusher .container{
 	overflow-x: scroll;
 }
