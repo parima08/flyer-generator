@@ -274,10 +274,14 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				}
 			}	
 		}
-		console.log("loadSRMDLogo", loadSRMDLogo)
-		completeProgressBar();
-		deferred.resolve();
-		return deferred.promise;		
+		//console.log("loadSRMDLogo", loadSRMDLogo)
+		//hack to make sure that the logo has been loaded
+		//before downloading...
+		setTimeout(function() {
+	      completeProgressBar();
+			deferred.resolve();
+	    }, 1000);
+	    return deferred.promise;
 	}
 
 	var resizeCanvas = function(canvas, scale_ratio){
