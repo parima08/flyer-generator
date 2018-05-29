@@ -206,16 +206,20 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 			if(field.id == "srmd_logo" || field.id == "srmd_horizontal_logo"){
 				loadSRMDLogo = $q.defer(); 
-				console.log("loadSRMDLogo", loadSRMDLogo)
-				loadSRMDLogo = addSrmdLogoToCanvas(ctx, field, positionX, positionY, loadSRMDLogo); 
+				console.log("loading the image... ", loadSRMDLogo)
+				addSrmdLogoToCanvas(ctx, field, positionX, positionY, loadSRMDLogo)
+				.then(function(){
+					console.log("loaded the image...");
+				}); 
+				continue;
 			}
 			if(field.id == "upload_logo"){
 				//console.log("upload_logo: " + field.value); 
 				src = $("img.upload_logo").attr('src');
 				if(src){
 					addImageToCanvas(ctx, src , positionX, positionY, 60, 60); 
-					continue; 
 				}
+				continue; 
 			}
 			if(field.id == "swamivatsalya"){
 				//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
@@ -271,12 +275,9 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			}	
 		}
 		console.log("loadSRMDLogo", loadSRMDLogo)
-		// loadSRMDLogo.then(function(){
 		completeProgressBar();
 		deferred.resolve();
-		return deferred.promise;
-		// });
-		
+		return deferred.promise;		
 	}
 
 	var resizeCanvas = function(canvas, scale_ratio){
@@ -327,22 +328,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		}
 		else{
 			enableLoader(); 
-			createHighResCanvas(); 
-			// var download = $('#download');
-			// var ctx = canvas.getContext('2d');
-			// ctx.setTransform($scope.pageDetails.scale*2, 0, 0, $scope.pageDetails.scale*2, 0, 0);
-			// canvas.toBlob(function(blob) {
-			// 	var url = URL.createObjectURL(blob);
-			// 	addFileToGoogleDrive(blob);
-			// 	var link = document.createElement("a");
-			// 	link.href = url; 
-			// 	download.attr("href", url);
-			// 	download.attr("download", "flyer.jpeg");
-			// 	console.log("DOWNLOADING"); 
-			//     link.setAttribute("download", $scope.pageDetails.name);
-			//     link.click(); 
-			// }, 'image/jpeg');
-
+			createHighResCanvas();
 		}
 	}
 
@@ -394,6 +380,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     }
 
     var addSrmdLogoToCanvas = function(ctx, field, x, y, loadSRMDLogo){
+    	var loadingImage= $q.defer();
     	//RESIZE THE IMAGE
     	var srmdLogo = new Image(); 
     	console.log("Adding SRMD Logo..."); 
@@ -431,22 +418,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
     	srmdLogo.onload = function(){
     		ctx.drawImage(srmdLogo, x, y, width, height);
-    // 		if(field.placeholderText == "horizontal"){
-				// ctx.drawImage(srmdLogo, x, y, width, height);
-    // 		}
-    // 		else{
-    // 			if($scope.convertInvitationPDF){
-    // 				ctx.drawImage(srmdLogo, x, y, 60, 70);
-    // 			} else{
-    // 				ctx.drawImage(srmdLogo, x, y, 69, 80);
-    // 			}
-    // 		}
-    		loadSRMDLogo.resolve();		
+    		loadSRMDLogo.resolve();	
+    		loadingImage.resolve();	
     	};
     	
     	srmdLogo.src = "../img/logos/" + src
-    	console.log("End of drawing the logo!"); 
-    	return loadSRMDLogo.promise;
+    	return loadingImage.promise;
     }
 
     var addImageToCanvas = function(ctx, src, x, y, width, height){
