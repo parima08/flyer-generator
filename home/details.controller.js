@@ -535,10 +535,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
     function disableLoader(){
     	$("#loader").css("display", "none");
+    	$('.content').css("overflow", "scroll");
     }
 
     function enableLoader(){
     	$("#loader").css("display", "block");
+    	$('.content').css("overflow", "hidden");
     }
 
     function addFileToGoogleDrive(file){

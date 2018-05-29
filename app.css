@@ -772,6 +772,12 @@ color: white;
 	text-align: center;
 }
 
+.alert{
+	background: rgb(169, 68, 66, .3);
+	height: 50px;
+	margin-top: -20px;
+}
+
 /*.pusher .container{
 	overflow-x: scroll;
 }
