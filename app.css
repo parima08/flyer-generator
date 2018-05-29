@@ -773,7 +773,7 @@ color: white;
 }
 
 .alert{
-	background: rgb(169, 68, 66, .3);
+	background: rgba(169, 68, 66, .3);
 	height: 50px;
 	margin-top: -20px;
 }
