@@ -519,7 +519,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				    disableLoader();
 				}, 'image/jpeg');
 			});
-			//uploadFile();
+			uploadFile();
 			console.log("Image onload function")  
 	    };
 	    console.log("The url being loaded is", $scope.object.imageLink);
