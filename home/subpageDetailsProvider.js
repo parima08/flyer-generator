@@ -80,7 +80,7 @@ app.provider('subpageDetails', function(){
 
 	subpages['/sadguruwhispers'] = {
 		title: "Sadguru Whisper Flyers",
-		spreadsheetId: "1cK1Q4wXbakN7M76DMRD-NLmXeMfgSnBEhj2egC35XvA/edit?usp=sharing",
+		spreadsheetId: "1cK1Q4wXbakN7M76DMRD-NLmXeMfgSnBEhj2egC35XvA",
 		width: 9, 
 		height: 9, 
 		scale: 2
