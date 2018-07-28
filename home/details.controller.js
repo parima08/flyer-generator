@@ -94,6 +94,10 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		{
 			name: "Piyushbhai_Shah",
 			image: "Piyushbhai_Shah.png"
+		},
+		{
+			name: "Atmarpit Vidhi",
+			image: "Atmarpit_vidhi.png"
 		}
 	]
 

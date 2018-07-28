@@ -45,8 +45,8 @@ app.provider('subpageDetails', function(){
 	subpages["/swadhyaykarflyer"] = {
 		title: "Swadhyaykar Flyer",
 		spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
-		width: 10, 
-		height: 16,
+		width: 11.7, 
+		height: 16.5,
 		scale: 10
 	}
 	// subpages["/swadhyaykarbanner"] = {
