@@ -80,6 +80,14 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			image: "Atmarpit_Smrutiji.png"
 		},
 		{
+			name: "Atmarpit Fagunji",
+			image: "Atmarpit_Fagunji.png"
+		},
+		{
+			name: "Atmarpit Vidhi",
+			image: "Atmarpit_Vidhi.png"
+		}
+		{
 			name: "Bhavnaben Shah",
 			image: "Bhavnaben_Shah.png"
 		},
@@ -95,10 +103,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			name: "Piyushbhai_Shah",
 			image: "Piyushbhai_Shah.png"
 		},
-		{
-			name: "Atmarpit Vidhi",
-			image: "Atmarpit_vidhi.png"
-		}
+		
 	]
 
 
