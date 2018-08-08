@@ -64,43 +64,43 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	}; 
 		$scope.swadhyaykarInfo = [
 		{
-			name: "Atmarpit Kinjalji", 
+			swadhyaykarName: "Atmarpit Kinjalji", 
 			image: "Atmarpit_Kinjalji.png"
 		}, 
 		{
-			name: "Atmarpit Rajuji",
+			swadhyaykarName: "Atmarpit Rajuji",
 			image: "Atmarpit_Rajuji.png"
 		},
 		{
-			name: "Atmarpit Shivaniji",
+			swadhyaykarName: "Atmarpit Shivaniji",
 			image: "Atmarpit_Shivaniji.png"
 		},
 		{
-			name: "Atmarpit Smrutiji",
+			swadhyaykarName: "Atmarpit Smrutiji",
 			image: "Atmarpit_Smrutiji.png"
 		},
 		{
-			name: "Atmarpit Fagunji",
+			swadhyaykarName: "Atmarpit Fagunji",
 			image: "Atmarpit_Fagunji.png"
 		},
 		{
-			name: "Atmarpit Vidhi",
+			swadhyaykarName: "Atmarpit Vidhiben",
 			image: "Atmarpit_Vidhi.png"
 		},
 		{
-			name: "Bhavnaben Shah",
+			swadhyaykarName: "Vanprastha Dr. Bhavnaben Shah",
 			image: "Bhavnaben_Shah.png"
 		},
 		{
-			name: "Dilipbhai Jasani",
+			swadhyaykarName: "Vanprastha Dilipbhai Jasani",
 			image: "Dilipbhai_Jasani.png"
 		}, 
 		{
-			name: "Dilipbhai_Pasad",
+			swadhyaykarName: "Vanprastha Dilipbhai Pasad",
 			image: "Dilipbhai_Pasad.png"
 		},
 		{
-			name: "Piyushbhai_Shah",
+			swadhyaykarName: "Vanprastha Dr. Piyushbhai Shah",
 			image: "Piyushbhai_Shah.png"
 		},
 		
@@ -264,22 +264,28 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			ctx.textAlign = field.textAlign; 
 			ctx.lineHeight = ctx.font; 
 			ctx.letterSpacing = field.letterSpacing + "px";
-			if(field.endPositionX){
-				var endPositionX = field.endPositionX; 
-				var width = Math.abs(positionX - endPositionX); 
-				if(values[field.fieldName]){
-					ctx.fillText(values[field.fieldName], positionX, positionY, width);
-				}
-				else{
-					ctx.fillText(field.placeholderText, positionX, positionY, width);
-				}
+			if(field.id == "swadhyaykar_name"){
+				let name = $('input[name="swadhyaykar"]:checked').data('name'); 
+				ctx.fillText(name, positionX, positionY, width);
 			}
 			else{
-				if(values[field.fieldName]){
-					ctx.fillText(values[field.fieldName], positionX, positionY);
+				if(field.endPositionX){
+					var endPositionX = field.endPositionX; 
+					var width = Math.abs(positionX - endPositionX); 
+					if(values[field.fieldName]){
+						ctx.fillText(values[field.fieldName], positionX, positionY, width);
+					}
+					else{
+						ctx.fillText(field.placeholderText, positionX, positionY, width);
+					}
 				}
 				else{
-					ctx.fillText(field.placeholderText, positionX, positionY);
+					if(values[field.fieldName]){
+						ctx.fillText(values[field.fieldName], positionX, positionY);
+					}
+					else{
+						ctx.fillText(field.placeholderText, positionX, positionY);
+					}
 				}
 			}	
 		}
