@@ -42,6 +42,13 @@ app.provider('subpageDetails', function(){
 		height: 4,
 		scale: 10
 	};
+	subpages["/sessionbanners6x10"] = {
+		title: "Session Banners 6x10",
+		spreadsheetId: "1zkW2jIut_oU6EMr5L_5vOBP1UVlWbBEE-ziSWSqy6RY",
+		width: 10, 
+		height: 6,
+		scale: 10
+	};
 	subpages["/swadhyaykarflyer"] = {
 		title: "Swadhyaykar Flyer",
 		spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
