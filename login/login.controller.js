@@ -17,7 +17,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
                    " bengaluru@srloveandcare.org", "canada@srloveandcare.org", "chennai@srloveandcare.org", "dubai@srloveandcare.org", 
                    "hongkong@srloveandcare.org", "muscat@srloveandcare.org", "singapore@srloveandcare.org", 
                    "surat@srloveandcare.org", "uk@srloveandcare.org", "vadodara@srloveandcare.org", 
-                   "admin.srlc@srloveandcare.org"];
+                   "admin.srlc@srloveandcare.org", "npgosalia75@gmail.com"];
 
   var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"]; 
   $window.init = function(){
