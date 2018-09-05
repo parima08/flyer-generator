@@ -84,6 +84,14 @@ app.provider('subpageDetails', function(){
 		height: 4, 
 		scale: 4
 	};
+	subpages["/kshamapanaCards"] = {
+		title: "Kshamapana Cards",
+		spreadsheetId: "1eih_6DPMG2zFopaHrnoC4hiCmYMeDL2ZG4uiOCR8kqg",
+		width: 4, 
+		height: 6, 
+		scale: 4
+	};
+	
 
 	subpages['/sadguruwhispers'] = {
 		title: "Sadguru Whisper Flyers",
@@ -183,6 +191,14 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1d8LX8EPgf-EDgZrp1afA3fu3MmrjKvy9zhKi1ugC-2Q", 
 		width: 7, 
 		height: 4,
+		scale: 10
+	}
+
+	subpages['/generalStandees'] = {
+		title: "General Standees", 
+		spreadsheetId: "1APh1llzpmIdt3S2blzd-NRu-8qPE5Vdt9fzjtwtDwLw", 
+		width: 3, 
+		height: 6, 
 		scale: 10
 	}
 
