@@ -118,7 +118,7 @@ app.provider('subpageDetails', function(){
 		spreadsheetId: "1RyIVJyR-KR4g3PFdld-oy13K-GcXCtufFye5RM0Su9I",
 		width: 3, 
 		height: 6,
-		scale: 20
+		scale: 10
 	}
 
 	subpages["/postcard-flyers"] = {
