@@ -17,8 +17,10 @@ app.service('articleDetailsService', function($http, $q, $sce){
   		$http.jsonp(url)
 			.then(function(data, status){
 				data = data.data;  
+				console.log("length", data.feed.entry.length);
 				for(var i = 0; i < data.feed.entry.length; i++){			
 					var article = data.feed.entry[i]; 
+					console.log("Article", article);
 					var articleInfo = grabArticleInfo(article); 
 					//articleInfo.iframeLink = "http://docs.google.com/gview?url=" + articleInfo.articleLink + "&embedded=true"
 					articlesData.push(articleInfo); 
@@ -69,8 +71,9 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		articleInfo.year = article.gsx$year.$t ? article.gsx$year.$t : ""; 
 		articleInfo.wordCount = article.gsx$wordcount.$t ? article.gsx$wordcount.$t : ""; 
 		articleInfo.magazineSection = article.gsx$magazinesection.$t ? article.gsx$magazinesection.$t : ""; 
+		
 		articleInfo.category = article.gsx$category.$t ? article.gsx$category.$t : ""; 
-		articleInfo.subcategory =article.gsx$subcategory.$t ? article.gsx$subcategory.$t : ""; 
+		//articleInfo.subcategory =article.gsx$subcategory.$t ? article.gsx$subcategory.$t : ""; 
 		articleInfo.language = article.gsx$language.$t ? article.gsx$language.$t : ""; 
 		articleInfo.articleLink = article.gsx$articlelink.$t ? article.gsx$articlelink.$t : ""; 
 		
@@ -81,6 +84,7 @@ app.service('articleDetailsService', function($http, $q, $sce){
 		// 	articleInfo.articleSpreadsheetId = id; 
 		// 	articleInfo.iframeLink = "https://drive.google.com/file/d/" + id + "/preview"; 
 		// }
+		console.log("article",articleInfo);
 		return articleInfo; 
   	}
 
