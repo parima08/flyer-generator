@@ -160,6 +160,14 @@ app.provider('subpageDetails', function(){
 		scale: 10
 	}
 
+	subpages["/srlcwhatsapp"] = {
+		title: "SRLC Whatsapp Images",
+		spreadsheetId: "1PiKOAkctDOLLXIueqfUt4dOYpilpEtuTerMDZXxj6zw",
+		width: 4.04, 
+		height: 10,
+		scale: 10
+	}
+
 	//BACKDROPS ------------------
 
 	subpages['/backdrop2by3'] = {
