@@ -65,43 +65,63 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		$scope.swadhyaykarInfo = [
 		{
 			swadhyaykarName: "Atmarpit Kinjalji", 
-			image: "Atmarpit_Kinjalji.png"
+			image: "Atmarpit_Kinjalji.png",
+			gujName: "આત્માર્પિત કિંજલજી",
+			hindiName: "आत्मार्पित किंजलजी",
 		}, 
 		{
 			swadhyaykarName: "Atmarpit Rajuji",
-			image: "Atmarpit_Rajuji.png"
+			image: "Atmarpit_Rajuji.png",
+			gujName: "આત્માર્પિત રાજુજી",
+			hindiName: "आत्मार्पित राजुजी",
 		},
 		{
 			swadhyaykarName: "Atmarpit Shivaniji",
-			image: "Atmarpit_Shivaniji.png"
+			image: "Atmarpit_Shivaniji.png",
+			gujName: "આત્માર્પિત શિવાનીજી",
+			hindiName: "आत्मार्पित शिवानीजी",
 		},
 		{
 			swadhyaykarName: "Atmarpit Smrutiji",
-			image: "Atmarpit_Smrutiji.png"
+			image: "Atmarpit_Smrutiji.png",
+			gujName: "આત્માર્પિત સ્મૃિતજી",
+			hindiName: "आत्मार्पित स्मृतिजी",
 		},
 		{
 			swadhyaykarName: "Atmarpit Fagunji",
-			image: "Atmarpit_Fagunji.png"
+			image: "Atmarpit_Fagunji.png",
+			gujName: "આત્માર્પિત ફાગુનજી",
+			hindiName: "आत्मार्पित फागुनजी",
 		},
 		{
 			swadhyaykarName: "Atmarpit Vidhiben",
-			image: "Atmarpit_Vidhi.png"
+			image: "Atmarpit_Vidhi.png",
+			gujName: "આત્માર્પિત વિધિબેન",
+			hindiName: "आत्मार्पित विधिबहन",
 		},
 		{
 			swadhyaykarName: "Vanprastha Dr. Bhavnaben Shah",
-			image: "Bhavnaben_Shah.png"
+			image: "Bhavnaben_Shah.png",
+			gujName: "વાનપ્રસ્થ ડો. ભાવનાબેન શાહ ",
+			hindiName: "वानप्रस्थ डॉ. भावनाबहन शाह",
 		},
 		{
 			swadhyaykarName: "Vanprastha Dilipbhai Jasani",
-			image: "Dilipbhai_Jasani.png"
+			image: "Dilipbhai_Jasani.png", 
+			gujName: "વાનપ્રસ્થ દિલિપભાઈ જસાણી",
+			hindiName: "वानप्रस्थ दिलिपभाई जसाणी",
 		}, 
 		{
 			swadhyaykarName: "Vanprastha Dilipbhai Pasad",
-			image: "Dilipbhai_Pasad.png"
+			image: "Dilipbhai_Pasad.png",
+			gujName: "વાનપ્રસ્થ દિલિપભાઈ જસાણી પાસદ",
+			hindiName: "वानप्रस्थ दिलिपभाई पासद",
 		},
 		{
 			swadhyaykarName: "Vanprastha Dr. Piyushbhai Shah",
-			image: "Piyushbhai_Shah.png"
+			image: "Piyushbhai_Shah.png",
+			gujName: "વાનપ્રસ્થ ડો. પિયુષભાઈ શાહ",
+			hindiName: "वानप्रस्थ डॉ. पीयूषभाई शाह ",
 		},
 		
 	]
@@ -250,7 +270,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				//alert("Swadhyaykar");
 				let srcInput = $('input[name="swadhyaykar"]:checked').val(); 
 				let src = "../img/swadhyaykars/" + srcInput; 
-				console.log("Swadhyaykar: " + src); 
 				if(src){
 					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85); 
 				}
@@ -265,8 +284,26 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			ctx.lineHeight = ctx.font; 
 			ctx.letterSpacing = field.letterSpacing + "px";
 			if(field.id == "swadhyaykar_name"){
-				let name = $('input[name="swadhyaykar"]:checked').data('name'); 
-				ctx.fillText(name, positionX, positionY, width);
+				let name = $('input[name="swadhyaykar"]:checked').data('name');; 
+				let jsonSwadhyaykarPerson = $scope.swadhyaykarInfo.filter(function(data){
+					return data.swadhyaykarName===name
+				})[0];
+				console.log("jsonSwadhyaykarPerson", jsonSwadhyaykarPerson);
+				var swadhyaykarName;
+				switch($scope.language){
+					case "gujarati":
+						swadhyaykarName = jsonSwadhyaykarPerson.gujName
+						break;
+					case "hindi":
+						swadhyaykarName = jsonSwadhyaykarPerson.hindiName
+						break;
+					default: 
+						swadhyaykarName = name;
+						//swadhyaykarName = jsonSwadhyaykarPerson.gujName
+						break;
+
+				}
+				ctx.fillText(swadhyaykarName, positionX, positionY, width);
 			}
 			else{
 				if(field.endPositionX){
