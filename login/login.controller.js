@@ -11,9 +11,7 @@ LoginController.$inject = ['$scope','googleService',
 function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
   
   var whiteListEmails = [ "parima08@gmail.com", "centres.mgmt@sradharampur.org", "aniruddh.mehta90@gmail.com", 
-                    "jhalakprdept@gmail.com", "supersup1388@gmail.com", "s170496@gmail.com", "anitashah92@gmail.com", 
-                    "anushka96mehta@gmail.com", "sayam.jhaveri26@gmail.com", "aryan.shah@anarl.com", 
-                    "shivjas123@gmail.com", "ahmedabad@srloveandcare.org", 
+                    "jhalakprdept@gmail.com", "ahmedabad@srloveandcare.org", 
                    " bengaluru@srloveandcare.org", "canada@srloveandcare.org", "chennai@srloveandcare.org", "dubai@srloveandcare.org", 
                    "hongkong@srloveandcare.org", "muscat@srloveandcare.org", "singapore@srloveandcare.org", 
                    "surat@srloveandcare.org", "uk@srloveandcare.org", "vadodara@srloveandcare.org", 
