@@ -69,6 +69,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			gujName: "આત્માર્પિત કિંજલજી",
 			hindiName: "आत्मार्पित किंजलजी",
 		}, 
+
 		{
 			swadhyaykarName: "Atmarpit Rajuji",
 			image: "Atmarpit_Rajuji.png",
@@ -98,6 +99,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			image: "Atmarpit_Vidhi.png",
 			gujName: "આત્માર્પિત વિધિબેન",
 			hindiName: "आत्मार्पित विधिबहन",
+		},
+		{
+			swadhyaykarName: "Atmarpit Harshadbhai",
+			image: "Atmarpit_Harshadbhai.png",
+			gujName: "આત્માર્પિત હર્શદભાઈ",
+			hindiName: "आत्मार्पित हर्षदभाई",
 		},
 		{
 			swadhyaykarName: "Vanprastha Dr. Bhavnaben Shah",
