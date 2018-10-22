@@ -60,13 +60,17 @@ app.service("objectDetailsService", function($http, $q, $sce){
   	var lookupObjectByNameAsync = function(spreadsheetId, name, sectionDetails){
   		var deffered = $q.defer();
   		var url = "https://spreadsheets.google.com/feeds/list/"+ spreadsheetId +"/od6/public/values?alt=json-in-script"
+  		console.log("lookUpObjectByNameAysnc");
   		$sce.trustAsResourceUrl(url);
   		$http.jsonp(url)
 			.then(function(data, status){
-				data = data.data		
+				data = data.data; 
+				console.log("data", data);
 				for(var i = 0; i < data.feed.entry.length; i++){
-					if(data.feed.entry[i].gsx$name.$t == name){
+					console.log("Name", data.feed.entry[i].gsx$name.$t );
+					if(data.feed.entry[i].gsx$name.$t.trim() == name){
 						lookUpObject = grabObjectInfo(data.feed.entry[i], sectionDetails); 
+						console.log("lookUpobject", lookUpObject);
 						break;
 					} 
 				}

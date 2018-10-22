@@ -1,0 +1,29 @@
+{
+  "name": "flyer-generator",
+  "description": "SRMD FLyer Generator",
+  "main": "flyer-generator",
+  "authors": [
+    "Parima Shah <parima@openspace.ai>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/parima08/flyer-generator",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "^2.5.0",
+    "angular-cookies": "^1.6.4",
+    "angular-filter": "^0.5.16",
+    "angular-loader": "~1.5.0",
+    "angular-mocks": "~1.5.0",
+    "angular-route": "~1.5.0",
+    "angular-smart-table": "^2.1.8",
+    "angularjs-imageupload-directive": "*",
+    "html5-boilerplate": "^5.3.0"
+  }
+}

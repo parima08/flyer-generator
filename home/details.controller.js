@@ -141,7 +141,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	.then(function(){
 		console.log("*************RETURNED asset Details are: ", objectDetailsService.getData()); 				
 		$scope.object = objectDetailsService.getObject(); 
-		console.log($scope.object); 
+		console.log('Returned back - $scope.object', $scope.object);
 		if(option2 == true){
 			console.log("2nd: This is a second option");
 			$scope.object.imageLink = $scope.object.secondaryImageLink; 

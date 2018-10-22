@@ -163,7 +163,7 @@ app.provider('subpageDetails', function(){
 	subpages["/srlcwhatsapp"] = {
 		title: "SRLC Whatsapp Images",
 		spreadsheetId: "1RXtbGlr_eRjQoKIu7MEhLk-IIwtl-w0Z-AgMKq4aZmk",
-		width: 4.04, 
+		width: 4, 
 		height: 10,
 		scale: 10
 	}
@@ -217,6 +217,15 @@ app.provider('subpageDetails', function(){
 		height: 6, 
 		scale: 10
 	}
+
+	subpages['/momentos'] = {
+		title: "Momementos", 
+		spreadsheetId: "1dOEHwcc5L36XBRmgQk8uGxa8bl8nhBHiax3M07ouBys", 
+		width: 11.7, 
+		height: 16.5, 
+		scale: 4
+	}
+
 
 	this.subpages = subpages; 
 	this.$get = function() {
