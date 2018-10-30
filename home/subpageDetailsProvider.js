@@ -1,4 +1,4 @@
-
+f
 app.provider('subpageDetails', function(){
 	var subpages = {}; 
 	//subpages["/articles"] = { spreadsheetId: "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"}
@@ -84,8 +84,8 @@ app.provider('subpageDetails', function(){
 		height: 4, 
 		scale: 4
 	};
-	subpages["/kshamapanaCards"] = {
-		title: "Kshamapana Cards",
+	subpages["/cards"] = {
+		title: "Cards",
 		spreadsheetId: "1eih_6DPMG2zFopaHrnoC4hiCmYMeDL2ZG4uiOCR8kqg",
 		width: 4, 
 		height: 6, 
