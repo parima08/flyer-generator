@@ -1,4 +1,3 @@
-f
 app.provider('subpageDetails', function(){
 	var subpages = {}; 
 	//subpages["/articles"] = { spreadsheetId: "1KcE5rNKGrTX4EVmdb-4KmZnpmJ8h92YQ8_mgpVt_FAE"}
