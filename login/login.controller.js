@@ -17,9 +17,10 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
                    "surat@srloveandcare.org", "uk@srloveandcare.org", "vadodara@srloveandcare.org", 
                    "admin.srlc@srloveandcare.org", "npgosalia75@gmail.com", "uksupport@sradharampur.org"];
 
-  var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"]; 
+  var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"];
+  var blackListEmails = [];
+  //var blackListEmails = ["sandiego@shrimadrajchandramission.org"]
   $window.init = function(){
-      console.log("In Init"); 
       if(userPersistenceService.getUserNameData()){
         $scope.isSignedIn = true
       }
@@ -27,45 +28,43 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
         $scope.isSignedIn = false; 
       }
 
-    function checkRestrictDomainName(userEmail){
-      console.log("checkRestrictDomainName"); 
-      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
-      //comment this out!
-      $rootScope.srdUser = false; 
-      if(domainName){
-         $rootScope.validUser = true; 
-         alert(domainName);
-        if( domainName === "srdivinetouch.org"){
-          $rootScope.srdUser = true; 
-        }
-      }
-      else{
-        $rootScope.validUser = false; 
-      }
-      console.log("Valid User? " + $rootScope.validUser.toString() );
+    function loginUser(){
+      $rootScope.validUser= true;
     }
+
+    function preventUserFromLogin(){
+      $rootScope.validUser= false;
+      alert("You are not authorized to log in. Contact your adminstrator.");
+      $scope.signOut();
+    }
+
+
     function validateUser(userEmail){
-      checkRestrictDomainName(userEmail); 
-      //userEmail.indexOf("shrimadrajchandramission.org") == -1)
-      console.log("Is it in whitelisted emails? : " + (whiteListEmails.indexOf(userEmail) == -1).toString() )
-      if(!$rootScope.validUser){
-        if((whiteListEmails.indexOf(userEmail) == -1)){
-          console.log("This email should not be allowed to sign in");
-          $scope.signOut(); 
-          alert("You are not a valid user. You must have a shrimadrajchandramission.org email address!");
-          return false;
+      //if they are in the domain name, sign them in if they are not on the blacklisted emails
+      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
+      console.log("domainName", domainName);
+      if(domainName){
+        console.log("blackListEmails", blackListEmails);
+        if(blackListEmails.indexOf(userEmail) === -1){
+          console.log("not black listed email");
+          if(domainName === "srdivinetouch.org"){
+            $rootScope.srdUser = true;
+          }
+          loginUser();
+          return true;
         }
-        else{
-          return true; 
-        }
+        console.log("in the blacklisted emails");
       }
-      else{
-        console.log("This email is allowed"); 
-        console.log("apply the cookie")
-        return true; 
+      //if it's a white listed email, sign them in: 
+      if((whiteListEmails.indexOf(userEmail) !== -1)){
+        console.log("white listed email");
+        loginUser();
+        return true;
       }
+      console.log("logging user out");
+      preventUserFromLogin();
+      return false;
     }
-        
       //$scope.isSignedIn = false;
       googleService.load().then(function(){
         $scope.signIn = function(){
