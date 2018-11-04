@@ -282,16 +282,16 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				}
 			}
 
-			var fontSize = parseInt(field.fontSize); //* $scope.pageDetails.scale; 
+			var fontSize = parseInt(field.fontSize);
 			var fontWeight = field.fontWeight;  
 			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
 
 			ctx.fillStyle = field.fontColor; 
 			ctx.textAlign = field.textAlign; 
-			ctx.lineHeight = ctx.font; 
+			ctx.lineHeight = ctx.font;
 			ctx.letterSpacing = field.letterSpacing + "px";
 			if(field.id == "swadhyaykar_name"){
-				let name = $('input[name="swadhyaykar"]:checked').data('name');; 
+				let name = $('input[name="swadhyaykar"]:checked').data('name');
 				let jsonSwadhyaykarPerson = $scope.swadhyaykarInfo.filter(function(data){
 					return data.swadhyaykarName===name
 				})[0];
@@ -388,6 +388,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			a.target = "_blank";
 		    a.href = pdf.output('datauri');
 		    a.setAttribute("download", $scope.pageDetails.name);
+		  uploadFile();
 		}
 		else{
 			enableLoader(); 
