@@ -3,98 +3,72 @@
 var app = angular.module('myApp'); 
 
 
-app.controller('LoginController', LoginController); 
+app.controller('LoginController', LoginController);
 
 LoginController.$inject = ['$scope','googleService', 
-                      '$rootScope', '$location', 
-                      'userPersistenceService', '$window']; 
-function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window) {
-  
-  var whiteListEmails = [ "parima08@gmail.com", "centres.mgmt@sradharampur.org", "aniruddh.mehta90@gmail.com", 
-                    "jhalakprdept@gmail.com", "ahmedabad@srloveandcare.org", 
-                   " bengaluru@srloveandcare.org", "canada@srloveandcare.org", "chennai@srloveandcare.org", "dubai@srloveandcare.org", 
-                   "hongkong@srloveandcare.org", "muscat@srloveandcare.org", "singapore@srloveandcare.org", 
-                   "surat@srloveandcare.org", "uk@srloveandcare.org", "vadodara@srloveandcare.org", 
-                   "admin.srlc@srloveandcare.org", "npgosalia75@gmail.com", "uksupport@sradharampur.org"];
-
-  var whiteListDomains = ["shrimadrajchandramission.org", "srdivinetouch.org"];
-  var blackListEmails = [];
-  //var blackListEmails = ["sandiego@shrimadrajchandramission.org"]
+                      '$rootScope', '$location',
+                      'userPersistenceService', '$window', '$http', 'accessList'];
+function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window, $http, accessList) {
+  var allowedEmails;
   $window.init = function(){
       if(userPersistenceService.getUserNameData()){
         $scope.isSignedIn = true
       }
       else{
-        $scope.isSignedIn = false; 
+        $scope.isSignedIn = false;
       }
-
-    function loginUser(){
-      $rootScope.validUser= true;
-    }
-
-    function preventUserFromLogin(){
-      $rootScope.validUser= false;
-      alert("You are not authorized to log in. Contact your adminstrator.");
-      $scope.signOut();
-    }
-
 
     function validateUser(userEmail){
-      //if they are in the domain name, sign them in if they are not on the blacklisted emails
-      var domainName = whiteListDomains.find(function(el){ return userEmail.indexOf(el) != -1});
-      console.log("domainName", domainName);
-      if(domainName){
-        console.log("blackListEmails", blackListEmails);
-        if(blackListEmails.indexOf(userEmail) === -1){
-          console.log("not black listed email");
-          if(domainName === "srdivinetouch.org"){
-            $rootScope.srdUser = true;
-          }
-          loginUser();
-          return true;
-        }
-        console.log("in the blacklisted emails");
+      //prevents user from logging in
+      if(allowedEmails.indexOf(userEmail) === -1){
+        console.log("not a valid user");
+         $rootScope.validUser= false;
+        alert("You are not authorized to log in. Contact your adminstrator.");
+        $scope.signOut();
+        return false;
       }
-      //if it's a white listed email, sign them in: 
-      if((whiteListEmails.indexOf(userEmail) !== -1)){
-        console.log("white listed email");
-        loginUser();
+      else{
+        //allows a valid user to go through
+        console.log("valid user");
+        $rootScope.validUser= true;
         return true;
       }
-      console.log("logging user out");
-      preventUserFromLogin();
-      return false;
     }
-      //$scope.isSignedIn = false;
-      googleService.load().then(function(){
-        $scope.signIn = function(){
-          console.log("in signin"); 
-          googleService.signIn().then(function(){
-            console.log("loaded googleservice"); 
-            $scope.isSignedIn = googleService.isSignedIn();
-            var profile = googleService.getUserProfileInformation(); 
-            console.log(profile); 
+    //this loads all of the allowed emails from the whitelist in google spreadsheets
+    accessList.load().then(function(){
+      allowedEmails = accessList.getList();
+    });
 
-            $rootScope.loggedInUser = profile; 
-            console.log(profile); 
-            $rootScope.loggedInUser.fullName = profile.w3.ig ; 
-            $rootScope.loggedInUser.email = profile.w3.U3; 
-            var redirect = validateUser($rootScope.loggedInUser.email, $rootScope.loggedInUser.fullName); 
-            if(redirect){
-              userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3, $rootScope.srdUser); 
-              console.log("Redirecting"); 
-              $location.path('/home').replace(); 
-            }
-          });
-        };
+    //this actually goes through the login process;
+    googleService.load().then(function(){
+      $scope.signIn = function(){
+        console.log("in signin"); 
+        googleService.signIn().then(function(){
+          console.log("loaded googleservice"); 
+          $scope.isSignedIn = googleService.isSignedIn();
+          var profile = googleService.getUserProfileInformation(); 
+          console.log(profile); 
 
-        $scope.signOut = function(){
-          googleService.signOut().then(function(){
-            $scope.isSignedIn = googleService.isSignedIn();
-            userPersistenceService.clearCookieData(); 
-          });
-        };
-      });
+          $rootScope.loggedInUser = profile; 
+          console.log(profile); 
+          $rootScope.loggedInUser.fullName = profile.w3.ig;
+          $rootScope.loggedInUser.email = profile.w3.U3;
+          var redirect = validateUser($rootScope.loggedInUser.email);
+          if(redirect){
+            userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3, $rootScope.srdUser); 
+            console.log("Redirecting");
+            $location.path('/home').replace();
+          }
+        });
+      };
+
+      $scope.signOut = function(){
+        googleService.signOut().then(function(){
+          $scope.isSignedIn = googleService.isSignedIn();
+          userPersistenceService.clearCookieData(); 
+        });
+      };
+    });
   }
 }; 
 
@@ -112,7 +86,7 @@ app.service('googleService', ['$q', function ($q) {
       });
       return deferred.promise;
     };
-    
+
     function addAuth2Functions(auth2){
       self.signIn = function() {
         var deferred = $q.defer();
@@ -137,8 +111,29 @@ app.service('googleService', ['$q', function ($q) {
         return deferred.promise;
       };
     }
-    
 }]);
+
+app.service('accessList', function($http, $q, $sce){
+  var accessList = [];
+  return{
+    load: function(){
+      var defered = $q.defer();
+      var url = "https://spreadsheets.google.com/feeds/list/14XFRBqwnH28C3y86n0uuMZnZn4vgSbPWe1a6DRCbRAg/od6/public/values?alt=json-in-script"
+      $sce.trustAsResourceUrl(url)
+      $http.jsonp(url).then(function(data, status){
+        data = data.data.feed.entry;
+        for(let i = 0; i < data.length; i++){
+          accessList.push(data[i].gsx$email.$t)
+        }
+        defered.resolve();
+      });
+      return defered.promise;
+    },
+    getList: function(){
+      return accessList;
+    }
+  }
+});
 
 app.factory("userPersistenceService", [
   "$cookies", "$rootScope" , function($cookies, $rootScope) {
