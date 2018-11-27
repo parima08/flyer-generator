@@ -105,7 +105,7 @@ app.provider('subpageDetails', function(){
 //SRD -----------------------------------------
 
 	subpages["/srdflyers"] = {
-		title: "SRD Flyers", 
+		title: "SRD Programme Flyers", 
 		spreadsheetId: "1OR8SnYpxaAuhT1j7Cgm_hqYIxw6ry6nr5c6rtJWklNQ",
 		width: 11, 
 		height: 16,
@@ -123,7 +123,23 @@ app.provider('subpageDetails', function(){
 	subpages["/postcard-flyers"] = {
 		title: "Post Card Flyers",
 		spreadsheetId: ""
-	}; 
+	};
+
+	subpages["/srdworkshopflyers"] = {
+		title: "SRD Workshop Flyers",
+		spreadsheetId: "18pT1f1KVKEXTughOoX_7yTtw23fbz2Q8ve6cSegzUh0",
+		width: 11, 
+		height: 16,
+		scale: 10, 
+	};
+
+	subpages["/srdbrochure"] = {
+		title: "SRD Brochure",
+		spreadsheetId: "1b_LqRNDvN6QmWkhEOPStMKdX-7k9rFz2D-rimqkIx3Y",
+		width: 11, 
+		height: 16,
+		scale: 10, 
+	}
 
 
 //SRLC -----------------------------------------
