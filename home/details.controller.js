@@ -215,7 +215,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		img.onload = function(){
 			drawImageScaled(values, img, canvas, $scope.pageDetails.scale)
 			console.log("Image onload function")
-	         
 	     };
 	     console.log("IMAGE LINK: " + $scope.object.imageLink);
 	    img.backgroundLoad($scope.object.imageLink);
@@ -225,7 +224,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	var drawImageScaled = function(values, img, canvas, scale) { 
 	   	console.log("IMG:", img);
 	   	var deferred = $q.defer();
-	   	var loadSRMDLogo, loadUploadLogo, loadSwadhyaykar;
+	   	var loadSRMDLogo, loadUploadLogo, loadSwadhyaykar, loadMomentoPhoto;
 	   	ctx = canvas.getContext('2d'); 
 		ctx.imageSmoothingEnabled = true;
 		ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height); 
@@ -246,14 +245,20 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				addSrmdLogoToCanvas(ctx, field, positionX, positionY, loadSRMDLogo)
 				.then(function(){
 					console.log("loaded the image...");
-				}); 
+				});
+				continue;
+			}
+			if(field.id == "momento_photo"){
+				src = $('img.momento_photo').attr('src');
+				if(src){
+					addImageToCanvas(ctx, src, positionX, positionY, 100, 130);
+				}
 				continue;
 			}
 			if(field.id == "upload_logo"){
-				//console.log("upload_logo: " + field.value); 
 				src = $("img.upload_logo").attr('src');
 				if(src){
-					addImageToCanvas(ctx, src , positionX, positionY, 60, 60); 
+					addImageToCanvas(ctx, src , positionX, positionY, 60, 60);
 				}
 				continue; 
 			}
@@ -433,7 +438,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
             new google.elements.transliteration.TransliterationControl(options);
  		
  		var arrayOfIds = []; 
- 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar"];
+ 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo"];
 		for(var i = 0; i < $scope.formInfo.length; i++){
  			if(!idsToExclude.includes($scope.formInfo[i].id)) {
  				arrayOfIds.push($scope.formInfo[i].id);; 
@@ -442,6 +447,8 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
   		control.makeTransliteratable(arrayOfIds);
   		control.enableTransliteration();
     }
+
+
 
     var addSrmdLogoToCanvas = function(ctx, field, x, y, loadSRMDLogo){
     	var loadingImage= $q.defer();
@@ -615,7 +622,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 	  };
 	  reader.readAsDataURL(file);
     }
-    
+
     function sendFileToGoogleDrive(file){
     	console.log("2. addFileToGoogleDrive 1");
     	var url = "https://script.google.com/a/shrimadrajchandramission.com/macros/s/AKfycbxrRdFQUlYGaWbtC20EmDWUezCb6xyI0LRUZtOov2WFgqZx1peO/exec"
