@@ -38,7 +38,7 @@
             Original: <img style = "width: 100px; height: 100px;" class="{{field.id}}" ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}" />
           </div>
           <div ng-if= "field.id == 'momento_photo'">
-            <h4><b>Upload Your Logo</h4></b>
+            <h4><b>Momento Photo</h4></b>
             <p class = "intructions">{{field.instructions}}</p>
             <input class="{{field.id}}" type="file" accept="image/*" image="image"/>
             Original: <img style = "width: 100px; height: 100px;" class="{{field.id}}" ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}" />
@@ -71,7 +71,7 @@
                 <input name = 'swadhyaykar' type = 'radio' value = "{{item.image}}" ng-attr-data-name="{{item.swadhyaykarName}}" checked><label class = "radio-label">{{item.swadhyaykarName}}</label></input> 
             </div>
           </div>
-          <div ng-if = "(field.id != 'upload_logo' && field.id != 'srmd_logo' && field.id != 'swamivatsalya' && field.id != 'swadhyaykar' && field.id != 'swadhyaykar_name')">
+          <div ng-if = "(field.id != 'upload_logo' && field.id != 'srmd_logo' && field.id != 'swamivatsalya' && field.id != 'swadhyaykar' && field.id != 'swadhyaykar_name' && field.id != 'momento_photo')">
             <h4><b>{{field.fieldName}}</b></h4>
             <p class = "intructions">{{field.instructions}}</p>
             <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
