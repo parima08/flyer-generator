@@ -30,6 +30,13 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       else{
         //allows a valid user to go through
         console.log("valid user");
+        
+
+        //check if it's an SRD email address
+        if(userEmail.includes('divinetouch')){
+          $rootScope.srdUser = true;
+        }
+        
         $rootScope.validUser= true;
         return true;
       }
