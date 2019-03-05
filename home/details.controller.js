@@ -70,6 +70,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			image: "Atmarpit_Kinjalji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત કિંજલજી",
 			hindiName: "आत्मार्पित किंजलजी",
+			checked: true,
 		}, 
 
 		{
@@ -131,6 +132,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			image: "Piyushbhai_Shah.png",
 			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ ડો. પિયુષભાઈ શાહ",
 			hindiName: "स्वाध्यायकार वानप्रस्थ डॉ. पीयूषभाई शाह ",
+			checked: false,
 		},
 		
 	]
