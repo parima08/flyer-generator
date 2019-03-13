@@ -512,11 +512,14 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
     }
 
     function loadFonts(fonts){
-	 WebFont.load({
-	    google: { 
-	      families: fonts 
-	    }
-	 });    
+     console.log("FONTS", fonts);
+     fonts = fonts.filter(a => a != '');
+     console.log("FONTS", fonts);
+		 WebFont.load({
+		    google: { 
+		      families: fonts 
+		    }
+		 });
     }
 
     function onlyUnique(value, index, self) { 
