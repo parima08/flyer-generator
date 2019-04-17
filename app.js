@@ -7,8 +7,8 @@ angular.module('myApp', [
   'myApp.version', 
   'ngLoadScript',
   'ui.bootstrap', 
-   'ngCookies', 
-   'imageupload'
+   'ngCookies',
+   'imageupload',
 ]).config(config)
 .run(run); 
 
@@ -49,6 +49,16 @@ function config($routeProvider, $locationProvider,
           controller: "ArticlesController",
           templateUrl: 'home/article_detail.view.html',
           controllerAs: "vm"
+        })
+        .when('/mailers', {
+          controller: 'MailerController',
+          templateUrl: 'home/mailers.view.html',
+          controllerAs: 'vm',
+        })
+        .when('/mailers/:name', {
+          controller: 'MailerController',
+          templateUrl: 'home/mailer_detail.view.html',
+          controllerAs: 'vm',
         })
         .otherwise({ redirectTo: '/home' });; 
 

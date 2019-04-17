@@ -271,8 +271,11 @@ function HomeController($scope, $rootScope, $location,
 		if(sectionDetails.title == "Articles"){
 			//deal with articles
 		}
+    else if(sectionsDetails.title === 'Mailers'){
+      //deal with mailers
+    }
 		else if(sectionDetails.width){
-			$scope.title = sectionDetails.title; 
+			$scope.title = sectionDetails.title;
 			//$scope.title = $location.path().toString().replace(/\//g, '').charAt(0).toUpperCase(); 
 			//var dimensions = objectDetailsService.calculateAssetSize(sectionDetails['width'], sectionDetails['height']); 
 			objectDetailsService.loadDataAsync(sectionDetails.spreadsheetId, sectionDetails).then(function(){
