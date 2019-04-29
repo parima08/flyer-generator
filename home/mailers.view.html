@@ -10,7 +10,7 @@
   <tbody>
   <tr ng-repeat="mailer in mailers">
     <td>{{mailer.name | uppercase}}</td>
-    <td ><a ng-if = "mailer.link" ng-click="gotToMailer(mailer)">view</a></td>
+    <td ><a ng-if = "mailer.link" ng-click="goToMailer(mailer)">view</a></td>
   </tr>
   </tbody>
 </table>

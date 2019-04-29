@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+<form id="myForm">
+  <div class='field' ng-repeat="field in formInfo">
+    <h4><b>{{field.fieldName}}</b></h4>
+    <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
+  </div>
+  <input type="submit" value="Submit" ng-click = "submitForm()">
+</form>
