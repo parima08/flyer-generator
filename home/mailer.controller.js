@@ -138,7 +138,7 @@ function MailerController($scope, getMailersService, $location, $rootScope, $htt
           'Content-Type': 'application/json',
         }
     }
-    $http.post(url, data, config).then( () => {
+    $http.post(url, data).then( () => {
       console.log("returned from posting");
     })
   }
