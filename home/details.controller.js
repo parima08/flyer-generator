@@ -94,8 +94,8 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Siddhiji",
 			image: "Atmarpit_Siddhiji.png",
-			gujName: "સ્વાધ્યાયકાર આત્માર્પિત Siddhiji",
-			hindiName: "स्वाध्यायकार આત્માર્પિત Siddhiji",
+			gujName: "સ્વાધ્યાયકાર આત્માર્પિત સિદ્ધિજી",
+			hindiName: "स्वाध्यायकार આત્માર્પિત सिद्धिजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Fagunji",
