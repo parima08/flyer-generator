@@ -141,12 +141,20 @@ app.provider('subpageDetails', function(){
 		scale: 10, 
 	}
 
+	subpages["/srd-appreciation-cards"] = {
+		title: "Appreciation Cards",
+		spreadsheetId: "1BKHJYvE141Jb8hSKGLw7HJ7vGahbq_k35H6JLnsKntA",
+		width: 11,
+		height: 16,
+		scale: 10,
+	}
+
 
 //SRLC -----------------------------------------
 	subpages["/srlcposters"] = {
 		title: "SRLC Posters (A3)",
 		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
-		width: 11, 
+		width: 11,
 		height: 16,
 		scale: 10
 	}
