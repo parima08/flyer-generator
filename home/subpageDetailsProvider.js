@@ -141,8 +141,8 @@ app.provider('subpageDetails', function(){
 		scale: 10, 
 	}
 
-	subpages["/srd-appreciation-cards"] = {
-		title: "Appreciation Cards",
+	subpages["/srd-miscellaneous"] = {
+		title: "Miscellaneous",
 		spreadsheetId: "1BKHJYvE141Jb8hSKGLw7HJ7vGahbq_k35H6JLnsKntA",
 		width: 8.27,
 		height: 11.69,
