@@ -141,7 +141,7 @@ app.provider('subpageDetails', function(){
 		scale: 10, 
 	}
 
-	subpages["/srd-miscellaneous"] = {
+	subpages["/srdMiscellaneous"] = {
 		title: "Miscellaneous",
 		spreadsheetId: "1BKHJYvE141Jb8hSKGLw7HJ7vGahbq_k35H6JLnsKntA",
 		width: 8.27,

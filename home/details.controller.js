@@ -29,9 +29,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
 	$scope.pageDetails.name = name; 
-	
-	// $scope.supportedLogoCountries = ["Australia", "Canada", "Hong Kong", 
-	// 			"Singapore", "USA", "UK", "General"];
 
 	$scope.supportedLogoCountries = ["General"]
 
