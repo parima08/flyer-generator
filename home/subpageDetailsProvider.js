@@ -100,6 +100,14 @@ app.provider('subpageDetails', function(){
 		scale: 2
 	}
 
+	subpages['/miscellaneous'] = {
+		title: "Miscellaneous",
+		spreadsheetId: "1RH_r5DolhBhteykBRyxtOLm3xjkbt-1pBrPqKY218Qs",
+		width: 8,
+		height: 11,
+		scale: 4
+	}
+
 	//subpages["/sessionflyers"] = {}; 
 
 //SRD -----------------------------------------
