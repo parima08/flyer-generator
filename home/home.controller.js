@@ -37,9 +37,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 							break;
 					}
 				}
-				jsonData.unshift(gujarati);
 				jsonData.unshift(hindi); 
-				jsonData.unshift(english); 
+				jsonData.unshift(gujarati);
+        jsonData.unshift(english); 
 				deffered.resolve();
 			}); 
 			return deffered.promise;
