@@ -101,7 +101,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages['/paryushan'] = {
-		title: "paryushan",
+		title: "Paryushan Parva",
 		spreadsheetId: "1RH_r5DolhBhteykBRyxtOLm3xjkbt-1pBrPqKY218Qs",
 		width: 8,
 		height: 11,
