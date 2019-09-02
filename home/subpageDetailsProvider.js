@@ -176,7 +176,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages["/srlcbanners4x6"] = {
-		title: "SRLC Other Banners (4x6)",
+		title: "SRLC Banners",
 		spreadsheetId: "1Se37l2vabhnvRrRwL_lNtOnG8gcdwvmgpKL-NXUBoWc",
 		width: 6, 
 		height: 4,
