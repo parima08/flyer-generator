@@ -37,9 +37,9 @@ app.service("objectDetailsService", function($http, $q, $sce){
 							break;
 					}
 				}
-				jsonData.unshift(gujarati);
 				jsonData.unshift(hindi); 
-				jsonData.unshift(english); 
+				jsonData.unshift(gujarati);
+        jsonData.unshift(english); 
 				deffered.resolve();
 			}); 
 			return deffered.promise;
@@ -242,7 +242,7 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 function HomeController($scope, $rootScope, $location, 
 	$http, $sce, objectDetailsService, userPersistenceService, subpageDetails){
 	$scope.isHomePage = false;
-	$scope.tabTitles = ["English", "Hindi", "Gujarati"]; 
+	$scope.tabTitles = ["English", "Gujarati", "Hindi"]; 
 
 	console.log("HomeController");
 	//console.log(userPersistenceService.getUserNameData());

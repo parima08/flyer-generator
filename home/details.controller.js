@@ -29,9 +29,6 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 
 	$scope.pageDetails = subpageDetails["/" + section]; 
 	$scope.pageDetails.name = name; 
-	
-	// $scope.supportedLogoCountries = ["Australia", "Canada", "Hong Kong", 
-	// 			"Singapore", "USA", "UK", "General"];
 
 	$scope.supportedLogoCountries = ["General"]
 
@@ -90,6 +87,12 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 			image: "Atmarpit_Smrutiji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત સ્મૃિતજી",
 			hindiName: "स्वाध्यायकार आत्मार्पित स्मृतिजी",
+		},
+		{
+			swadhyaykarName: "Swadhyaykar Atmarpit Siddhiji",
+			image: "Atmarpit_Siddhiji.png",
+			gujName: "સ્વાધ્યાયકાર આત્માર્પિત સિદ્ધિજી",
+			hindiName: "स्वाध्यायकार આત્માર્પિત सिद्धिजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Fagunji",

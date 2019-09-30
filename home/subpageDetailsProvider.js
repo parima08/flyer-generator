@@ -41,8 +41,8 @@ app.provider('subpageDetails', function(){
 		height: 4,
 		scale: 10
 	};
-	subpages["/sessionbanners6x10"] = {
-		title: "Session Banners 6x10",
+	subpages["/sessionbanners"] = {
+		title: "Session Banners",
 		spreadsheetId: "1zkW2jIut_oU6EMr5L_5vOBP1UVlWbBEE-ziSWSqy6RY",
 		width: 10, 
 		height: 6,
@@ -100,6 +100,14 @@ app.provider('subpageDetails', function(){
 		scale: 2
 	}
 
+	subpages['/paryushan'] = {
+		title: "Paryushan Parva",
+		spreadsheetId: "1RH_r5DolhBhteykBRyxtOLm3xjkbt-1pBrPqKY218Qs",
+		width: 8,
+		height: 11,
+		scale: 4
+	}
+
 	//subpages["/sessionflyers"] = {}; 
 
 //SRD -----------------------------------------
@@ -141,12 +149,20 @@ app.provider('subpageDetails', function(){
 		scale: 10, 
 	}
 
+	subpages["/srdMiscellaneous"] = {
+		title: "Miscellaneous",
+		spreadsheetId: "1BKHJYvE141Jb8hSKGLw7HJ7vGahbq_k35H6JLnsKntA",
+		width: 8.27,
+		height: 11.69,
+		scale: 10,
+	}
+
 
 //SRLC -----------------------------------------
 	subpages["/srlcposters"] = {
 		title: "SRLC Posters (A3)",
 		spreadsheetId: "1M3QrPI2qALUzRwHMGznIxr1ZhnCpA8p8kBpfIRrVAa0",
-		width: 11, 
+		width: 11,
 		height: 16,
 		scale: 10
 	}
@@ -160,7 +176,7 @@ app.provider('subpageDetails', function(){
 	}
 
 	subpages["/srlcbanners4x6"] = {
-		title: "SRLC Other Banners (4x6)",
+		title: "SRLC Banners",
 		spreadsheetId: "1Se37l2vabhnvRrRwL_lNtOnG8gcdwvmgpKL-NXUBoWc",
 		width: 6, 
 		height: 4,
