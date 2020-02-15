@@ -54,16 +54,12 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
           console.log("loaded googleservice"); 
           $scope.isSignedIn = googleService.isSignedIn();
           var profile = googleService.getUserProfileInformation(); 
-          console.log(profile); 
-
           $rootScope.loggedInUser = profile; 
-          console.log(profile); 
-          $rootScope.loggedInUser.fullName = profile.w3.ig;
-          $rootScope.loggedInUser.email = profile.w3.U3;
+          $rootScope.loggedInUser.fullName = profile.getName();
+          $rootScope.loggedInUser.email = profile.getEmail();
           var redirect = validateUser($rootScope.loggedInUser.email);
           if(redirect){
-            userPersistenceService.setCookieData(profile.w3.ig, profile.w3.U3, $rootScope.srdUser); 
-            console.log("Redirecting");
+            userPersistenceService.setCookieData(profile.getName(), profile.getEmail(), $rootScope.srdUser); 
             $location.path('/home').replace();
           }
         });
@@ -103,8 +99,8 @@ app.service('googleService', ['$q', function ($q) {
 
       self.getUserProfileInformation = function(){
         if(auth2.isSignedIn.get()){
-          console.log("The User is signed in"); 
-          return auth2.currentUser.get(); 
+          console.log("The User is signed in", auth2.currentUser); 
+          return auth2.currentUser.get().getBasicProfile(); 
         }
       }; 
       
