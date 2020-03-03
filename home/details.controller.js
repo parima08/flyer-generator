@@ -222,7 +222,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 		img.onload = function(){
 			drawImageScaled(values, img, canvas, $scope.pageDetails.scale)
 			console.log("Image onload function")
-	     };
+	  };
 	     console.log("IMAGE LINK: " + $scope.object.imageLink);
 	    img.backgroundLoad($scope.object.imageLink);
 	    //img.src = $scope.object.imageLink;
@@ -291,6 +291,13 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
 				let src = "../img/swadhyaykars/" + srcInput; 
 				if(src){
 					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85); 
+				}
+			}
+			if(field.id == "swadhyaykar_new"){
+				let srcInput = $('input[name="swadhyaykar"]:checked').val()
+				let src = "../img/swadhyaykars-new/" + srcInput
+				if(src){
+					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
 				}
 			}
 
@@ -445,7 +452,7 @@ objectDetailsService, subpageDetails, $http, $sce, $q, $rootScope){
             new google.elements.transliteration.TransliterationControl(options);
  		
  		var arrayOfIds = []; 
- 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo"];
+ 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new"];
 		for(var i = 0; i < $scope.formInfo.length; i++){
  			if(!idsToExclude.includes($scope.formInfo[i].id)) {
  				arrayOfIds.push($scope.formInfo[i].id);; 

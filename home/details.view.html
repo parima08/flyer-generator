@@ -64,14 +64,14 @@
                type = "radio" value = "" /><label class = "radio-label">No Swamivatsalya</label></input><br/>
             </div>
           </div>
-          <div ng-if = "field.id == 'swadhyaykar'">
+          <div ng-if = "(field.id == 'swadhyaykar' || field.id == 'swadhyaykar_new')">
             <h4><b>Pick your Swadhyaykar</b></h4>
             <p class = "instructions">{{field.instructions}}</p>
             <div ng-repeat = "item in swadhyaykarInfo">
                 <input name = 'swadhyaykar' type = 'radio' value = "{{item.image}}" ng-attr-data-name = "{{item.swadhyaykarName}}" ng-checked="{{item.checked}}"><label class = "radio-label">{{item.swadhyaykarName}}</label></input>
             </div>
           </div>
-          <div ng-if = "(field.id != 'upload_logo' && field.id != 'srmd_logo' && field.id != 'swamivatsalya' && field.id != 'swadhyaykar' && field.id != 'swadhyaykar_name' && field.id != 'momento_photo')">
+          <div ng-if = "(field.id != 'upload_logo' && field.id != 'srmd_logo' && field.id != 'swamivatsalya' && field.id != 'swadhyaykar_new' && field.id != 'swadhyaykar' && field.id != 'swadhyaykar_name' && field.id != 'momento_photo')">
             <h4><b>{{field.fieldName}}</b></h4>
             <p class = "intructions">{{field.instructions}}</p>
             <input id = "{{field.id}}" class = "detail-field" type="text" name="{{field.fieldName}}"  placeholder="{{field.placeholderText}}"/><br/>
