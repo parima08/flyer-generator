@@ -154,39 +154,38 @@ function ArticlesController($scope, $rootScope, $location,
 		console.log("SpreadsheetId: " + spreadsheetId);
 		articleDetailsService.lookupArticleByName(spreadsheetId, articleName).then(function(){
 			$scope.articleDetails = articleDetailsService.getArticleDetails();
-			//console.log($scope.articleDetails.articleSpreadsheetId);
 			var url  = $scope.articleDetails.articleLink; 
-			console.log(url);
-			//var url = "https://s3.amazonaws.com/srmd-flyer-generator/articles/english/A+Death+that+Liberates.pdf"
 			PDFJS =  window['pdfjs-dist/build/pdf'];
-			PDFJS.getDocument(url)
-			.then(function(pdf){
+			PDFJS.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+			console.log(url, PDFJS);
+			const loadingPromise = PDFJS.getDocument(url);
+			loadingPromise.promise.then( (pdf) => {
 				getPage();
-			    function getPage() {
-			        pdf.getPage(currentPage).then(function(page) {
-			            console.log("Printing " + currentPage);
-			            var viewport = page.getViewport(scale);
-			            // var canvas = document.createElement('canvas'); 
-			            var canvas = $("#articleCanvas")[0];
-			            var ctx = canvas.getContext('2d');
-			            var renderContext = { canvasContext: ctx, viewport: viewport };
-			            canvas.height = viewport.height;
-			            canvas.width = viewport.width;
-			            page.render(renderContext).then(function() {
-			                pages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-			                heights.push(height);
-			                height += canvas.height;
-			                if (width < canvas.width) width = canvas.width;
-				                if (currentPage < pdf.numPages) {
-				                    currentPage++;
-				                    getPage();
-				                }
-			                else {
-			                    draw(canvas, ctx);
-			                }
-			            });
-			        });
-			    }
+				function getPage(){
+					pdf.getPage(currentPage).then(function(page) {
+						var viewport = page.getViewport({scale});
+						// var canvas = document.createElement('canvas'); 
+						var canvas = $("#articleCanvas")[0];
+						var ctx = canvas.getContext('2d');
+						var renderContext = { canvasContext: ctx, viewport: viewport };
+						canvas.height = viewport.height;
+						canvas.width = viewport.width;
+						const pagePromise = page.render(renderContext);
+						pagePromise.promise.then(function() {
+								pages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+								heights.push(height);
+								height += canvas.height;
+								if (width < canvas.width) width = canvas.width;
+									if (currentPage < pdf.numPages) {
+											currentPage++;
+											getPage();
+									}
+								else {
+										draw(canvas, ctx);
+								}
+						});
+				});
+				}
 			}).catch(function(error){
 				alert("There was an error in loading the document.");
 			}); 
@@ -194,6 +193,33 @@ function ArticlesController($scope, $rootScope, $location,
 		$('.article-container').css("height", $('body').height())
 		$(".footer").css("top", $('body').height());
 	}
+
+	// function(pdf){
+	// 	console.log(pdf);
+	// 	pdf.getPage(currentPage).then(function(page) {
+	// 			console.log("Printing " + currentPage);
+	// 			var viewport = page.getViewport(scale);
+	// 			// var canvas = document.createElement('canvas'); 
+	// 			var canvas = $("#articleCanvas")[0];
+	// 			var ctx = canvas.getContext('2d');
+	// 			var renderContext = { canvasContext: ctx, viewport: viewport };
+	// 			canvas.height = viewport.height;
+	// 			canvas.width = viewport.width;
+	// 			page.render(renderContext).then(function() {
+	// 					pages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+	// 					heights.push(height);
+	// 					height += canvas.height;
+	// 					if (width < canvas.width) width = canvas.width;
+	// 						if (currentPage < pdf.numPages) {
+	// 								currentPage++;
+	// 								getPage();
+	// 						}
+	// 					else {
+	// 							draw(canvas, ctx);
+	// 					}
+	// 			});
+	// 	});
+	// }
 	
 
 	$scope.saveArticle = function(currObj){
