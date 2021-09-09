@@ -171,7 +171,8 @@ function DetailsController($scope, $routeParams, $location,
 					$scope.formInfo = objectDetailsService.getFormInfo();
 					$scope.font = $scope.formInfo;
 					var fonts = $scope.formInfo.map(function (d) { return d['font'].trim(); });
-					$scope.fonts = fonts.filter(onlyUnique);
+					$scope.fonts = fonts.filter(onlyUnique).filter(String);
+					console.log('scopefonts', $scope.fonts)
 					loadFonts($scope.fonts);
 					console.log("FORM INFO" + $scope.formInfo.length);
 					if ($scope.language && $scope.language !== "english") {
@@ -234,7 +235,6 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	var drawImageScaled = function (values, img, canvas, scale) {
-		console.log("IMG:", img);
 		var deferred = $q.defer();
 		var loadSRMDLogo, loadUploadLogo, loadSwadhyaykar, loadMomentoPhoto;
 		ctx = canvas.getContext('2d');
@@ -306,14 +306,14 @@ function DetailsController($scope, $routeParams, $location,
 				}
 			}
 
-			var fontSize = parseInt(field.fontSize);
+			var fontSize = parseInt(field.fontSize) || 12;
 			var fontWeight = field.fontWeight;
-			ctx.font = fontWeight.toString() + " " + fontSize.toString() + "pt " + field.font;
-
 			ctx.fillStyle = field.fontColor;
 			ctx.textAlign = field.textAlign;
-			ctx.lineHeight = ctx.font;
-			ctx.letterSpacing = field.letterSpacing + "px";
+			ctx.letterSpacing = field.letterSpacing ? `${field.letterSpacing}px` : '';
+			ctx.font = `${fontWeight || 400} ${fontSize}pt ${field.font}`;
+			ctx.save();
+			//console.log(field);
 			if (field.id == "swadhyaykar_name") {
 				let name = $('input[name="swadhyaykar"]:checked').data('name');
 				let jsonSwadhyaykarPerson = $scope.swadhyaykarInfo.filter(function (data) {
@@ -334,6 +334,9 @@ function DetailsController($scope, $routeParams, $location,
 						break;
 
 				}
+				ctx.font = `${fontWeight || ''} ${fontSize || ''}pt ${field.font}`;
+				console.log('CTX FONT', ctx.font);
+				ctx.save();
 				ctx.fillText(swadhyaykarName, positionX, positionY, width);
 			}
 			else {
@@ -495,7 +498,8 @@ function DetailsController($scope, $routeParams, $location,
 				var country = $("input[name='" + field.id + "']:checked").val() ?
 					$("input[name='" + field.id + "']:checked").val()
 						.replace(' ', '')
-						.toLowerCase() : null;
+						.toLowerCase() : "general";
+
 				src = orientation + "/" + type + "/" + country + ".png";
 				console.log("orientation: " + orientation);
 				width = field.width || ($scope.convertInvitationPDF ? logo_sizes[orientation]["pdfw"] :
@@ -527,9 +531,7 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	function loadFonts(fonts) {
-		console.log("FONTS", fonts);
-		fonts = fonts.filter(a => a != '');
-		console.log("FONTS", fonts);
+		fonts = fonts.filter(a => a != '').map(f => f.charAt(0).toUpperCase() + f.slice(1));
 		WebFont.load({
 			google: {
 				families: fonts

@@ -201,13 +201,11 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 						const rowHeader = values.splice(0, 1)[0];
 						console.log(rowHeader);
 						const map = rowHeader.reduce((acc, currVal, currIndex) => {
-							console.log(currVal);
 							acc[currVal] = currIndex;
 							return acc;
 						}, {})
 
 						values.forEach(el => {
-							console.log(el);
 							const formFieldInfo = massageFormField(el, map);
 							formInfo.push(formFieldInfo);
 						})
@@ -278,12 +276,15 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 
 	var massageFormField = (el, map) => {
 		const fieldName = el[map.fieldName]?.trim()
+		let font = el[map?.font]?.trim()
+		font = font.charAt(0).toUpperCase() + font.slice(1)
 		return {
 			fieldName,
 			placeholderText: el[map?.placeholderText]?.trim(),
 			fontColor: el[map?.fontColor]?.trim(),
 			fontWeight: el[map?.fontWeight]?.trim(),
-			font: el[map?.font]?.trim(),
+			fontSize: el[map?.fontSize]?.trim(),
+			font,
 			textAlign: el[map.textAlign]?.trim(),
 			positionX: el[map.positionX]?.trim(),
 			positionY: el[map.positionY]?.trim(),
