@@ -172,9 +172,8 @@ function DetailsController($scope, $routeParams, $location,
 					$scope.font = $scope.formInfo;
 					var fonts = $scope.formInfo.map(function (d) { return d['font'].trim(); });
 					$scope.fonts = fonts.filter(onlyUnique).filter(String);
-					console.log('scopefonts', $scope.fonts)
 					loadFonts($scope.fonts);
-					console.log("FORM INFO" + $scope.formInfo.length);
+					console.log('language', $scope.language);
 					if ($scope.language && $scope.language !== "english") {
 						loadTransliteration();
 					}
@@ -277,7 +276,7 @@ function DetailsController($scope, $routeParams, $location,
 			if (field.id == "swamivatsalya") {
 				//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
 				var key = $('input[name="swamivatsalya"]:checked').val()
-				var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language][key];
+				var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language]?.key || true;
 				if (swamiText && ($scope.language === "english")) {
 					var startTime = $('#swamivatsalya_startTiming_' + key).val() || "12pm";;
 					var endTime = $('#swamivatsalya_endTiming_' + key).val() || "2pm";;

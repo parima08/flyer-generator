@@ -46,7 +46,7 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 								case 'hindi':
 									hindi.push(asset);
 									break;
-								case 'gujarti':
+								case 'gujarati':
 									gujarati.push(asset);
 									break;
 								case 'english':
@@ -85,13 +85,13 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 		let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}\?key\=AIzaSyC7_gUUo-CWg4IMJnohsRAqNnKPvoJ4pLo`
 		fetch(url).then(response => response.json())
 			.then(data => {
-				let sheetTitle = data.sheets[0].properties.title
-				return sheetTitle
+				return data.sheets[0].properties.title
 			})
 			.catch(error => {
 				// console.error('Error', error)
 			})
 			.then(title => {
+
 				let sheetDataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${title}\?key\=AIzaSyC7_gUUo-CWg4IMJnohsRAqNnKPvoJ4pLo`
 				fetch(sheetDataUrl).then(response => response.json())
 					.then(data => {
@@ -161,6 +161,7 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 			imageLink: `https://s3.amazonaws.com/srmd-flyer-generator/${awsLinkPath}`,
 			thumbnailLink: `http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/${thumbnailWidth}x${thumbnailHeight}/${awsLinkPath}`,
 			worksheetIndex: el[map.worksheetIndex],
+			language: el[map.language].toLowerCase(),
 		}
 		if (secondaryLinkPath) {
 			a.twoOptions = true;
