@@ -1,23 +1,24 @@
-<script  type='text/javascript' src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+<script
+  type="text/javascript"
+  src="https://apis.google.com/js/platform.js?onload=init"
+  async
+  defer
+></script>
 
-<div class = "login-page">
-	<div class = "login-box">
-    <div class = "login-logo-box">
-    <div class = "login-logo">
-      <image  src = "../img/logos/centered/white_text/general.png" />
+<div class="login-page">
+  <div class="login-box">
+    <div class="login-logo-box">
+      <div class="login-logo">
+        <image src="../img/logos/centered/white_text/general.png" />
+      </div>
     </div>
-  </div>
     <h1>Welcome!</h1>
     <p>Please login using your shrimadrajchandramission.org email id:</p>
-     <button ng-show="!isSignedIn" ng-click="signIn()">Sign in</button>
+    <button ng-show="!isSignedIn" ng-click="signIn()">Sign in</button>
     <button ng-show="isSignedIn" ng-click="signOut()">Sign out</button>
     <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <div ng-if = loggedInUser>
       <button ng-click = "signOut()">Sign Out</button>
     </div> -->
-	</div> 
+  </div>
 </div>
-
-
-
-

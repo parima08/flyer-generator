@@ -1,99 +1,202 @@
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        ng-init="navCollapsed = true"
+        ng-click="navCollapsed = !navCollapsed"
+      >
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="../img/logos/centered/black_text/general.png" alt="placeholder+image"></a>
+      <a class="navbar-brand" href="#"
+        ><img
+          src="../img/logos/centered/black_text/general.png"
+          alt="placeholder+image"
+      /></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
       <ul class="nav navbar-nav">
-        <li><a href="#/home">Home <span class="sr-only">(current)</span></a></li>
+        <li>
+          <a href="#/home">Home <span class="sr-only">(current)</span></a>
+        </li>
         <li class="dropdown" uib-dropdown is-open="status.isopen">
-          <a href="#" uib-dropdown-toggle ng-disabled="disabled">Flyers <span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+          <a href="#" uib-dropdown-toggle ng-disabled="disabled"
+            >Flyers <span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
             <li role="menuitem"><a href="#/dharmayatra">Dharmayatras</a></li>
-            <li role="menuitem"><a href="#/sessionflyers">Session Flyers</a></li>
+            <li role="menuitem">
+              <a href="#/sessionflyers">Session Flyers</a>
+            </li>
             <!-- <li role="menuitem"><a href="#/sadguruwhispers">Sadguru Whisper Flyers</a></li> -->
-            <li role="menuitem"><a href="#/swadhyaykarflyer">Swadhyaykar Flyers</a></li>
+            <li role="menuitem">
+              <a href="#/swadhyaykarflyer">Swadhyaykar Flyers</a>
+            </li>
           </ul>
         </li>
-        <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>Banners <span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="#/banners4x6">Dharmayatra Banners 4ftx6ft </a></li>
-            <li role="menuitem"> <a href="#/banners6x10">Dharmayatra Banners 6ftx10ft</a></li>
-            <li role="menuitem"> <a href="#/sessionbanners">Session Banners</a></li>
-             <!--< li role="menuitem"> <a href="#/swadhyaykarbanner">Swadhyaykar Banners 6ftx10ft</a></li> -->
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Banners <span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem">
+              <a href="#/banners4x6">Dharmayatra Banners 4ftx6ft </a>
+            </li>
+            <li role="menuitem">
+              <a href="#/banners6x10">Dharmayatra Banners 6ftx10ft</a>
+            </li>
+            <li role="menuitem">
+              <a href="#/sessionbanners">Session Banners</a>
+            </li>
+            <!--< li role="menuitem"> <a href="#/swadhyaykarbanner">Swadhyaykar Banners 6ftx10ft</a></li> -->
           </ul>
         </li>
-         <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>Standees<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"> <a href="#/generalStandees">General Standees</a></li>
-            <li role="menuitem"> <a href="#/dharmayatraStandees">Dharmayatra Standees</a></li>
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Standees<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem">
+              <a href="#/generalStandees">General Standees</a>
+            </li>
+            <li role="menuitem">
+              <a href="#/dharmayatraStandees">Dharmayatra Standees</a>
+            </li>
           </ul>
         </li>
-        <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>SRD<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"> <a href="#/srdflyers">SRD Programme Flyers</a></li>
-            <li role="menuitem"> <a href="#/srdworkshopflyers">SRD Workshop Flyers</a></li>
-            <li role="menuitem"> <a href="#/srdstandees">SRD Standees and Banners</a></li>
-            <li role="menuitem"> <a href="#/srdbrochure">SRD Brochure</a></li>
-            <li role="menuitem"> <a href="#/srdMiscellaneous">Miscellaneous</a></li>
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >SRD<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem">
+              <a href="#/srdflyers">SRD Programme Flyers</a>
+            </li>
+            <li role="menuitem">
+              <a href="#/srdworkshopflyers">SRD Workshop Flyers</a>
+            </li>
+            <li role="menuitem">
+              <a href="#/srdstandees">SRD Standees and Banners</a>
+            </li>
+            <li role="menuitem"><a href="#/srdbrochure">SRD Brochure</a></li>
+            <li role="menuitem">
+              <a href="#/srdMiscellaneous">Miscellaneous</a>
+            </li>
           </ul>
         </li>
-         <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>SRLC<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"> <a href="#/srlcposters">SRLC Flyers</a></li>
-            <li role="menuitem"> <a href="#/srlcbanners4x6">Banners</a></li> 
-            <li role="menuitem"> <a href="#/srlcstandees">SRLC Standees</a></li>
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >SRLC<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem"><a href="#/srlcposters">SRLC Flyers</a></li>
+            <li role="menuitem"><a href="#/srlcbanners4x6">Banners</a></li>
+            <li role="menuitem"><a href="#/srlcstandees">SRLC Standees</a></li>
             <!-- <li role="menuitem"> <a href="#/srlcwhatsapp">SRLC Whatsapp</a></li> -->
           </ul>
         </li>
-        
-        <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>Backdrops<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="#/backdrop2by3">Backdrop 2x3</a></li>
-            <li role="menuitem"> <a href="#/backdrop1by2">Backdrop 1x2</a></li>
-            <li role="menuitem"> <a href="#/backdrop2by5">Backdrop 2x5</a></li>
-            <li role="menuitem"> <a href="#/backdrop4by7">Backdrop 4x7</a></li>
-          </ul>
-        </li>
-        <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>Invitations<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="#/invitations">Invitations 4x6</a></li>
-             <li role="menuitem"><a href="#/invitations6x6">Invitations 6x6</a></li>
-          </ul>
-        </li>
-        
-         <li><a href="#/articles"> Articles </a>
 
-        <li  uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>Resources<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="#/letterheads">Letterheads</a></li>
-             <li role="menuitem"><a href="#/envelopes">Envelopes</a></li>
-             <li role="menuitem"><a href="#/cards">Cards</a></li>
-             <li role="menuitem"><a href="#/momentos">Momentos</a></li>
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Backdrops<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem"><a href="#/backdrop2by3">Backdrop 2x3</a></li>
+            <li role="menuitem"><a href="#/backdrop1by2">Backdrop 1x2</a></li>
+            <li role="menuitem"><a href="#/backdrop2by5">Backdrop 2x5</a></li>
+            <li role="menuitem"><a href="#/backdrop4by7">Backdrop 4x7</a></li>
           </ul>
         </li>
-         
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Invitations<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem"><a href="#/invitations">Invitations 4x6</a></li>
+            <li role="menuitem">
+              <a href="#/invitations6x6">Invitations 6x6</a>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="#/articles"> Articles </a></li>
+
+        <li uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Resources<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem"><a href="#/letterheads">Letterheads</a></li>
+            <li role="menuitem"><a href="#/envelopes">Envelopes</a></li>
+            <li role="menuitem"><a href="#/cards">Cards</a></li>
+            <li role="menuitem"><a href="#/momentos">Momentos</a></li>
+          </ul>
+        </li>
+
+        <li ng-if="rajUphaar == 'true'" uib-dropdown on-toggle="toggled(open)">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >Raj Uphaar<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="single-button"
+          >
+            <li role="menuitem"><a href="#/">Placeholder</a></li>
+          </ul>
+        </li>
+
         <!-- <li><a href="#/social-media">Social Media</a></li> -->
-       <!--  <li><a href="#/emailers">Emailers</a></li> -->
-       
+        <!--  <li><a href="#/emailers">Emailers</a></li> -->
+
         <!-- <li><a href="#">Swadhyaykar</a></li>
         <li><a href="#">Group Satsang</a></li>
         <li><a href="#">Special Ocassions</a></li>
@@ -115,14 +218,22 @@
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
         <li uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle>{{loggedInUser.email}}<span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+          <a href id="simple-dropdown" uib-dropdown-toggle
+            >{{loggedInUser.email}}<span class="caret"></span
+          ></a>
+          <ul
+            class="dropdown-menu"
+            uib-dropdown-menu
+            aria-labelledby="simple-dropdown"
+          >
             <li>
               <a href="#/login" ng-click="signOut()">Sign Out</a>
             </li>
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>

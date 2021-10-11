@@ -3,112 +3,113 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-'ngRoute',
-  'myApp.version', 
+  'ngRoute',
+  'myApp.version',
   'ngLoadScript',
-  'ui.bootstrap', 
-   'ngCookies', 
-   'imageupload'
+  'ui.bootstrap',
+  'ngCookies',
+  'imageupload'
 ]).config(config)
-.run(run); 
+  .run(run);
 
-config.$inject = ['$routeProvider', '$locationProvider', 
-'$sceDelegateProvider', 'subpageDetailsProvider', '$qProvider'];
-function config($routeProvider, $locationProvider, 
-  $sceDelegateProvider, subpageDetailsProvider, $qProvider){
-	$locationProvider.hashPrefix('');
+config.$inject = ['$routeProvider', '$locationProvider',
+  '$sceDelegateProvider', 'subpageDetailsProvider', '$qProvider'];
+function config($routeProvider, $locationProvider,
+  $sceDelegateProvider, subpageDetailsProvider, $qProvider) {
+  $locationProvider.hashPrefix('');
   $sceDelegateProvider.resourceUrlWhitelist(['**']);
   $qProvider.errorOnUnhandledRejections(false);
-	$routeProvider
-        .when('/', {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when("/#", {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when('/login', {
-            controller: 'LoginController',
-            templateUrl: 'login/login.view.html',
-            controllerAs: 'vm'
-        })
-         .when('/xy-coords', {
-          controller: "XyCoordController",
-          templateUrl: 'utils/xy-finder.view.html',
-          controllerAs: "vm"
-        })
-        .when('/articles',{
-          controller: "ArticlesController",
-          templateUrl: 'home/articles.view.html',
-          controllerAs: "vm"
-        })
-        .when('/articles/:name', {
-          controller: "ArticlesController",
-          templateUrl: 'home/article_detail.view.html',
-          controllerAs: "vm"
-        })
-        .otherwise({ redirectTo: '/home' });; 
+  $routeProvider
+    .when('/', {
+      controller: 'HomeController',
+      templateUrl: 'home/home.view.html',
+      controllerAs: 'vm'
+    })
+    .when("/#", {
+      controller: 'HomeController',
+      templateUrl: 'home/home.view.html',
+      controllerAs: 'vm'
+    })
+    .when('/login', {
+      controller: 'LoginController',
+      templateUrl: 'login/login.view.html',
+      controllerAs: 'vm'
+    })
+    .when('/xy-coords', {
+      controller: "XyCoordController",
+      templateUrl: 'utils/xy-finder.view.html',
+      controllerAs: "vm"
+    })
+    .when('/articles', {
+      controller: "ArticlesController",
+      templateUrl: 'home/articles.view.html',
+      controllerAs: "vm"
+    })
+    .when('/articles/:name', {
+      controller: "ArticlesController",
+      templateUrl: 'home/article_detail.view.html',
+      controllerAs: "vm"
+    })
+    .otherwise({ redirectTo: '/home' });;
 
-      //DETAILS 
-      var subpages = Object.keys(subpageDetailsProvider.$get()); 
-      for (var i = 0; i < subpages.length; i++) {
-        $routeProvider.when(subpages[i], {
-            controller: 'HomeController',
-            templateUrl: 'home/home.view.html',
-            controllerAs: 'vm'
-        })
-        .when(subpages[i] + '/:name', {
-            controller: 'DetailsController', 
-            templateUrl: 'home/details.view.html',
-            controllerAs: 'vm'
-        });      
-      }; 
+  //DETAILS 
+  var subpages = Object.keys(subpageDetailsProvider.$get());
+  for (var i = 0; i < subpages.length; i++) {
+    $routeProvider.when(subpages[i], {
+      controller: 'HomeController',
+      templateUrl: 'home/home.view.html',
+      controllerAs: 'vm'
+    })
+      .when(subpages[i] + '/:name', {
+        controller: 'DetailsController',
+        templateUrl: 'home/details.view.html',
+        controllerAs: 'vm'
+      });
+  };
 
-    // $locationProvider.html5Mode({
-    //   enabled: true,
-    //   requireBase: false
-    // });
+  // $locationProvider.html5Mode({
+  //   enabled: true,
+  //   requireBase: false
+  // });
 }
 
-run.$inject = ['$rootScope', '$location', 'googleService', 'userPersistenceService']; 
-function run($rootScope, $location, googleService, userPersistenceService){
-  console.log("*****In RUN******"); 
-  console.log("The location path is: " + $location.path()); 
-  $rootScope.postLoginRoute =  $location.path();
-	console.log("postLoginRoute just set to (in Run) : " + $rootScope.postLoginRoute); 
-  $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-	   console.log("in routeChangeStart"); 
-     console.log("The next template is: " + next.templateUrl); 
-     console.log("postLogInRoute in routeChangeStart is: " + $rootScope.postLoginRoute); 
-     //console.log($rootScope.loggedInUser.name); 
+run.$inject = ['$rootScope', '$location', 'googleService', 'userPersistenceService'];
+function run($rootScope, $location, googleService, userPersistenceService) {
+  console.log("*****In RUN******");
+  console.log("The location path is: " + $location.path());
+  $rootScope.postLoginRoute = $location.path();
+  console.log("postLoginRoute just set to (in Run) : " + $rootScope.postLoginRoute);
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    console.log("in routeChangeStart");
+    console.log("The next template is: " + next.templateUrl);
+    console.log("postLogInRoute in routeChangeStart is: " + $rootScope.postLoginRoute);
+    //console.log($rootScope.loggedInUser.name); 
     // if ($rootScope.loggedInUser == null) {
-    if(userPersistenceService.getUserNameData() == null){
+    if (userPersistenceService.getUserNameData() == null) {
       console.log("no logged in user");
-        if ( next.templateUrl === "login/login.view.html") {
-           console.log("The location path already is login and the next template matches"); 
-        } 
-        else {
-          console.log("$location.path is not login, so redirecting - it is: " + $location.path()); 
-          $location.path('/login');
-        }
+      if (next.templateUrl === "login/login.view.html") {
+        console.log("The location path already is login and the next template matches");
+      }
+      else {
+        console.log("$location.path is not login, so redirecting - it is: " + $location.path());
+        $location.path('/login');
+      }
     }
-    else{
+    else {
       //if SRD user, restrict access: 
-      if(userPersistenceService.getSrdUserData() === "true"){
-        if(next.originalPath.indexOf("srd") == -1 && !(next.originalPath === "/") && !(next.originalPath == "/login")){
+      if (userPersistenceService.getSrdUserData() === "true") {
+        if (next.originalPath.indexOf("srd") == -1 && !(next.originalPath === "/") && !(next.originalPath == "/login")) {
           alert("You cannot access this page. Restricted for SRD users");
           $location.path('/');
         }
       }
-      console.log(userPersistenceService.getUserNameData() ); 
-      console.log(userPersistenceService.getUserEmailData() ); 
-      $rootScope.loggedInUser = {}; 
-      $rootScope.loggedInUser.email = userPersistenceService.getUserEmailData(); 
-      $rootScope.loggedInUser.fullName = userPersistenceService.getUserNameData(); 
-      console.log("app.js - location: ", $rootScope.loggedInUser); 
+      console.log(userPersistenceService.getUserNameData());
+      console.log(userPersistenceService.getUserEmailData());
+      $rootScope.loggedInUser = {};
+      $rootScope.loggedInUser.email = userPersistenceService.getUserEmailData();
+      $rootScope.loggedInUser.fullName = userPersistenceService.getUserNameData();
+      $rootScope.rajUphaar = userPersistenceService.getRajUphaar();
+      console.log("app.js - location: ", $rootScope.loggedInUser);
     }
   });
 
@@ -121,25 +122,25 @@ function run($rootScope, $location, googleService, userPersistenceService){
 
 
 
-  $rootScope.$on('$locationChangeSuccess', function() {
-      $rootScope.actualLocation = $location.path();
+  $rootScope.$on('$locationChangeSuccess', function () {
+    $rootScope.actualLocation = $location.path();
   });
 
-  $rootScope.$watch(function () {return $location.path()}, function (newLocation, oldLocation) {
-      if($rootScope.actualLocation === newLocation) {
-          //if the old location has several sublayers, then go the last layer
-          var ol_split = oldLocation.split("/")
-          if(ol_split.length >= 3){
-            var correctLocation = ""; 
-            for(var i = 0; i < ol_split.length - 1; i++){
-              console.log(ol_split[i]); 
-              correctLocation = correctLocation + ol_split[i] + "/"; 
-            }
-            console.log(correctLocation); 
-            $location.path(correctLocation); 
-          }
+  $rootScope.$watch(function () { return $location.path() }, function (newLocation, oldLocation) {
+    if ($rootScope.actualLocation === newLocation) {
+      //if the old location has several sublayers, then go the last layer
+      var ol_split = oldLocation.split("/")
+      if (ol_split.length >= 3) {
+        var correctLocation = "";
+        for (var i = 0; i < ol_split.length - 1; i++) {
+          console.log(ol_split[i]);
+          correctLocation = correctLocation + ol_split[i] + "/";
+        }
+        console.log(correctLocation);
+        $location.path(correctLocation);
       }
-  });   
+    }
+  });
 }
 
 

@@ -7,9 +7,10 @@ app.controller('LoginController', LoginController);
 
 LoginController.$inject = ['$scope', 'googleService',
   '$rootScope', '$location',
-  'userPersistenceService', '$window', '$http', 'accessList'];
-function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window, $http, accessList) {
+  'userPersistenceService', '$window', '$http', 'accessList', 'rajUphaarAccessList'];
+function LoginController($scope, googleService, $rootScope, $location, userPersistenceService, $window, $http, accessList, rajUphaarAccessList) {
   var allowedEmails;
+  var rajUphaarEmails;
   $window.init = function () {
     if (userPersistenceService.getUserNameData()) {
       $scope.isSignedIn = true
@@ -19,7 +20,12 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
     }
 
     function validateUser(userEmail) {
+      //console.log(rajUphaarEmails, allowedEmails);
       //prevents user from logging in
+      console.log(rajUphaarEmails, userEmail);
+      console.log('rajUphaar', (rajUphaarEmails.indexOf(userEmail) === -1))
+      $rootScope.rajUphaar = !(rajUphaarEmails.indexOf(userEmail) === -1);
+
       if (allowedEmails.indexOf(userEmail) === -1) {
         console.log("not a valid user");
         $rootScope.validUser = false;
@@ -30,8 +36,6 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       else {
         //allows a valid user to go through
         console.log("valid user");
-
-
         //check if it's an SRD email address
         if (userEmail.includes('divinetouch')) {
           $rootScope.srdUser = true;
@@ -46,6 +50,10 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       allowedEmails = accessList.getList();
     });
 
+    rajUphaarAccessList.load().then(function () {
+      rajUphaarEmails = rajUphaarAccessList.getList();
+    })
+
     //this actually goes through the login process;
     googleService.load().then(function () {
       $scope.signIn = function () {
@@ -59,7 +67,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
           $rootScope.loggedInUser.email = profile.getEmail();
           var redirect = validateUser($rootScope.loggedInUser.email);
           if (redirect) {
-            userPersistenceService.setCookieData(profile.getName(), profile.getEmail(), $rootScope.srdUser);
+            userPersistenceService.setCookieData(profile.getName(), profile.getEmail(), $rootScope.srdUser, $rootScope.rajUphaar);
             $location.path('/home').replace();
           }
         });
@@ -126,6 +134,29 @@ app.service('accessList', function ($http, $q, $sce) {
         .then(data => {
           accessList = data.values.flat();
           accessList.splice(0, 1);
+          defered.resolve();
+        })
+        .catch(error => {
+          console.error('Error', error)
+        })
+      return defered.promise;
+    },
+    getList: function () {
+      return accessList;
+    }
+  }
+});
+
+app.service('rajUphaarAccessList', function ($http, $q, $sce) {
+  var accessList = [];
+  return {
+    load: function () {
+      var defered = $q.defer();
+      var url = "https://sheets.googleapis.com/v4/spreadsheets/1husAb8wxmi3keoBj_sjRMjI6KRBZbdY9rDMnNwQooDE/values/Sheet1\?key\=AIzaSyC7_gUUo-CWg4IMJnohsRAqNnKPvoJ4pLo"
+      fetch(url).then(response => response.json())
+        .then(data => {
+          accessList = data.values.flat();
+          accessList.splice(0, 1);
           console.log(accessList);
           defered.resolve();
         })
@@ -144,10 +175,11 @@ app.factory("userPersistenceService", [
   "$cookies", "$rootScope", function ($cookies, $rootScope) {
 
     return {
-      setCookieData: function (userName, userEmail, srdUser) {
+      setCookieData: function (userName, userEmail, srdUser, rajUphaar) {
         $cookies.put("userName", userName);
         $cookies.put("userEmail", userEmail);
         $cookies.put("srdUser", srdUser);
+        $cookies.put('rajUphaar', rajUphaar)
       },
       getUserNameData: function () {
         return $cookies.get("userName");
@@ -158,10 +190,15 @@ app.factory("userPersistenceService", [
       getSrdUserData: function () {
         return $cookies.get("srdUser");
       },
+      getRajUphaar: function () {
+        return $cookies.get("rajUphaar");
+      },
       clearCookieData: function () {
         console.log("Clearing Cookie Data")
         $cookies.remove("userName");
         $cookies.remove("userEmail");
+        $cookies.remove("srdUser");
+        $cookies.remove("rajUphaar");
       },
     }
   }

@@ -351,7 +351,8 @@ function HomeController($scope, $rootScope, $location,
 	$scope.isHomePage = false;
 	$scope.tabTitles = ["English", "Gujarati", "Hindi"];
 
-	console.log("HomeController");
+	console.log('rajuphaar', $rootScope.rajUphaar);
+
 	//console.log(userPersistenceService.getUserNameData());
 	console.log($location.path());
 
