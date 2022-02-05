@@ -159,7 +159,8 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 			canvasHeight: dimensions['canvasHeight'],
 			canvasWidth: dimensions['canvasWidth'],
 			imageLink: `https://s3.amazonaws.com/srmd-flyer-generator/${awsLinkPath}`,
-			thumbnailLink: `http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/${thumbnailWidth}x${thumbnailHeight}/${awsLinkPath}`,
+			thumbnailLink: `https://s3.amazonaws.com/srmd-flyer-generator/${thumbnailWidth}x${thumbnailHeight}/${awsLinkPath}`,
+			//thumbnailLink: `http://srmd-flyer-generator.s3-website-us-east-1.amazonaws.com/${thumbnailWidth}x${thumbnailHeight}/${awsLinkPath}`,
 			worksheetIndex: el[map.worksheetIndex],
 			language: el[map.language].toLowerCase(),
 		}
