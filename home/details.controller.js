@@ -274,16 +274,13 @@ function DetailsController($scope, $routeParams, $location,
 				continue;
 			}
 			if (field.id == "swamivatsalya") {
-				//ctx.fillText("प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा", 10, 10);
 				var key = $('input[name="swamivatsalya"]:checked').val()
-				var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language]?.key || true;
+				var swamiText = $scope.swamivatsalyaTextLanguage[$scope.language][key] || $scope.swamivatsalyaTextLanguage[$scope.language][0];
 				if (swamiText && ($scope.language === "english")) {
 					var startTime = $('#swamivatsalya_startTiming_' + key).val() || "12pm";;
 					var endTime = $('#swamivatsalya_endTiming_' + key).val() || "2pm";;
 					swamiText = swamiText + " " + startTime + " to " + endTime;
 				}
-				//var startTime = 
-				//var endTime = $('#swamivatsalya_endTiming').val() || "1pm";
 				values[field.fieldName] = swamiText;
 				//"प्रवचन के पश्चात कृपया स्वामीवात्सल्य का लाभ लिजिएगा"
 				//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
