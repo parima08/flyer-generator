@@ -456,7 +456,7 @@ function DetailsController($scope, $routeParams, $location,
 			new google.elements.transliteration.TransliterationControl(options);
 
 		var arrayOfIds = [];
-		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new"];
+		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new", "name_of_city"];
 		for (var i = 0; i < $scope.formInfo.length; i++) {
 			if (!idsToExclude.includes($scope.formInfo[i].id)) {
 				arrayOfIds.push($scope.formInfo[i].id);;

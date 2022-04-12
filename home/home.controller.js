@@ -91,20 +91,18 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 				// console.error('Error', error)
 			})
 			.then(title => {
-
 				let sheetDataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${title}\?key\=AIzaSyC7_gUUo-CWg4IMJnohsRAqNnKPvoJ4pLo`
 				fetch(sheetDataUrl).then(response => response.json())
 					.then(data => {
 						const values = data.values;
-						console.log(values);
+						console.log('lookupObjectByName', values);
 						//gets rid of the first line
 						const rowHeader = values.splice(0, 1)[0];
-						console.log(rowHeader);
 						const map = rowHeader.reduce((acc, currVal, currIndex) => {
 							acc[currVal] = currIndex;
 							return acc;
 						}, {})
-						const element = values.find(el => el[map.name] === name);
+						const element = values.find(el => el[map.name].trim() === name.trim());
 						lookUpObject = massageData(element, sectionDetails, map);
 						deffered.resolve();
 					})
