@@ -376,6 +376,7 @@ function HomeController($scope, $rootScope, $location,
 	else {
 		var sectionDetails = subpageDetails[$location.path()];
 		if (sectionDetails.title == "Articles") {
+			console.log('LOADING ARTICLES');
 			//deal with articles
 		}
 		else if (sectionDetails.width) {
