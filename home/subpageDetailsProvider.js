@@ -41,6 +41,15 @@ app.provider('subpageDetails', function () {
 		height: 4,
 		scale: 10
 	};
+
+	subpages["/banners10x10"] = {
+		title: "Banners 10x10",
+		spreadsheetId: "1V3GgWzJ1V48kSbuKjJDnNSHwbRHNw3cQDRsvlcmjRPQ",
+		width: 10,
+		height: 10,
+		scale: 10
+	}
+
 	subpages["/sessionbanners"] = {
 		title: "Session Banners",
 		spreadsheetId: "1zkW2jIut_oU6EMr5L_5vOBP1UVlWbBEE-ziSWSqy6RY",
