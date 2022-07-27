@@ -427,7 +427,6 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	var onLoadLanguage = function () {
-		console.log("onLoadLanguage");
 		var destinationLanguage;
 		if ($scope.language == "gujarati") {
 			destinationLanguage = google.elements.transliteration.LanguageCode.GUJARATI;
@@ -438,8 +437,6 @@ function DetailsController($scope, $routeParams, $location,
 		else {
 			destinationLanguage = google.elements.transliteration.LanguageCode.ENGLISH;
 		}
-
-		//alert(destinationLanguage);
 
 		var options = {
 			sourceLanguage:
@@ -456,14 +453,13 @@ function DetailsController($scope, $routeParams, $location,
 			new google.elements.transliteration.TransliterationControl(options);
 
 		var arrayOfIds = [];
-		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new", "name_of_city"];
-		for (var i = 0; i < $scope.formInfo.length; i++) {
-			if (!idsToExclude.includes($scope.formInfo[i].id)) {
-				arrayOfIds.push($scope.formInfo[i].id);;
-			}
-		}
-		control.makeTransliteratable(arrayOfIds);
+		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new"];
+
+
+		const ids = $scope.formInfo.map(el => idsToExclude.includes(el.id) ? null : el.id);
+		control.makeTransliteratable(ids);
 		control.enableTransliteration();
+		console.log({ control });
 	}
 
 
