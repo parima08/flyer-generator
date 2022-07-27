@@ -164,7 +164,7 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 		}
 		if (secondaryLinkPath) {
 			a.twoOptions = true;
-			a.secondaryImageLink = `https://s3.amazonaws.com/srmd-flyer-generator/${awsLinkPath}`,
+			a.secondaryImageLink = `https://s3.amazonaws.com/srmd-flyer-generator/${secondaryLinkPath}`,
 				a.secondaryButtonDescription = el[map.secondaryButtonDescription].trim();
 			a.secondaryWorksheetIndex = el[map.secondaryWorksheetIndex].trim();
 		}

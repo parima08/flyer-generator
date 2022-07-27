@@ -177,6 +177,7 @@ function DetailsController($scope, $routeParams, $location,
 					if ($scope.language && $scope.language !== "english") {
 						loadTransliteration();
 					}
+					console.log('debug_second_option', $scope.object);
 					canvasSetup();
 					$('.canvas-container').height($scope.pageDetails.canvasHeight);
 					$('#progress_bar').height($scope.pageDetails.canvasHeight)
