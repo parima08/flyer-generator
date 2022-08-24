@@ -70,6 +70,7 @@ function DetailsController($scope, $routeParams, $location,
 	$scope.swadhyaykarInfo = [
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Kinjalji",
+			image_with_bkgd: "background/Atmarpit_Kinjalji.png",
 			image: "Atmarpit_Kinjalji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત કિંજલજી",
 			hindiName: "आत्मार्पित किंजलजी",
@@ -78,42 +79,49 @@ function DetailsController($scope, $routeParams, $location,
 
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Rajuji",
+			image_with_bkgd: "background/Atmarpit_Rajuji.png",
 			image: "Atmarpit_Rajuji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત રાજુજી",
 			hindiName: "आत्मार्पित राजुजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Shivaniji",
+			image_with_bkgd: "background/Atmarpit_Shivaniji.png",
 			image: "Atmarpit_Shivaniji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત શિવાનીજી",
 			hindiName: "आत्मार्पित शिवानीजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Smrutiji",
+			image_with_bkgd: "background/Atmarpit_Smrutiji.png",
 			image: "Atmarpit_Smrutiji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત સ્મૃિતજી",
 			hindiName: "स्वाध्यायकार आत्मार्पित स्मृतिजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Siddhiji",
+			image_with_bkgd: "background/Atmarpit_Siddhiji.png",
 			image: "Atmarpit_Siddhiji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત સિદ્ધિજી",
 			hindiName: "स्वाध्यायकार આત્માર્પિત सिद्धिजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Fagunji",
+			image_with_bkgd: "",
 			image: "Atmarpit_Fagunji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત ફાગુનજી",
 			hindiName: "स्वाध्यायकार आत्मार्पित फागुनजी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Vidhiben",
+			image_with_bkgd: "background/Atmarpit_Vidhiji.png",
 			image: "Atmarpit_Vidhi.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત વિધિબેન",
 			hindiName: "स्वाध्यायकार आत्मार्पित विधिबहन",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Harshadbhai",
+			image_with_bkgd: "background/Atmarpit_Harshadbhai.png",
 			image: "Atmarpit_Harshadbhai.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત હર્શદભાઈ",
 			hindiName: "स्वाध्यायकार आत्मार्पित हर्षदभाई",
@@ -121,28 +129,41 @@ function DetailsController($scope, $routeParams, $location,
 		{
 			swadhyaykarName: "Swadhyaykar Vanprastha Dr. Bhavnaben Shah",
 			image: "Bhavnaben_Shah.png",
+			image_with_bkgd: "background/Bhavnaben_Shah.png",
 			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ ડો. ભાવનાબેન શાહ ",
 			hindiName: "स्वाध्यायकार वानप्रस्थ डॉ. भावनाबहन शाह",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Vanprastha Dilipbhai Jasani",
 			image: "Dilipbhai_Jasani.png",
+			image_with_bkgd: "background/Dilipbhai_Jasani.png",
 			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ દિલિપભાઈ જસાણી",
 			hindiName: "स्वाध्यायकार वानप्रस्थ दिलिपभाई जसाणी",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Vanprastha Dilipbhai Pasad",
 			image: "Dilipbhai_Pasad.png",
+			image_with_bkgd: "background/Dilipbhai_Pasad.png",
 			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ દિલિપભાઈ જસાણી પાસદ",
 			hindiName: "स्वाध्यायकार वानप्रस्थ दिलिपभाई पासद",
 		},
 		{
 			swadhyaykarName: "Swadhyaykar Vanprastha Dr. Piyushbhai Shah",
 			image: "Piyushbhai_Shah.png",
+			image_with_bkgd: "background/Piyushbhai_Shah.png",
 			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ ડો. પિયુષભાઈ શાહ",
 			hindiName: "स्वाध्यायकार वानप्रस्थ डॉ. पीयूषभाई शाह ",
 			checked: false,
 		},
+		{
+			swadhyaykarName: "Swadhyaykar Vanprastha Dr. Dakshaben Shah",
+			image: "Dakshaben_Shah.png",
+			image_with_bkgd: "background/Dakshaben_Shah.png",
+			gujName: "સ્વાધ્યાયકાર વાનપ્રસ્થ ડો.દક્ષાબેન શાહ",
+			hindiName: "स्वाध्यायकार वानप्रस्थ डॉ. वानप्रस्थ दक्षाबहन शाह",
+			checked: false,
+		},
+
 
 	]
 
@@ -287,21 +308,29 @@ function DetailsController($scope, $routeParams, $location,
 				//values[field.fieldName] = beginningText + " " + startTime + " to " +  endTime; 	
 				//values['blah'] = blah; 
 			}
+
+
 			if (field.id == "swadhyaykar") {
-				//alert("Swadhyaykar");
 				let srcInput = $('input[name="swadhyaykar"]:checked').val();
-				let src = "../img/swadhyaykars/" + srcInput;
+				//For only the Samadhi Maran Flyers!
+				const isSamadiMaran = $scope.object.name.includes("Samadhi Maran");
+				let src = isSamadiMaran ? "../img/swadhyaykars/background/" + srcInput : "../img/swadhyaykars/" + srcInput;
+
 				if (src) {
-					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
+					isSamadiMaran ?
+						addImageToCanvas(ctx, src, parseInt(positionX) - 37, parseInt(positionY) - 85, 175, 175) :
+						addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
 				}
 			}
-			if (field.id == "swadhyaykar_new") {
+			else if (field.id == "swadhyaykar_new") {
 				let srcInput = $('input[name="swadhyaykar"]:checked').val()
 				let src = "../img/swadhyaykars-new/" + srcInput
 				if (src) {
 					addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
 				}
 			}
+
+
 
 			var fontSize = parseInt(field.fontSize) || 12;
 			var fontWeight = field.fontWeight;
@@ -316,7 +345,6 @@ function DetailsController($scope, $routeParams, $location,
 				let jsonSwadhyaykarPerson = $scope.swadhyaykarInfo.filter(function (data) {
 					return data.swadhyaykarName === name
 				})[0];
-				console.log("jsonSwadhyaykarPerson", jsonSwadhyaykarPerson);
 				var swadhyaykarName;
 				switch ($scope.language) {
 					case "gujarati":
