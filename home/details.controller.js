@@ -484,11 +484,10 @@ function DetailsController($scope, $routeParams, $location,
 		var control =
 			new google.elements.transliteration.TransliterationControl(options);
 
-		var arrayOfIds = [];
 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new"];
 
 
-		const ids = $scope.formInfo.map(el => idsToExclude.includes(el.id) ? null : el.id);
+		const ids = $scope.formInfo.map(el => idsToExclude.includes(el.id) ? null : el.id).filter(n => n);
 		control.makeTransliteratable(ids);
 		control.enableTransliteration();
 		console.log({ control });
