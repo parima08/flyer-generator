@@ -113,9 +113,9 @@ function DetailsController($scope, $routeParams, $location,
 			hindiName: "स्वाध्यायकार आत्मार्पित फागुनजी",
 		},
 		{
-			swadhyaykarName: "Swadhyaykar Atmarpit Vidhiben",
+			swadhyaykarName: "Swadhyaykar Atmarpit Vidhiji",
 			image_with_bkgd: "background/Atmarpit_Vidhiji.png",
-			image: "Atmarpit_Vidhi.png",
+			image: "Atmarpit_Vidhiji.png",
 			gujName: "સ્વાધ્યાયકાર આત્માર્પિત વિધિબેન",
 			hindiName: "स्वाध्यायकार आत्मार्पित विधिबहन",
 		},
@@ -314,7 +314,10 @@ function DetailsController($scope, $routeParams, $location,
 				let srcInput = $('input[name="swadhyaykar"]:checked').val();
 				//For only the Samadhi Maran Flyers!
 				const isSamadiMaran = $scope.object.name.includes("Samadhi Maran");
-				let src = isSamadiMaran ? "../img/swadhyaykars/background/" + srcInput : "../img/swadhyaykars/" + srcInput;
+				const isMumukshuta = $scope.object.name.includes("Mumukshutanu");
+				let src = isSamadiMaran ? "../img/swadhyaykars/background/" + srcInput :
+					isMumukshuta ? "../img/swadhyaykars/circular/" + srcInput :
+						"../img/swadhyaykars/" + srcInput;
 
 				if (src) {
 					isSamadiMaran ?
