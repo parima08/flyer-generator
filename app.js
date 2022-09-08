@@ -12,6 +12,18 @@ angular.module('myApp', [
 ]).config(config)
   .run(run);
 
+myApp.directive('onErrorSrc', function () {
+  return {
+    link: function (scope, element, attrs) {
+      element.bind('error', function () {
+        if (attrs.src != attrs.onErrorSrc) {
+          attrs.$set('src', attrs.onErrorSrc);
+        }
+      });
+    }
+  }
+});
+
 config.$inject = ['$routeProvider', '$locationProvider',
   '$sceDelegateProvider', 'subpageDetailsProvider', '$qProvider'];
 function config($routeProvider, $locationProvider,
