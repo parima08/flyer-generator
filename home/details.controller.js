@@ -321,8 +321,10 @@ function DetailsController($scope, $routeParams, $location,
 
 				if (src) {
 					isSamadiMaran ?
-						addImageToCanvas(ctx, src, parseInt(positionX) - 37, parseInt(positionY) - 85, 175, 175) :
-						addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
+						addImageToCanvas(ctx, src, parseInt(positionX) - 30, parseInt(positionY) - 85, 175, 175) :
+						isMumukshuta ?
+							addImageToCanvas(ctx, src, parseInt(positionX) - 20, parseInt(positionY) - 35, 140, 140) :
+							addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
 				}
 			}
 			else if (field.id == "swadhyaykar_new") {
