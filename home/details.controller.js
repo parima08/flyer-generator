@@ -85,6 +85,14 @@ function DetailsController($scope, $routeParams, $location,
 			hindiName: "आत्मार्पित राजुजी",
 		},
 		{
+			swadhyaykarName: "Swadhyaykar Atmarpit Kothariji",
+			image_with_bkgd: "background/Atmarpit_Kothariji.png",
+			image: "Atmarpit_Kothariji.png",
+			gujName: "સ્વાધ્યાયકાર આત્માર્પિત કિંજલજી",
+			hindiName: "आत्मार्पित किंजलजी",
+			checked: true,
+		},
+		{
 			swadhyaykarName: "Swadhyaykar Atmarpit Shivaniji",
 			image_with_bkgd: "background/Atmarpit_Shivaniji.png",
 			image: "Atmarpit_Shivaniji.png",
@@ -569,7 +577,6 @@ function DetailsController($scope, $routeParams, $location,
 	}
 
 	Image.prototype.backgroundLoad = function (url) {
-		console.log("The URL being loaded is: ", url);
 		var thisImg = this;
 		var xmlHTTP = new XMLHttpRequest();
 		//var oldPercentage = 0
@@ -596,7 +603,13 @@ function DetailsController($scope, $routeParams, $location,
 			//$('#progress_bar .progress .progress-bar').style.width = "0%";
 			thisImg.completedPercentage = 0;
 		};
-		xmlHTTP.send();
+		try {
+			//xmlHTTP.setRequestHeader('Access-Control-Allow-Origin', '*');
+			xmlHTTP.send();
+		}
+		catch (e) {
+			console.error('unable to log', e);
+		}
 	};
 
 	Image.prototype.completedPercentage = 0;
