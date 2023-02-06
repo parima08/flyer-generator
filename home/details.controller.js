@@ -321,18 +321,47 @@ function DetailsController($scope, $routeParams, $location,
 			if (field.id == "swadhyaykar") {
 				let srcInput = $('input[name="swadhyaykar"]:checked').val();
 				//For only the Samadhi Maran Flyers!
+
+
 				const isSamadiMaran = $scope.object.name.includes("Samadhi Maran");
 				const isMumukshuta = $scope.object.name.includes("Mumukshutanu");
-				let src = isSamadiMaran ? "../img/swadhyaykars/background/" + srcInput :
-					isMumukshuta ? "../img/swadhyaykars/circular/" + srcInput :
-						"../img/swadhyaykars/" + srcInput;
+				let isCircle;
+				let isRectBackground;
+				let isRectNoBackground;
+
+				console.log({ profilePictureType: field.profilePictureType })
+				if (field.profilePictureType) {
+					isCircle = field.profilePictureType == "circle" || isMumukshuta
+					isBackground = field.profilePictureType == "rectagular" || isSamadiMaran
+					isRectNoBackground = !isCircle && !isBackground
+				}
+
+
+				// let src = isSamadiMaran ? "../img/swadhyaykars/background/" + srcInput :
+				// 	(isMumukshuta || isCircle) ? "../img/swadhyaykars/circular/" + srcInput :
+				// 		"../img/swadhyaykars/" + srcInput;
+
+				let src;
+				if (isCircle) {
+					src = "../img/swadhyaykars/circular/" + srcInput;
+				}
+				else if (isRectBackground) {
+					src = "../img/swadhyaykars/background/" + srcInput
+				}
+				else {
+					src = "../img/swadhyaykars/" + srcInput;
+				}
 
 				if (src) {
-					isSamadiMaran ?
-						addImageToCanvas(ctx, src, parseInt(positionX) - 30, parseInt(positionY) - 85, 175, 175) :
-						isMumukshuta ?
-							addImageToCanvas(ctx, src, parseInt(positionX) - 20, parseInt(positionY) - 35, 115, 115) :
-							addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
+					if (isCircle) {
+						addImageToCanvas(ctx, src, parseInt(positionX) - 20, parseInt(positionY) - 35, 115, 115);
+					}
+					else if (isRectBackground) {
+						addImageToCanvas(ctx, src, parseInt(positionX) - 30, parseInt(positionY) - 85, 175, 175);
+					}
+					else {
+						addImageToCanvas(ctx, src, positionX, positionY, 103.7, 85);
+					}
 				}
 			}
 			else if (field.id == "swadhyaykar_new") {

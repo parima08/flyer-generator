@@ -297,7 +297,8 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 			endPositionX: el[map?.endPositionX]?.trim(),
 			endPositionY: el[map?.endPositionY]?.trim(),
 			instructions: el[map?.instructions]?.trim(),
-			additionalRequiredText: el[map?.additionalRequiredText]?.trim()
+			additionalRequiredText: el[map?.additionalRequiredText]?.trim(),
+			profilePictureType: el[map?.profilePictureType]?.trim()
 		}
 	}
 
