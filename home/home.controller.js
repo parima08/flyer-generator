@@ -14,6 +14,7 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 		var english = [];
 		var hindi = [];
 		var gujarati = [];
+		var spanish = [];
 		jsonData = [];
 		console.log("loading data from gsheets");
 		//let sheetTitle;
@@ -52,9 +53,12 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 								case 'english':
 									english.push(asset);
 									break;
+								case 'spanish':
+									english.push(asset);
+									break;
 							}
 						})
-						jsonData = [english, gujarati, hindi];
+						jsonData = [english, gujarati, hindi, spanish];
 						deffered.resolve();
 					})
 					.catch(error => {
@@ -352,7 +356,7 @@ HomeController.$inject = ['$scope', '$rootScope', '$location', '$http',
 function HomeController($scope, $rootScope, $location,
 	$http, $sce, objectDetailsService, userPersistenceService, subpageDetails) {
 	$scope.isHomePage = false;
-	$scope.tabTitles = ["English", "Gujarati", "Hindi"];
+	$scope.tabTitles = ["English", "Gujarati", "Hindi", "Spanish"];
 
 	console.log('rajuphaar', $rootScope.rajUphaar);
 
