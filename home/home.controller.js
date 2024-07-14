@@ -54,7 +54,7 @@ app.service("objectDetailsService", function ($http, $q, $sce) {
 									english.push(asset);
 									break;
 								case 'spanish':
-									english.push(asset);
+									spanish.push(asset);
 									break;
 							}
 						})
