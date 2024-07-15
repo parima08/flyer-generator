@@ -63,7 +63,7 @@ app.provider('subpageDetails', function () {
 		width: 11.7,
 		height: 16.5,
 		scale: 10
-	}
+	};
 	// subpages["/swadhyaykarbanner"] = {
 	// 	title: "Swadhyaykar Banner",
 	// 	spreadsheetId: "1a9ad1DKUgB4Gbdkdw-YLzIXs53-jz0vL4Psgt4q5O4M",
@@ -74,6 +74,21 @@ app.provider('subpageDetails', function () {
 	subpages["/sessionflyers"] = {
 		title: "Session Flyers",
 		spreadsheetId: "1YWCuxVHwYFdwqRcOq53909-fex9XGqqyRGCuhMEuDF4",
+		width: 11,
+		height: 16,
+		scale: 10,
+	}
+	//TODO
+	subpages["/satsangflyers"] = {
+		title: "Satsang Flyers",
+		spreadsheetId: "1SDFBtgkyt07vgjcZFM3SrFZiNWHgBvKTxegrN6IkJBU",
+		width: 11,
+		height: 16,
+		scale: 10,
+	}
+	subpages["/youthflyers"] = {
+		title: "Youth & Enrich Flyers",
+		spreadsheetId: "1VxWS46ZUKswgD6nXYJSbRGha381ErtAUEXse6BsrL10",
 		width: 11,
 		height: 16,
 		scale: 10,
