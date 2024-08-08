@@ -175,7 +175,6 @@ function DetailsController($scope, $routeParams, $location,
 
 	]
 
-
 	var spreadsheetId = $scope.pageDetails.spreadsheetId;
 	//var radioOptions = pageDetails[section]['radioOptions'];
 	console.log("SpreadsheetId, name ", spreadsheetId, name);
@@ -215,6 +214,8 @@ function DetailsController($scope, $routeParams, $location,
 		});
 
 	var values = {};
+
+	console.log("Form Info", $scope.formInfo)
 
 	$scope.submitForm = function () {
 		console.log("submitForm");
@@ -273,10 +274,13 @@ function DetailsController($scope, $routeParams, $location,
 		$('.sidebar-form').height($('body').height() - 112 - 50 - 15);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
 		//ctx.scale($scope.pageDetails.scale/2, $scope.pageDetails.scale/2);
-		console.log("******************* WORKSHEET OBJECT");
+		console.log("******************* WORKSHEET OBJECT *******************");
 		console.log($scope.formInfo);
 		for (var i = 0; i < $scope.formInfo.length; i++) {
 			field = $scope.formInfo[i];
+			
+			console.log("field: ", field)
+			
 			positionX = field.positionX; //* $scope.pageDetails.scale; 
 			positionY = field.positionY; //* $scope.pageDetails.scale * 1.05;
 
@@ -298,6 +302,14 @@ function DetailsController($scope, $routeParams, $location,
 			}
 			if (field.id == "upload_logo") {
 				src = $("img.upload_logo").attr('src');
+				if (src) {
+					addImageToCanvas(ctx, src, positionX, positionY, 60, 60);
+				}
+				continue;
+			}
+			
+			if (field.id == "qr_code") {
+				src = $("img.qr_code").attr('src');
 				if (src) {
 					addImageToCanvas(ctx, src, positionX, positionY, 60, 60);
 				}
@@ -523,13 +535,13 @@ function DetailsController($scope, $routeParams, $location,
 		var control =
 			new google.elements.transliteration.TransliterationControl(options);
 
-		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new"];
-
-
+		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new", "qr_code"];
+		console.log("$scope.formInfo", $scope.formInfo);
 		const ids = $scope.formInfo.map(el => idsToExclude.includes(el.id) ? null : el.id).filter(n => n);
+		
+
 		control.makeTransliteratable(ids);
 		control.enableTransliteration();
-		console.log({ control });
 	}
 
 
