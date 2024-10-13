@@ -536,7 +536,7 @@ function DetailsController($scope, $routeParams, $location,
 			new google.elements.transliteration.TransliterationControl(options);
 
 		var idsToExclude = ["email", "srmd_logo", "upload_logo", "swamivatsalya", "swadhyaykar_name", "swadhyaykar", "momento_photo", "swadhyaykar_new", "qr_code"];
-		console.log("$scope.formInfo", $scope.formInfo);
+		
 		const ids = $scope.formInfo.map(el => idsToExclude.includes(el.id) ? null : el.id).filter(n => n);
 		
 

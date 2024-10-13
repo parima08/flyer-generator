@@ -281,6 +281,15 @@ app.provider('subpageDetails', function () {
 		scale: 4
 	}
 
+	//Enrich your life ------------------
+	subpages['/enrichYourLifeInstagramPost'] = {
+		title: "Enrich Your Life Instagram Post",
+		spreadsheetId: "1qH5mGZ85GbeF93eY7dLxsfNIluN4Q-kGDFaOuiGSQIc",
+		width: 3.6,
+		height: 3.6,
+		scale: 2
+	}
+
 
 	this.subpages = subpages;
 	this.$get = function () {
