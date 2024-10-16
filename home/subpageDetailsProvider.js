@@ -283,11 +283,65 @@ app.provider('subpageDetails', function () {
 
 	//Enrich your life ------------------
 	subpages['/enrichYourLifeInstagramPost'] = {
-		title: "Enrich Your Life Instagram Post",
+		title: "EYL - Instagram Post",
 		spreadsheetId: "1qH5mGZ85GbeF93eY7dLxsfNIluN4Q-kGDFaOuiGSQIc",
 		width: 3.6,
 		height: 3.6,
-		scale: 2
+		scale: 4
+	}
+
+	subpages['/enrichYourLifeInstagramStory'] = {
+		title: "EYL - Instagram Story",
+		spreadsheetId: "1PComHkKFlMT-0SAiTjRtduFGZ3dVA5VFUctUWvALAkU",
+		width: 9,
+		height: 16,
+		scale: 4
+	}
+
+	//Enrich your life ------------------
+
+	subpages['/yogaFlyer'] = {
+		title: "Yoga Flyer",
+		spreadsheetId: "1-w4IalgrQwclPPX7xsvloXA7adlkCq4U2fGx3OnIBsY",
+		width: 7,
+		height: 11,
+		scale: 4
+	}
+
+	subpages['/yogaBanner1x2'] = {
+		title: "Yoga Banner - 1x2",
+		spreadsheetId: "1YRv_i_pEU7ecCG-WhWvkvXCsM9ZYh4bKUzJPVMg5vd4",
+		width: 2,
+		height: 1,
+		scale: 10
+	}
+	subpages['/yogaBanner4x7'] = {
+		title: "Yoga Banner - 4x7",
+		spreadsheetId: "1Iva5q0bivAwHGehQRPBwo1-xWXzFj6cOrtGWI4skIHE",
+		width: 7,
+		height: 4,
+		scale: 10
+	}
+	subpages['/yogaBanner2x3'] = {
+		title: "Yoga Banner - 2x3",
+		spreadsheetId: "1Uiud0-kjSkz-HGB5xVI7jnZuGLnBJ6XFi3p76MruJeU",
+		width: 3,
+		height: 2,
+		scale: 10
+	}
+	subpages['/yogaBanner10x10'] = {
+		title: "Yoga Banner - 10x10",
+		spreadsheetId: "1KslSEsrjxJh0vcEP4AfEkZ1Lqz1xRvLeslrV6ZpROTQ",
+		width: 10,
+		height: 10,
+		scale: 10
+	}
+	subpages['/yogaStandees'] = {
+		title: "Yoga Banner -Standees ",
+		spreadsheetId: "1JLJYKHbH5hfY_ByaUFGBmqqWngResjG2raLwAqAccQk",
+		width: 3,
+		height: 6,
+		scale: 10
 	}
 
 

@@ -26,7 +26,9 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       console.log('rajUphaar', (rajUphaarEmails.indexOf(userEmail) === -1))
       $rootScope.rajUphaar = !(rajUphaarEmails.indexOf(userEmail) === -1);
 
-      if (allowedEmails.indexOf(userEmail) === -1) {
+      allowedEmails = allowedEmails.map(email => email.toLowerCase());
+      if (!allowedEmails.includes(userEmail.toLowerCase())) {
+        console.log({allowedEmails})
         console.log("not a valid user");
         $rootScope.validUser = false;
         alert("You are not authorized to log in. Contact your adminstrator.");
