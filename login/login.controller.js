@@ -16,7 +16,7 @@ function LoginController($scope, googleService, $rootScope, $location, userPersi
       $scope.isSignedIn = true
     }
     else {
-      $scope.isSignedIn = false;
+      $scope.isSignedIn = false; // added comment
     }
 
     function validateUser(userEmail) {
