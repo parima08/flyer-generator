@@ -344,6 +344,21 @@ app.provider('subpageDetails', function () {
 		scale: 10
 	}
 
+	subpages['/dramaFlyers'] = {
+		title: "Drama Flyers ",
+		spreadsheetId: "1milryLvKvKivZrGRR3CBcyjL2HHEBcnHHn8mOGHeHkE",
+		width: 8,
+		height: 16,
+		scale: 10
+	}
+
+	subpages['/hindiFlyers'] = {
+		title: "Hindi Flyers",
+		spreadsheetId: "1snuo7n5VsQw3jnqfhOD8WJtJ-JNM8V7DWph1l7ESmac",
+		width: 8,
+		height: 16,
+		scale: 10
+	}
 
 	this.subpages = subpages;
 	this.$get = function () {
