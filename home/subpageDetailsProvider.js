@@ -360,6 +360,29 @@ app.provider('subpageDetails', function () {
 		scale: 10
 	}
 
+	
+	subpages['/soundHealingFlyers'] = {
+		title: "Sound Healing Flyers - A4",
+		spreadsheetId: "1DizcHl4LEu8_C2mbrRJZgl-IQ2uG2q4hGQI0HgB4poI",
+		width: 8,
+		height: 11,
+		scale: 10
+	}
+	subpages['/soundHealingBanners'] = {
+		title: "Sound Healing Banners - 8x4",
+		spreadsheetId: "1i0zEA3_GKqOCKTKzcsJ-I-bVpSzmRYgty_GvL6iKyLc",
+		width: 8,
+		height: 4,
+		scale: 10
+	}
+	subpages['/soundHealingStandees'] = {
+		title: "Sound Healing Standees - 3 x 6",
+		spreadsheetId: "1LVp2Cnrhqpt28EvOVlBIVbun8IivTffG9EI5Pia7evc",
+		width: 6,
+		height: 3,
+		scale: 10
+	}
+
 	this.subpages = subpages;
 	this.$get = function () {
 		return subpages;
