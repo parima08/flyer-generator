@@ -4,28 +4,28 @@ app.provider('subpageDetails', function () {
 
 	//subpages["/home"], subpages["/"] = {}; 
 	subpages["/home"] = {};
-	subpages["/dharmayatra"] = {
-		title: "Dharmayatra Flyers (A3)",
-		spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg",
-		width: 11,
-		height: 16,
-		scale: 10
-	};
-	subpages["/invitations"] = {
-		title: "Invitations 6x4",
-		spreadsheetId: "15bLgpQIlL-o1HaO34WOer5rHO2I7MzA_0-h8mi4togo",
-		width: 6,
-		height: 4,
-		scale: 4
-	};
+	// subpages["/dharmayatra"] = {
+	// 	title: "Dharmayatra Flyers (A3)",
+	// 	spreadsheetId: "1k24IRyWNX_OJtXCLVLvWzh36YtQcag20dE9v_9V6LCg",
+	// 	width: 11,
+	// 	height: 16,
+	// 	scale: 10
+	// };
+	// subpages["/invitations"] = {
+	// 	title: "Invitations 6x4",
+	// 	spreadsheetId: "15bLgpQIlL-o1HaO34WOer5rHO2I7MzA_0-h8mi4togo",
+	// 	width: 6,
+	// 	height: 4,
+	// 	scale: 4
+	// };
 
-	subpages["/invitations6x6"] = {
-		title: "Invitations 6x6",
-		spreadsheetId: "1yHqqdRRDVDts2oQH8sptDt-9fi60BrTpjULaeNTq_ZM",
-		width: 13.5,
-		height: 6.45,
-		scale: 4
-	};
+	// subpages["/invitations6x6"] = {
+	// 	title: "Invitations 6x6",
+	// 	spreadsheetId: "1yHqqdRRDVDts2oQH8sptDt-9fi60BrTpjULaeNTq_ZM",
+	// 	width: 13.5,
+	// 	height: 6.45,
+	// 	scale: 4
+	// };
 
 	subpages["/banners6x10"] = {
 		title: "Banners 6x10",
@@ -50,20 +50,20 @@ app.provider('subpageDetails', function () {
 		scale: 10
 	}
 
-	subpages["/sessionbanners"] = {
-		title: "Session Banners",
-		spreadsheetId: "1zkW2jIut_oU6EMr5L_5vOBP1UVlWbBEE-ziSWSqy6RY",
-		width: 10,
-		height: 6,
-		scale: 10
-	};
-	subpages["/swadhyaykarflyer"] = {
-		title: "Swadhyaykar Flyer",
-		spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
-		width: 11.7,
-		height: 16.5,
-		scale: 10
-	};
+	// subpages["/sessionbanners"] = {
+	// 	title: "Session Banners",
+	// 	spreadsheetId: "1zkW2jIut_oU6EMr5L_5vOBP1UVlWbBEE-ziSWSqy6RY",
+	// 	width: 10,
+	// 	height: 6,
+	// 	scale: 10
+	// };
+	// subpages["/swadhyaykarflyer"] = {
+	// 	title: "Swadhyaykar Flyer",
+	// 	spreadsheetId: "18w1P8DEBvgTLbCsqSu3JXfqSF2PMlhWuP4-NhXJFvi0",
+	// 	width: 11.7,
+	// 	height: 16.5,
+	// 	scale: 10
+	// };
 	// subpages["/swadhyaykarbanner"] = {
 	// 	title: "Swadhyaykar Banner",
 	// 	spreadsheetId: "1a9ad1DKUgB4Gbdkdw-YLzIXs53-jz0vL4Psgt4q5O4M",
