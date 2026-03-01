@@ -728,7 +728,7 @@ function DetailsController($scope, $routeParams, $location,
 
 	function sendFileToGoogleDrive(file) {
 		console.log("2. addFileToGoogleDrive 1");
-		var url = "https://script.google.com/a/shrimadrajchandramission.com/macros/s/AKfycbxrRdFQUlYGaWbtC20EmDWUezCb6xyI0LRUZtOov2WFgqZx1peO/exec"
+		var url = "https://script.google.com/macros/s/AKfycbwdUPDEnI1VoitoNHz-taRTyOCuDBTC85OsdPKssnkgzwudVQA5nt-wfuei6Gh25VzJ/exec"
 		console.log("Username: " + $rootScope.loggedInUser.fullName);
 		console.log("Email: " + $rootScope.loggedInUser.email);
 		//console.log(file.toString());
